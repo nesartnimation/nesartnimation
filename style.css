@@ -1,4 +1,6 @@
-/* Reset básico */
+/* Importar tipografía rubberhose */
+@import url('https://fonts.googleapis.com/css2?family=Freckle+Face&display=swap');
+
 body, html {
   margin: 0;
   padding: 0;
@@ -27,29 +29,31 @@ body, html {
   animation: bounce 2s infinite alternate;
 }
 
-/* Animación simple */
 @keyframes bounce {
   0%   { transform: translateY(0px) rotate(-2deg); }
   50%  { transform: translateY(-20px) rotate(2deg); }
   100% { transform: translateY(0px) rotate(-2deg); }
 }
 
-/* Texto central con link */
+/* Texto central estilo rubberhose */
 .hero-text {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 2rem;
-  font-weight: bold;
+  font-family: 'Freckle Face', cursive;
+  font-size: 3rem;
   color: #000;
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.7);
-  padding: 15px 25px;
-  border-radius: 10px;
-  transition: background 0.3s, color 0.3s;
+  /* Sin fondo */
+  background: none;
+  border: none;
+  padding: 0;
+  transition: transform 0.3s, color 0.3s;
+  cursor: pointer;
 }
 
 .hero-text:hover {
-  background: #000;
-  color: #fff;
+  /* Opcional: pequeño efecto al pasar el mouse */
+  transform: scale(1.1);
+  color: #333;
 }
