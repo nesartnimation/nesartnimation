@@ -206,7 +206,7 @@ section h1, section h2 {
 .product {
   width: 350px;
   text-align: center;
-  background-color: #BDFFF5;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 20px;
 }
@@ -333,5 +333,6 @@ section h1, section h2 {
   text-align: center;
   font-family: 'Arial', sans-serif;
 }
+
 
 
