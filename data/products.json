@@ -20,8 +20,29 @@
     "image": "images/Productos/Prints/SickParty.png",
     "link": "producto.html?id=sickparty"
   }
-]
 
+  {
+    "id": "catandfish",
+    "name": "CAT & FISH",
+    "price": 45,
+    "image": "images/Productos/Prints/Catandfish.jpg",
+    "link": "producto.html?id=catandfish"
+  },
+  {
+     "id": "cranhelado",
+    "name": "CRANHELADO",
+    "price": 35,
+    "image": "images/Productos/Prints/Cranhelado.png",
+    "link": "producto.html?id=cranhelado"
+  },
+  {
+     "id": "gnomeatack",
+    "name": "GNOME ATTACK",
+    "price": 30,
+    "image": "images/Productos/Prints/SickParty.png",
+    "link": "producto.html?id=sickparty"
+  }
+]
 
 
 
