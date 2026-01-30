@@ -4,24 +4,24 @@
     "name": "COFFENSTEIN",
     "price": 45,
     "image": "images/Productos/Prints/Coffenstein.jpg",
-    "link": "producto.html?id=coffenstein"
-    "category": "prints",
+    "link": "producto.html?id=coffenstein",
+    "category": "prints"
   },
   {
      "id": "horrormovie",
     "name": "HORROR MOVIE",
     "price": 35,
     "image": "images/Productos/Prints/HorrorMovie.jpg",
-    "link": "producto.html?id=horrormovie"
-        "category": "prints",
+    "link": "producto.html?id=horrormovie",
+        "category": "prints"
   },
   {
      "id": "sickparty",
     "name": "SICK PARTY",
     "price": 30,
     "image": "images/Productos/Prints/SickParty.jpg",
-    "link": "producto.html?id=sickparty"
-    "category": "prints",
+    "link": "producto.html?id=sickparty",
+    "category": "prints"
   },
 
   {
@@ -29,26 +29,27 @@
     "name": "CAT & FISH",
     "price": 45,
     "image": "images/Productos/Prints/Catandfish.jpg",
-    "link": "producto.html?id=catandfish"
-    "category": "prints",
+    "link": "producto.html?id=catandfish",
+    "category": "prints"
   },
   {
      "id": "cranhelado",
     "name": "CRANHELADO",
     "price": 35,
     "image": "images/Productos/Prints/Cranhelado.jpg",
-    "link": "producto.html?id=cranhelado"
-    "category": "prints",
+    "link": "producto.html?id=cranhelado",
+    "category": "prints"
   },
   {
      "id": "gnomeattack",
     "name": "GNOME ATTACK",
     "price": 30,
     "image": "images/Productos/Prints/Gnome.jpg",
-    "link": "producto.html?id=gnomeattack"
-    "category": "prints",
+    "link": "producto.html?id=gnomeattack",
+    "category": "prints"
   }
 ]
+
 
 
 
