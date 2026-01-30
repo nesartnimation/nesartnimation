@@ -98,22 +98,49 @@ body.portfolio {
 }
 
 /* ==============================
-   GALERÍA MASONRY (Nesart / Comisiones / Originales)
+   GALERÍA ARTÍSTICA (Comisiones / Originales)
 ============================== */
+.gallery-art {
+  background-color: #f5f5f5;
+  padding: 100px 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
+.gallery-art img {
+  width: auto;
+  max-width: 260px;      /* Contiene el tamaño */
+  max-height: 360px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.gallery-art img:hover {
+  transform: scale(1.04);
+}
+
+/* ==============================
+   GALERÍA MASONRY (solo Nesart)
+============================== */
 .gallery-masonry {
-  column-count: 3;          /* Número de columnas */
-  column-gap: 40px;         /* Espacio horizontal entre columnas */
+  column-count: 3;
+  column-gap: 40px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 100px 60px;
 }
 
 .gallery-masonry img {
-  width: 100%;              /* Ocupa toda la columna */
+  width: 100%;
   height: auto;
-  margin-bottom: 40px;      /* Separación vertical */
-  break-inside: avoid;      /* Evita que la imagen se rompa entre columnas */
+  margin-bottom: 40px;
+  break-inside: avoid;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   transition: transform 0.3s ease;
@@ -122,24 +149,6 @@ body.portfolio {
 .gallery-masonry img:hover {
   transform: scale(1.03);
 }
-
-/* ==============================
-   RESPONSIVE
-============================== */
-@media (max-width: 900px) {
-  .gallery-masonry {
-    column-count: 2;        /* 2 columnas en tablets / pantallas medianas */
-    padding: 80px 40px;
-  }
-}
-
-@media (max-width: 500px) {
-  .gallery-masonry {
-    column-count: 1;        /* 1 columna en móvil */
-    padding: 60px 20px;
-  }
-}
-
 
 /* ==============================
    TIENDA
@@ -312,11 +321,18 @@ body.portfolio {
   .gallery-art {
     grid-template-columns: repeat(2, 1fr);
   }
-}
 
-@media (max-width: 500px) {
-  .gallery-art {
-    grid-template-columns: 1fr;
+  .gallery-masonry {
+    column-count: 2;
+    padding: 80px 40px;
   }
 }
 
+@media (max-width: 500px) {
+  .gallery-art,
+  .gallery-masonry {
+    grid-template-columns: 1fr;
+    column-count: 1;
+    padding: 60px 20px;
+  }
+}
