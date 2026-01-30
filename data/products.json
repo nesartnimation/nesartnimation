@@ -36,13 +36,14 @@
     "link": "producto.html?id=cranhelado"
   },
   {
-     "id": "gnomeatack",
+     "id": "gnomeattack",
     "name": "GNOME ATTACK",
     "price": 30,
-    "image": "images/Productos/Prints/SickParty.jpg",
-    "link": "producto.html?id=sickparty"
+    "image": "images/Productos/Prints/Gnome.jpg",
+    "link": "producto.html?id=gnomeattack"
   }
 ]
+
 
 
 
