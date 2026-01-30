@@ -9,7 +9,7 @@ const cartEmpty = document.getElementById('cart-empty');
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // =======================
-// FUNCIÓN PARA ACTUALIZAR CARRITO
+// ACTUALIZAR CARRITO
 // =======================
 function updateCart() {
   cartItems.innerHTML = '';
@@ -18,15 +18,16 @@ function updateCart() {
     cartEmpty.style.display = 'block';
   } else {
     cartEmpty.style.display = 'none';
+
     cart.forEach((item, index) => {
       const li = document.createElement('li');
       li.textContent = `${item.name} - ${item.price}€`;
 
-      // Botón para eliminar del carrito
       const removeBtn = document.createElement('button');
       removeBtn.textContent = '❌';
       removeBtn.style.marginLeft = '8px';
       removeBtn.style.cursor = 'pointer';
+
       removeBtn.addEventListener('click', () => {
         cart.splice(index, 1);
         updateCart();
@@ -42,57 +43,79 @@ function updateCart() {
 }
 
 // =======================
-// FUNCION PARA CARGAR PRODUCTOS DESDE JSON
+// CARGAR PRODUCTOS
 // =======================
 function loadProducts() {
   fetch('data/products.json')
     .then(response => {
-      if (!response.ok) throw new Error("No se pudo cargar products.json");
+      if (!response.ok) {
+        throw new Error('No se pudo cargar products.json');
+      }
       return response.json();
     })
     .then(products => {
       products.forEach(product => {
-        const div = document.createElement('div');
-        div.className = 'product';
+        const productCard = document.createElement('div');
+        productCard.className = 'product';
 
-        // Imagen con placeholder si falla
+        // ---------- CONTENEDOR IMAGEN ----------
+        const imageWrapper = document.createElement('div');
+        imageWrapper.className = 'product-image-wrapper';
+
+        // Link a página de producto
+        const link = document.createElement('a');
+        link.href = product.link || '#';
+        link.className = 'product-link';
+
         const img = document.createElement('img');
         img.src = product.image;
         img.alt = product.name;
-        img.onerror = () => { img.src = 'images/placeholder.png'; }; // placeholder opcional
 
-        const name = document.createElement('h3');
-        name.textContent = product.name;
+        img.onerror = () => {
+          img.src = 'images/placeholder.png'; // opcional
+        };
 
-        const price = document.createElement('p');
-        price.textContent = `${product.price}€`;
+        link.appendChild(img);
 
-        const button = document.createElement('button');
-        button.className = 'add-to-cart';
-        button.textContent = 'Añadir al carrito';
-        button.addEventListener('click', () => {
+        // Botón overlay
+        const addButton = document.createElement('button');
+        addButton.className = 'add-to-cart overlay-button';
+        addButton.textContent = 'Añadir al carrito';
+
+        addButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
           cart.push({ name: product.name, price: product.price });
           updateCart();
         });
 
-        div.appendChild(img);
-        div.appendChild(name);
-        div.appendChild(price);
-        div.appendChild(button);
+        imageWrapper.appendChild(link);
+        imageWrapper.appendChild(addButton);
 
-        shop.appendChild(div);
+        // ---------- TEXTO ----------
+        const title = document.createElement('h3');
+        title.textContent = product.name;
+
+        const price = document.createElement('p');
+        price.textContent = `${product.price}€`;
+
+        // ---------- MONTAJE ----------
+        productCard.appendChild(imageWrapper);
+        productCard.appendChild(title);
+        productCard.appendChild(price);
+
+        shop.appendChild(productCard);
       });
 
-      // ✅ Actualizar carrito después de cargar productos
       updateCart();
     })
     .catch(error => {
-      console.error('Error al cargar los productos:', error);
+      console.error(error);
       shop.innerHTML = '<p>Error cargando productos.</p>';
     });
 }
 
 // =======================
-// INICIALIZACIÓN
+// INIT
 // =======================
 loadProducts();
