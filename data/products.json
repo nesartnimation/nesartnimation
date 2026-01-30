@@ -19,7 +19,7 @@
     "price": 30,
     "image": "images/Productos/Prints/SickParty.jpg",
     "link": "producto.html?id=sickparty"
-  }
+  },
 
   {
     "id": "catandfish",
@@ -43,6 +43,7 @@
     "link": "producto.html?id=gnomeattack"
   }
 ]
+
 
 
 
