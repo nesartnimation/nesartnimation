@@ -179,7 +179,7 @@ body.portfolio {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 60px;
+  gap: 30px;
 }
 
 /* Limitar tamaño de imagen en tienda para no romper el layout */
@@ -326,6 +326,7 @@ body.portfolio {
     grid-template-columns: 1fr;
   }
 }
+
 
 
 
