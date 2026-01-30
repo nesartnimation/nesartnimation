@@ -104,17 +104,16 @@ body.portfolio {
   display: grid;
   grid-template-columns: repeat(3, minmax(240px, 1fr)); /* 3 columnas */
   gap: 50px;
-  max-width: 1400px;  /* limita ancho total */
-  margin: 0 auto;     /* centra la galería */
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* IMÁGENES DE GALERÍA */
 .gallery-art img {
-  width: 100%;         /* ocupa toda la columna */
-  max-width: 300px;    /* 🔹 límite de tamaño */
-  height: auto;        /* mantiene proporción */
+  width: 100%;
+  max-width: 300px; /* limita tamaño */
+  height: auto;
   display: block;
-  margin: 0 auto;      /* centra en cada columna */
+  margin: 0 auto;
   border-radius: 12px;
   transition: transform 0.3s ease;
 }
@@ -123,7 +122,7 @@ body.portfolio {
   transform: scale(1.02);
 }
 
-/* RESPONSIVE */
+/* Responsive */
 @media (max-width: 900px) {
   .gallery-art {
     grid-template-columns: repeat(2, 1fr);
@@ -327,6 +326,7 @@ body.portfolio {
     grid-template-columns: 1fr;
   }
 }
+
 
 
 
