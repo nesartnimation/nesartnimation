@@ -38,7 +38,7 @@ function loadProducts() {
         const div = document.createElement('div');
         div.className = 'product';
         div.innerHTML = `
-          <img src="${product.image}" alt="${product.name}">
+          <img src="images/${product.image}" alt="${product.name}">
           <h3>${product.name}</h3>
           <p>${product.price}€</p>
           <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}">Añadir al carrito</button>
@@ -47,8 +47,7 @@ function loadProducts() {
       });
 
       // Añadir eventos a los botones creados dinámicamente
-      const addButtons = document.querySelectorAll('.add-to-cart');
-      addButtons.forEach(button => {
+      document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', () => {
           const name = button.getAttribute('data-name');
           const price = button.getAttribute('data-price');
@@ -57,11 +56,11 @@ function loadProducts() {
         });
       });
     })
-    .catch(error => console.error('Error al cargar los productos:', error));
+    .catch(err => console.error(err));
 }
-
 // =======================
 // INICIALIZACIÓN
 // =======================
 loadProducts();
 updateCart();
+
