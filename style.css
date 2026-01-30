@@ -142,10 +142,10 @@ body.portfolio {
 ============================== */
 .shop-container {
   display: flex;
-  gap: 40px;
+  gap: 20px;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 80px 40px;
+  padding: 20px 20px;
 }
 
 .shop-sidebar {
@@ -326,6 +326,7 @@ body.portfolio {
     grid-template-columns: 1fr;
   }
 }
+
 
 
 
