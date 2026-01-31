@@ -9,10 +9,10 @@ const cartTotal = document.getElementById('cart-total');
 const categoryLinks = document.querySelectorAll('.shop-sidebar a');
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let allProducts = []; // guardar productos desde JSON
+let allProducts = [];
 
 // =======================
-// CARRITO
+// ACTUALIZAR CARRITO
 // =======================
 function updateCartCount() {
   const total = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -27,10 +27,10 @@ function renderProducts(products) {
   shop.innerHTML = '';
 
   products.forEach(product => {
-    const div = document.createElement('div');
-    div.className = 'product';
+    const productCard = document.createElement('div');
+    productCard.className = 'product';
 
-    div.innerHTML = `
+    productCard.innerHTML = `
       <div class="product-image-wrapper">
         <a href="${product.link}">
           <img src="${product.image}" alt="${product.name}">
@@ -41,7 +41,12 @@ function renderProducts(products) {
       <p>${product.price}€</p>
     `;
 
-    div.querySelector('.add-to-cart').addEventListener('click', () => {
+    const addBtn = productCard.querySelector('.add-to-cart');
+
+    addBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
       const existing = cart.find(item => item.id === product.id);
 
       if (existing) {
@@ -59,16 +64,16 @@ function renderProducts(products) {
       updateCartCount();
     });
 
-    shop.appendChild(div);
+    shop.appendChild(productCard);
   });
 }
 
 // =======================
-// FILTRO CATEGORÍAS
+// FILTRO POR CATEGORÍA
 // =======================
 function filterCategory(category) {
   if (category === 'all') {
-    renderProducts(allProducts.slice(0, 4)); // destacados
+    renderProducts(allProducts.slice(0, 4));
   } else {
     renderProducts(allProducts.filter(p => p.category === category));
   }
@@ -81,9 +86,10 @@ fetch('data/products.json')
   .then(res => res.json())
   .then(products => {
     allProducts = products;
-    renderProducts(products.slice(0, 4)); // inicio = destacados
+    renderProducts(products.slice(0, 4));
     updateCartCount();
-  });
+  })
+  .catch(err => console.error('Error cargando productos:', err));
 
 // =======================
 // EVENTOS SIDEBAR
