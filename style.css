@@ -213,6 +213,9 @@ body.portfolio {
   aspect-ratio: 1 / 1; /* caja cuadrada */
   overflow: hidden;
   border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .product-image-wrapper img {
@@ -222,6 +225,7 @@ body.portfolio {
   object-position: center center;
   display: block;
 }
+
 
 /* --- TEXTO PRODUCTO --- */
 .product h3 {
@@ -518,5 +522,6 @@ body.portfolio {
     padding: 60px 20px;
   }
 }
+
 
 
