@@ -59,8 +59,42 @@
     "category": "prints",
     "description": "Print escena comedia Gnome Attack estilo rubberhose cartoon 1920/1930, tamaño A4.",
     "stock": 5
-  }
+  },
+
+
+  {
+  "id": "chapa-beer",
+  "name": "CHAPA BEER",
+  "price": 3,
+  "image": "productos/chapas/Beer.png",
+  "link": "producto.html?id=chapa-beer",
+  "category": "chapas",
+  "description": "Chapa metálica ilustrada Beer.",
+  "stock": 20
+},
+{
+  "id": "chapa-billcypher",
+  "name": "CHAPA BILL CYPHER",
+  "price": 3,
+  "image": "productos/chapas/BillCypher.png",
+  "link": "producto.html?id=chapa-billcypher",
+  "category": "chapas",
+  "description": "Chapa ilustrada Bill Cypher.",
+  "stock": 20
+},
+{
+  "id": "chapa-timeout",
+  "name": "CHAPA TIME OUT",
+  "price": 3,
+  "image": "productos/chapas/TimeOut.png",
+  "link": "producto.html?id=chapa-timeout",
+  "category": "chapas",
+  "description": "Chapa ilustrada Time Out.",
+  "stock": 20
+}
+
 ]
+
 
 
 
