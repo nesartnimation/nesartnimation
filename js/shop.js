@@ -1,15 +1,16 @@
 // =======================
 // VARIABLES GLOBALES
 // =======================
-const shop = document.getElementById('shop'); // sección de productos
+const shop = document.getElementById('shop');
 const cartItems = document.getElementById('cart-items');
 const cartCount = document.getElementById('cart-count');
 const cartEmpty = document.getElementById('cart-empty');
+const cartTotal = document.getElementById('cart-total');
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // =======================
-// FUNCIONES DE CARRITO
+// FUNCIÓN PARA ACTUALIZAR CARRITO
 // =======================
 function updateCart() {
   cartItems.innerHTML = '';
@@ -17,106 +18,89 @@ function updateCart() {
     cartEmpty.style.display = 'block';
   } else {
     cartEmpty.style.display = 'none';
+
     cart.forEach((item, index) => {
       const li = document.createElement('li');
-      li.textContent = `${item.name} - ${item.price}€`;
-
-      // Botón eliminar
-      const removeBtn = document.createElement('button');
-      removeBtn.textContent = '❌';
-      removeBtn.style.marginLeft = '8px';
-      removeBtn.style.cursor = 'pointer';
-      removeBtn.addEventListener('click', () => {
-        cart.splice(index, 1);
-        updateCart();
-      });
-
-      li.appendChild(removeBtn);
+      li.innerHTML = `
+        ${item.name} - $${item.price} x ${item.quantity}
+        <button class="remove-item" data-index="${index}">✖</button>
+      `;
       cartItems.appendChild(li);
     });
   }
-  cartCount.textContent = cart.length;
+
+  // Actualizar contador
+  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartCount.textContent = totalQuantity;
+
+  // Guardar en localStorage
   localStorage.setItem('cart', JSON.stringify(cart));
+
+  // Mostrar total
+  if(cartTotal){
+    const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    cartTotal.textContent = `Total: $${totalPrice}`;
+  }
+
+  // Eventos de eliminar
+  const removeButtons = document.querySelectorAll('.remove-item');
+  removeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const index = button.getAttribute('data-index');
+      cart.splice(index, 1);
+      updateCart();
+    });
+  });
 }
 
 // =======================
-// CARGAR PRODUCTOS
+// CARGAR PRODUCTOS DESDE JSON
 // =======================
-function loadProducts(category = null) {
+function loadProducts() {
   fetch('data/products.json')
     .then(response => response.json())
     .then(products => {
+      products.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+          <div class="product-image-wrapper">
+            <a href="${product.link}" class="product-link">
+              <img src="${product.image}" alt="${product.name}">
+            </a>
+            <button class="overlay-button add-to-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">Añadir al carrito</button>
+          </div>
+          <h3>${product.name}</h3>
+          <p>${product.price}€</p>
+        `;
+        shop.appendChild(div);
+      });
 
-      // Filtrar por categoría si category no es null
-      let filteredProducts = products;
-      if (category) {
-        filteredProducts = products.filter(p => p.category === category);
-      }
+      // Botones añadir al carrito
+      const addButtons = document.querySelectorAll('.add-to-cart');
+      addButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const id = button.getAttribute('data-id');
+          const name = button.getAttribute('data-name');
+          const price = parseFloat(button.getAttribute('data-price'));
 
-      // Limpiar contenedor
-      shop.innerHTML = '';
+          // Si ya existe en el carrito, aumenta la cantidad
+          const existing = cart.find(item => item.id === id);
+          if(existing){
+            existing.quantity += 1;
+          } else {
+            cart.push({ id, name, price, quantity: 1 });
+          }
 
-      filteredProducts.forEach(product => {
-
-        const productCard = document.createElement('div');
-        productCard.className = 'product';
-
-        // Imagen con overlay
-        const imageWrapper = document.createElement('div');
-        imageWrapper.className = 'product-image-wrapper';
-
-        const link = document.createElement('a');
-        link.href = product.link;
-        link.className = 'product-link';
-
-        const img = document.createElement('img');
-        img.src = product.image;
-        img.alt = product.name;
-
-        link.appendChild(img);
-        imageWrapper.appendChild(link);
-
-        const addButton = document.createElement('button');
-        addButton.className = 'overlay-button';
-        addButton.textContent = 'Añadir al carrito';
-        addButton.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          cart.push({ name: product.name, price: product.price });
           updateCart();
         });
-
-        imageWrapper.appendChild(addButton);
-
-        // Nombre y precio
-        const title = document.createElement('h3');
-        title.textContent = product.name;
-
-        const price = document.createElement('p');
-        price.textContent = product.price + '€';
-
-        // Añadir todo a card
-        productCard.appendChild(imageWrapper);
-        productCard.appendChild(title);
-        productCard.appendChild(price);
-
-        shop.appendChild(productCard);
       });
     })
-    .catch(err => {
-      console.error('Error al cargar productos:', err);
-      shop.innerHTML = '<p>Error cargando productos</p>';
-    });
+    .catch(error => console.error('Error al cargar los productos:', error));
 }
 
 // =======================
-// DETECTAR SI HAY CATEGORÍA EN LA URL
+// INICIALIZACIÓN
 // =======================
-const urlParams = new URLSearchParams(window.location.search);
-const categoryParam = urlParams.get('id');
-
-// Cargar productos filtrados o todos
-loadProducts(categoryParam);
-
-// Actualizar carrito al cargar
+loadProducts();
 updateCart();
