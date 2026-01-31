@@ -326,10 +326,6 @@ body.portfolio {
   padding: 12px;
 }
 
-#cart:hover #cart-dropdown {
-  display: block;
-}
-
 /* ==============================
    RESPONSIVE
 ============================= */
@@ -369,3 +365,4 @@ body.portfolio {
     padding: 60px 20px;
   }
 }
+
