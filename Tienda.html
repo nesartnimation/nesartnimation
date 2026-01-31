@@ -2,66 +2,99 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Tienda</title>
+  <title>Tienda - NesArt</title>
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body class="portfolio">
 
-<!-- HEADER Y MENÚ -->
-<header id="main-header">
-  <div class="logo-container">
-    <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
-  </div>
-  <nav id="main-menu">
-    <ul>
-      <li><a href="Nesart.html">Nesart</a></li>
-      <li><a href="Comisiones.html">Comisiones</a></li>
-      <li><a href="Originales.html">Originales</a></li>
-      <li><a href="Tienda.html">Tienda</a></li>
-      <li><a href="Contacto.html">Contacto</a></li>
-    </ul>
-  </nav>
+  <!-- ===== HEADER SUPERIOR ===== -->
+  <header id="main-header">
+    <div class="logo-container">
+      <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
+    </div>
+    <nav id="main-menu">
+      <ul>
+        <li><a href="Nesart.html">Nesart</a></li>
+        <li><a href="Comisiones.html">Comisiones</a></li>
+        <li><a href="Originales.html">Originales</a></li>
+        <li><a href="Tienda.html">Tienda</a></li>
+        <li><a href="Contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
 
-  <!-- CARRITO FLOTE -->
- <div id="cart">
-  <span id="cart-count">0</span> 🛒
-  <div id="cart-dropdown">
-    <ul id="cart-items"></ul>
-    <p id="cart-empty">Tu carrito está vacío</p>
-    <p id="cart-total"></p> <!-- Total aquí -->
-  </div>
-</div>
+    <!-- CARRITO -->
+    <div id="cart">
+      <span id="cart-count">0</span> 🛒
+      <div id="cart-dropdown">
+        <ul id="cart-items"></ul>
+        <p id="cart-empty">Tu carrito está vacío</p>
+        <p id="cart-total"></p>
+      </div>
+    </div>
+  </header>
 
-</header>
-
-<!-- ================= CONTENIDO TIENDA ================= -->
-<main>
+  <!-- ===== CONTENEDOR TIENDA ===== -->
   <div class="shop-container">
 
-    <!-- SIDEBAR IZQUIERDO -->
+    <!-- SIDEBAR IZQUIERDO CATEGORÍAS -->
     <aside class="shop-sidebar">
+      <h3>Categorías</h3>
       <ul>
-        <li><a href="categoria.html?id=prints">Prints</a></li>
-        <li><a href="categoria.html?id=llaveros">Llaveros</a></li>
-        <li><a href="categoria.html?id=chapas">Chapas</a></li>
-        <li><a href="categoria.html?id=stickers">Stickers</a></li>
-        <li><a href="categoria.html?id=stickers">Camisetas</a></li>
+        <li><a href="#prints">Prints</a></li>
+        <li><a href="#chapas">Chapas</a></li>
+        <li><a href="#stickers">Stickers</a></li>
+        <li><a href="#stickers">Llaveros</a></li>
+        <li><a href="#stickers">Camisetas</a></li>
+        <!-- Añade aquí más categorías si quieres -->
       </ul>
     </aside>
-  
-  <!-- GRID DE PRODUCTOS -->
-    <section class="shop" id="shop">
-      <!-- Productos cargados dinámicamente desde products.json -->
-    </section>
+
+    <!-- CONTENIDO DE PRODUCTOS -->
+    <main class="shop-main">
+
+      <!-- SECCIÓN PRINTS -->
+      <section id="prints" class="shop-category" data-category="prints">
+        <h2>Prints</h2>
+        <div class="shop"></div>
+      </section>
+
+      <!-- SECCIÓN CHAPAS -->
+      <section id="chapas" class="shop-category" data-category="chapas">
+        <h2>Chapas</h2>
+        <div class="shop"></div>
+      </section>
+
+      <!-- SECCIÓN STICKERS -->
+      <section id="stickers" class="shop-category" data-category="stickers">
+        <h2>Stickers</h2>
+        <div class="shop"></div>
+      </section>
+
+       <!-- SECCIÓN LLAVEROS -->
+      <section id="stickers" class="shop-category" data-category="llaveros">
+        <h2>Stickers</h2>
+        <div class="shop"></div>
+      </section>
+       
+      <!-- SECCIÓN PRINTS -->
+      <section id="stickers" class="shop-category" data-category="prints">
+        <h2>Stickers</h2>
+        <div class="shop"></div>
+      </section>
+
+       <!-- SECCIÓN CAMISETAS -->
+      <section id="stickers" class="shop-category" data-category="stickers">
+        <h2>Stickers</h2>
+        <div class="shop"></div>
+      </section>
+
+    </main>
 
   </div>
-</main>
 
-<!-- ================= JS ================= -->
-<script src="js/shop.js"></script>
+  <!-- SCRIPT -->
+  <script src="js/shop.js"></script>
 
 </body>
 </html>
-
-
