@@ -8,30 +8,34 @@
 </head>
 <body class="portfolio">
 
-  <!-- ===== HEADER SUPERIOR ===== -->
+  <!-- ===== HEADER / MENU SUPERIOR ===== -->
   <header id="main-header">
     <div class="logo-container">
-      <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
+      <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
     </div>
     <nav id="main-menu">
       <ul>
-        <li><a href="Nesart.html">Nesart</a></li>
-        <li><a href="Comisiones.html">Comisiones</a></li>
-        <li><a href="Originales.html">Originales</a></li>
-        <li><a href="Tienda.html">Tienda</a></li>
-        <li><a href="Contacto.html">Contacto</a></li>
+        <li><a href="nesart.html">Nesart</a></li>
+        <li><a href="comisiones.html">Comisiones</a></li>
+        <li><a href="originales.html">Originales</a></li>
+        <li><a href="tienda.html">Tienda</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
       </ul>
     </nav>
 
-       <!-- CARRITO SIMPLIFICADO -->
+    <!-- CARRITO -->
     <div id="cart">
-      <a href="checkout.html">
-        🛒 <span id="cart-count">0</span>
-      </a>
+      <span id="cart-count">0</span> 🛒
+      <div id="cart-dropdown">
+        <ul id="cart-items"></ul>
+        <p id="cart-empty">Tu carrito está vacío</p>
+        <p id="cart-total"></p>
+        <a href="checkout.html" class="checkout-link">Finalizar compra</a>
+      </div>
     </div>
   </header>
 
-    <!-- ===== CONTENEDOR TIENDA ===== -->
+  <!-- ===== CONTENEDOR PRINCIPAL ===== -->
   <div class="shop-container">
 
     <!-- SIDEBAR IZQUIERDO -->
@@ -45,18 +49,15 @@
       </ul>
     </aside>
 
-    <!-- GRID PRINCIPAL DE PRODUCTOS -->
+  <!-- ===== GRID DE PRODUCTOS ===== -->
     <main class="shop">
-      <!-- Productos se cargarán desde shop.js -->
+      <!-- Los productos se cargarán automáticamente desde JSON -->
     </main>
-
   </div>
 
-  <!-- SCRIPT -->
+  <!-- ===== SCRIPT TIENDA / CARRITO ===== -->
   <script src="js/shop.js"></script>
-
 </body>
 </html>
-
 
 
