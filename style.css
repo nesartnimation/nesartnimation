@@ -291,7 +291,7 @@ body.portfolio {
   padding: 10px 20px;
   font-size: 1rem;
   cursor: pointer;
-  background: #ff0000;
+  background: #cccccc;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -299,7 +299,7 @@ body.portfolio {
 }
 
 #add-to-cart:hover {
-  background: #cc0000;
+  background: #cccccc;
 }
 
 .product-image {
@@ -404,5 +404,6 @@ body.portfolio {
     padding: 60px 20px;
   }
 }
+
 
 
