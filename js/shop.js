@@ -9,10 +9,10 @@ const cartTotal = document.getElementById('cart-total');
 const categoryLinks = document.querySelectorAll('.shop-sidebar a');
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let allProducts = [];
+let allProducts = []; // guardar productos desde JSON
 
 // =======================
-// ACTUALIZAR CARRITO
+// CARRITO
 // =======================
 function updateCartCount() {
   const total = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -27,53 +27,30 @@ function renderProducts(products) {
   shop.innerHTML = '';
 
   products.forEach(product => {
-    const productCard = document.createElement('div');
-    productCard.className = 'product';
+    const div = document.createElement('div');
+    div.className = 'product';
 
-    productCard.innerHTML = `
+    // Aquí eliminamos el botón dentro de la imagen
+    div.innerHTML = `
       <div class="product-image-wrapper">
         <a href="${product.link}">
           <img src="${product.image}" alt="${product.name}">
         </a>
-        <button class="add-to-cart">Añadir al carrito</button>
       </div>
       <h3>${product.name}</h3>
       <p>${product.price}€</p>
     `;
 
-    const addBtn = productCard.querySelector('.add-to-cart');
-
-    addBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const existing = cart.find(item => item.id === product.id);
-
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        cart.push({
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          image: product.image,
-          quantity: 1
-        });
-      }
-
-      updateCartCount();
-    });
-
-    shop.appendChild(productCard);
+    shop.appendChild(div);
   });
 }
 
 // =======================
-// FILTRO POR CATEGORÍA
+// FILTRO CATEGORÍAS
 // =======================
 function filterCategory(category) {
   if (category === 'all') {
-    renderProducts(allProducts.slice(0, 4));
+    renderProducts(allProducts.slice(0, 4)); // productos destacados
   } else {
     renderProducts(allProducts.filter(p => p.category === category));
   }
@@ -86,7 +63,7 @@ fetch('data/products.json')
   .then(res => res.json())
   .then(products => {
     allProducts = products;
-    renderProducts(products.slice(0, 4));
+    renderProducts(products.slice(0, 4)); // inicio = destacados
     updateCartCount();
   })
   .catch(err => console.error('Error cargando productos:', err));
