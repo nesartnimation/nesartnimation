@@ -85,43 +85,20 @@ function renderProducts(products) {
   if(!shop) return;
 
   shop.innerHTML = '';
+
   products.forEach(product=>{
     const div = document.createElement('div');
     div.className='product';
-    div.innerHTML = `
+
+    div.innerHTML=`
       <div class="product-image-wrapper">
-        <a href="${product.link}">
+        <a href="${product.link}"> <!-- Hacemos que el link funcione -->
           <img src="${product.image}" alt="${product.name}">
         </a>
       </div>
       <h3>${product.name}</h3>
       <p>${product.price}€</p>
-      <button class="add-to-cart-btn">Añadir al carrito</button>
     `;
-
-    const addBtn = div.querySelector('.add-to-cart-btn');
-    addBtn.addEventListener('click', ()=>{
-      const existing = cart.find(item => item.id === product.id);
-      const currentQty = existing ? existing.quantity : 0;
-      if(currentQty + 1 > product.stock){
-        alert(`No hay suficiente stock de ${product.name}. Disponible: ${product.stock}`);
-        return;
-      }
-      if(existing) existing.quantity += 1;
-      else cart.push({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.image,
-        quantity: 1,
-        stock: product.stock
-      });
-      updateCart();
-      if(cartModal){
-        cartModal.style.display='flex';
-        cartModalEmpty.textContent='';
-      }
-    });
 
     shop.appendChild(div);
   });
@@ -197,3 +174,4 @@ if(cartContainer){
 // INICIALIZACIÓN
 // =======================
 updateCart();
+
