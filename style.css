@@ -333,83 +333,60 @@ body.portfolio {
 #cart-modal {
   display: none;
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
+  top: 70px;
+  right: 20px;
+  width: 320px;
+  max-height: 500px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  padding: 16px;
+  overflow-y: auto;
   z-index: 3000;
-  justify-content: center;
-  align-items: center;
 }
 
 #cart-modal.active {
-  display: flex;
-}
-
-#cart-modal-content {
-  background: #fff;
-  width: 90%;
-  max-width: 500px;
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-height: 80vh;
-  overflow-y: auto;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  position: relative;
+  display: block;
 }
 
 #cart-modal h2 {
-  margin: 0;
-  font-size: 1.5rem;
-  text-align: center;
+  margin-top: 0;
+  font-size: 1.2rem;
 }
 
 #cart-modal ul {
   list-style: none;
-  padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  padding: 0;
 }
 
 #cart-modal li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 10px;
-  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
 }
 
-#cart-modal li button {
-  background: #ff4d4f;
-  border: none;
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-#cart-modal li button:hover {
-  background: #e04344;
-}
-
-#cart-modal-total {
+#cart-modal #cart-empty {
+  color: #ff4d4f;
   font-weight: bold;
-  font-size: 1.1rem;
-  text-align: right;
 }
 
-#cart-modal-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: transparent;
+#cart-modal #cart-total {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#checkout-btn {
+  width: 100%;
+  padding: 10px;
+  background: #cccccc;
+  color: #fff;
   border: none;
-  font-size: 1.5rem;
+  border-radius: 8px;
   cursor: pointer;
-  color: #555;
+  margin-top: 10px;
+}
+
+#checkout-btn:hover {
+  background: #cccccc;
 }
 
 /* ==============================
@@ -474,3 +451,4 @@ body.portfolio {
     padding: 15px;
   }
 }
+
