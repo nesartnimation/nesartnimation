@@ -25,26 +25,18 @@
 
   <!-- CARRITO FLOTE -->
   <div id="cart">
-    <span id="cart-count">0</span> 🛒
+    <span id="cart-count">0</span> 🧺​
+    <div id="cart-dropdown">
+      <ul id="cart-items"></ul>
+      <p id="cart-empty">Tu carrito está vacío</p>
+      <p id="cart-total"></p>
+    </div>
   </div>
 </header>
-
-<!-- MODAL CARRITO -->
-<div id="cart-modal" class="cart-modal">
-  <div class="cart-modal-content">
-    <span id="cart-close">&times;</span>
-    <h2>Tu carrito</h2>
-    <ul id="cart-items"></ul>
-    <p id="cart-empty">Tu carrito está vacío</p>
-    <p id="cart-total"></p>
-    <button id="checkout-button">Finalizar compra</button>
-  </div>
-</div>
 
 <!-- PRODUCTO -->
 <main style="padding-top: 180px;">
   <section class="product-page">
-    <!-- IZQUIERDA: INFO DEL PRODUCTO -->
     <div class="product-info">
       <h1 id="product-title">Producto</h1>
       <p id="product-description">Descripción del producto...</p>
@@ -52,97 +44,16 @@
       <p id="product-stock">Stock: 0</p>
       <button id="product-add-btn">Añadir al carrito</button>
     </div>
-
-    <!-- DERECHA: IMAGEN -->
     <div class="product-image">
       <img id="product-img" src="" alt="Producto">
     </div>
   </section>
 </main>
 
-<!-- SCRIPT PRODUCTO -->
+<script src="js/shop.js"></script>
 <script>
   // =======================
-  // VARIABLES DEL CARRITO
-  // =======================
-  const cartItems = document.getElementById('cart-items');
-  const cartCount = document.getElementById('cart-count');
-  const cartEmpty = document.getElementById('cart-empty');
-  const cartTotal = document.getElementById('cart-total');
-  const cartContainer = document.getElementById('cart');
-  const cartModal = document.getElementById('cart-modal');
-  const cartClose = document.getElementById('cart-close');
-  const checkoutButton = document.getElementById('checkout-button');
-
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-  // =======================
-  // FUNCIONES CARRITO
-  // =======================
-  function updateCart() {
-    cartItems.innerHTML = '';
-
-    if(cart.length===0){
-      cartEmpty.style.display='block';
-      cartTotal.textContent = '';
-    } else {
-      cartEmpty.style.display='none';
-      let total = 0;
-      cart.forEach((item,index)=>{
-        const li = document.createElement('li');
-        li.textContent = `${item.name} - ${item.price}€ x ${item.quantity || 1}`;
-
-        // Botón eliminar
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = '❌';
-        removeBtn.style.marginLeft = '8px';
-        removeBtn.style.cursor = 'pointer';
-        removeBtn.addEventListener('click', ()=>{
-          cart.splice(index,1);
-          updateCart();
-        });
-
-        li.appendChild(removeBtn);
-        cartItems.appendChild(li);
-        total += item.price * (item.quantity || 1);
-      });
-      cartTotal.textContent = `Total: ${total}€`;
-    }
-
-    cartCount.textContent = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
-
-  updateCart();
-
-  // =======================
-  // ABRIR / CERRAR MODAL
-  // =======================
-  cartContainer.addEventListener('click', ()=>{
-    cartModal.style.display = 'block';
-  });
-
-  cartClose.addEventListener('click', ()=>{
-    cartModal.style.display = 'none';
-  });
-
-  window.addEventListener('click', (e)=>{
-    if(e.target == cartModal){
-      cartModal.style.display = 'none';
-    }
-  });
-
-  checkoutButton.addEventListener('click', ()=>{
-    if(cart.length === 0){
-      alert("Todavía no has puesto nada en tu carrito");
-      return;
-    }
-    alert("Proceder a pago (simulación)");
-    // Aquí podrías abrir un iframe de pago o redirigir a pasarela real
-  });
-
-  // =======================
-  // CARGAR PRODUCTO DESDE JSON
+  // CARGAR PRODUCTO
   // =======================
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get('id');
@@ -171,6 +82,7 @@
       stockEl.textContent = `Stock: ${product.stock || '∞'}`;
 
       addBtn.addEventListener('click', ()=>{
+        // Añadir producto al carrito
         const existing = cart.find(item => item.id === product.id);
         if(existing){
           existing.quantity = (existing.quantity || 1) + 1;
@@ -179,11 +91,11 @@
             id: product.id,
             name: product.name,
             price: product.price,
-            image: product.image,
+            image: product.image, // <-- guardamos imagen
             quantity: 1
           });
         }
-        updateCart();
+        updateCart(); // actualizar modal
       });
     })
     .catch(err=>{
@@ -191,139 +103,6 @@
       titleEl.textContent="Error cargando producto";
     });
 </script>
-
-<style>
-/* ==============================
-   PÁGINA DE PRODUCTO
-============================== */
-.product-page {
-  display: flex;
-  max-width: 1200px;
-  margin: 200px auto 100px;
-  gap: 60px;
-  padding: 0 20px;
-}
-
-.product-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.product-info h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.product-info p {
-  font-size: 1rem;
-  color: #555;
-}
-
-#product-add-btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  background: #bfbdbd;
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  transition: background 0.3s ease;
-}
-
-#product-add-btn:hover {
-  background: #cc0000;
-}
-
-.product-image {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.product-image img {
-  width: 100%;
-  max-width: 500px;
-  border-radius: 12px;
-}
-
-/* ==============================
-   MODAL CARRITO
-============================== */
-.cart-modal {
-  display: none;
-  position: fixed;
-  z-index: 5000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.5);
-}
-
-.cart-modal-content {
-  background-color: #fff;
-  margin: 80px auto;
-  padding: 20px;
-  border-radius: 12px;
-  max-width: 500px;
-  position: relative;
-}
-
-#cart-close {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-#cart-items {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#cart-items li {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-#checkout-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  background: #ff4d4f;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-#checkout-button:hover {
-  background: #e04344;
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .product-page {
-    flex-direction: column-reverse;
-    margin-top: 220px;
-  }
-
-  .product-image img {
-    max-width: 100%;
-  }
-
-  .cart-modal-content {
-    margin: 50px 20px;
-  }
-}
-</style>
 
 </body>
 </html>
