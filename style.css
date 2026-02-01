@@ -360,6 +360,13 @@ body.portfolio {
   background: #e04344;
 }
 
+/* Ocultar carrito en páginas Nesart, Comisiones y Originales */
+body.nesart #cart,
+body.comisiones #cart,
+body.originales #cart {
+  display: none;
+}
+
 /* ==============================
    RESPONSIVE TIENDA / PRODUCTO
 ============================== */
@@ -392,3 +399,4 @@ body.portfolio {
     height: 50px;
   }
 }
+
