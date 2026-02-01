@@ -11,7 +11,7 @@
 
 <header id="main-header">
   <div class="logo-container">
-    <a href="tienda.html">
+    <a href="Tienda.html">
       <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
     </a>
   </div>
@@ -76,28 +76,31 @@ fetch('data/products.json')
   .then(res => res.json())
   .then(products => {
     const product = products.find(p => p.id === productId);
-
     if (!product) {
       titleEl.textContent = 'Producto no encontrado';
       addBtn.style.display = 'none';
       return;
     }
 
+    const stock = product.stock ?? Infinity;
+
     titleEl.textContent = product.name;
     imgEl.src = product.image;
     imgEl.alt = product.name;
     priceEl.textContent = `Precio: ${product.price}€`;
     descEl.textContent = product.description || '';
-    stockEl.textContent = `Stock: ${product.stock ?? '∞'}`;
+    stockEl.textContent = `Stock: ${stock === Infinity ? '∞' : stock}`;
+
+    if (stock === 0) {
+      addBtn.disabled = true;
+      addBtn.textContent = 'Sin stock';
+    }
 
     addBtn.addEventListener('click', () => {
-      const existing = cart.find(item => item.id === product.id);
+      const existing = cart.find(i => i.id === product.id);
       const currentQty = existing ? existing.quantity : 0;
 
-      if (product.stock && currentQty + 1 > product.stock) {
-        alert(`Stock máximo disponible: ${product.stock}`);
-        return;
-      }
+      if (currentQty + 1 > stock) return;
 
       if (existing) {
         existing.quantity += 1;
@@ -108,11 +111,16 @@ fetch('data/products.json')
           price: product.price,
           image: product.image,
           quantity: 1,
-          stock: product.stock
+          stock: stock
         });
       }
 
-      updateCart();                 // 🔴 CLAVE
+      if (currentQty + 1 === stock) {
+        addBtn.disabled = true;
+        addBtn.textContent = 'Sin stock';
+      }
+
+      updateCart();
       cartModal.style.display = 'flex';
     });
   })
@@ -124,6 +132,5 @@ fetch('data/products.json')
 </script>
 
 <script src="js/shop.js"></script>
-
 </body>
 </html>
