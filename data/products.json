@@ -9,6 +9,18 @@
     "description": "Print inspirado en la película Coffenstein, tamaño A4, edición limitada.",
     "stock": 5
   },
+    {
+     "id": "snoopdog",
+    "name": "SNOOP DOG",
+    "price": 35,
+    "image": "images/Productos/Prints/SnoopDog.jpg",
+    "link": "producto.html?id=snoopdog",
+    "category": "prints",
+    "description": "Print escena comedia Snoop Dog estilo rubberhose cartoon 1920/1930 - tamaño A4.",
+    "stock": 5
+  },
+
+  {
   {
      "id": "horrormovie",
     "name": "HORROR MOVIE",
@@ -92,6 +104,7 @@
   "stock": 20
 }
 ]
+
 
 
 
