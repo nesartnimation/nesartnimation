@@ -6,13 +6,16 @@
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-  
+
 <body class="portfolio producto">
 
 <header id="main-header">
   <div class="logo-container">
-    <a href="tienda.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
+    <a href="tienda.html">
+      <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
+    </a>
   </div>
+
   <nav id="main-menu">
     <ul>
       <li><a href="Nesart.html">Nesart</a></li>
@@ -28,102 +31,24 @@
   </div>
 </header>
 
-<main style="padding-top: 180px;">
+<main style="padding-top:180px;">
   <section class="product-page">
+
     <div class="product-info">
-      <h1 id="product-title">Producto</h1>
-      <p id="product-description">Descripción del producto...</p>
-      <p id="product-price">Precio: 0€</p>
-      <p id="product-stock">Stock: 0</p>
+      <h1 id="product-title"></h1>
+      <p id="product-description"></p>
+      <p id="product-price"></p>
+      <p id="product-stock"></p>
       <button id="product-add-btn">Añadir al carrito</button>
     </div>
+
     <div class="product-image">
-      <img id="product-img" src="" alt="Producto">
+      <img id="product-img" alt="">
     </div>
+
   </section>
 </main>
 
-<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const productId = urlParams.get('id');
-
-  const titleEl = document.getElementById('product-title');
-  const imgEl = document.getElementById('product-img');
-  const priceEl = document.getElementById('product-price');
-  const descEl = document.getElementById('product-description');
-  const stockEl = document.getElementById('product-stock');
-  const addBtn = document.getElementById('product-add-btn');
-
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-  function updateGlobalCart() {
-    const cartCountEl = document.getElementById('cart-count');
-    if(cartCountEl) cartCountEl.textContent = cart.reduce((sum,item)=>sum+item.quantity,0);
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
-
-  fetch('data/products.json')
-    .then(res=>res.json())
-    .then(products=>{
-      const product = products.find(p=>p.id === productId);
-
-      if(!product){
-        titleEl.textContent = "Producto no encontrado";
-        imgEl.style.display = 'none';
-        priceEl.textContent = '';
-        descEl.textContent = '';
-        stockEl.textContent = '';
-        addBtn.style.display = 'none';
-        return;
-      }
-
-      titleEl.textContent = product.name;
-      imgEl.src = product.image;
-      imgEl.alt = product.name;
-      priceEl.textContent = `Precio: ${product.price}€`;
-      descEl.textContent = product.description || "Descripción pendiente";
-      stockEl.textContent = `Stock: ${product.stock || '∞'}`;
-
-      addBtn.addEventListener('click', ()=>{
-        const existing = cart.find(item=>item.id===product.id);
-        const currentQty = existing ? existing.quantity : 0;
-
-        if(currentQty + 1 > product.stock){
-          alert(`No hay suficiente stock de ${product.name}. Disponible: ${product.stock}`);
-          return;
-        }
-
-        if(existing) existing.quantity += 1;
-        else cart.push({
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          image: product.image,
-          quantity: 1,
-          stock: product.stock
-        });
-
-        updateGlobalCart();
-
-        const cartModal = document.getElementById('cart-modal');
-        const cartModalEmpty = document.getElementById('cart-modal-empty');
-        if(cartModal){
-          cartModal.style.display='flex';
-          if(cartModalEmpty) cartModalEmpty.style.display='none';
-        }
-      });
-    })
-    .catch(err=>{
-      console.error(err);
-      titleEl.textContent="Error cargando producto";
-      imgEl.style.display = 'none';
-      priceEl.textContent = '';
-      descEl.textContent = '';
-      stockEl.textContent = '';
-      addBtn.style.display = 'none';
-    });
-</script>
-  
 <!-- MODAL CARRITO -->
 <div id="cart-modal" class="cart-modal">
   <div class="cart-modal-content">
@@ -135,6 +60,68 @@
     <p id="cart-modal-empty">Tu carrito está vacío</p>
   </div>
 </div>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const productId = urlParams.get('id');
+
+const titleEl = document.getElementById('product-title');
+const imgEl = document.getElementById('product-img');
+const priceEl = document.getElementById('product-price');
+const descEl = document.getElementById('product-description');
+const stockEl = document.getElementById('product-stock');
+const addBtn = document.getElementById('product-add-btn');
+
+fetch('data/products.json')
+  .then(res => res.json())
+  .then(products => {
+    const product = products.find(p => p.id === productId);
+
+    if (!product) {
+      titleEl.textContent = 'Producto no encontrado';
+      addBtn.style.display = 'none';
+      return;
+    }
+
+    titleEl.textContent = product.name;
+    imgEl.src = product.image;
+    imgEl.alt = product.name;
+    priceEl.textContent = `Precio: ${product.price}€`;
+    descEl.textContent = product.description || '';
+    stockEl.textContent = `Stock: ${product.stock ?? '∞'}`;
+
+    addBtn.addEventListener('click', () => {
+      const existing = cart.find(item => item.id === product.id);
+      const currentQty = existing ? existing.quantity : 0;
+
+      if (product.stock && currentQty + 1 > product.stock) {
+        alert(`Stock máximo disponible: ${product.stock}`);
+        return;
+      }
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          quantity: 1,
+          stock: product.stock
+        });
+      }
+
+      updateCart();                 // 🔴 CLAVE
+      cartModal.style.display = 'flex';
+    });
+  })
+  .catch(err => {
+    console.error(err);
+    titleEl.textContent = 'Error cargando producto';
+    addBtn.style.display = 'none';
+  });
+</script>
 
 <script src="js/shop.js"></script>
 
