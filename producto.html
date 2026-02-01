@@ -61,6 +61,37 @@
   </div>
 </div>
 
+  <!-- MODAL CHECKOUT AVANZADO -->
+<div id="checkout-modal" class="cart-modal">
+  <div class="cart-modal-content">
+    <span class="checkout-close">&times;</span>
+    <h2>Finalizar Compra</h2>
+    
+    <form id="checkout-form">
+      <label for="client-name">Nombre completo:</label>
+      <input type="text" id="client-name" name="client-name" required>
+
+      <label for="client-email">Correo electrónico:</label>
+      <input type="email" id="client-email" name="client-email" required>
+
+      <label for="client-address">Dirección:</label>
+      <input type="text" id="client-address" name="client-address" required>
+
+      <label for="payment-method">Método de pago:</label>
+      <select id="payment-method" name="payment-method" required>
+        <option value="">Selecciona un método</option>
+        <option value="card">Tarjeta de crédito</option>
+        <option value="paypal">PayPal</option>
+        <option value="transfer">Transferencia bancaria</option>
+      </select>
+
+      <p id="checkout-total-modal">Total: 0€</p>
+
+      <button type="submit" id="checkout-confirm-btn">Confirmar compra</button>
+    </form>
+  </div>
+</div>
+
 <script>
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get('id');
