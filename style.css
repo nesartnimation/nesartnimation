@@ -172,10 +172,11 @@ body.portfolio {
 .square-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;      /* CLAVE */
+  object-fit: cover;
   object-position: center;
-  transition: transform 0.3s ease;
+  transform: scale(1.2); /* 🔴 ajusta: 1.05 – 1.2 */
 }
+
 
 .square-image img:hover {
   transform: scale(1.15);
@@ -456,6 +457,7 @@ body.originales #cart {
     height: 50px;
   }
 }
+
 
 
 
