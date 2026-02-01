@@ -360,22 +360,8 @@ body.portfolio {
   background: #e04344;
 }
 
-/* RESPONSIVE */
-@media (max-width: 600px){
-  .cart-modal-content {
-    max-width: 90%;
-    padding: 15px;
-  }
-
-  #cart-modal-items li img {
-    width: 50px;
-    height: 50px;
-  }
-}
-
-
 /* ==============================
-   RESPONSIVE
+   RESPONSIVE TIENDA / PRODUCTO
 ============================== */
 @media (max-width: 900px) {
   .shop-container {
@@ -392,6 +378,17 @@ body.portfolio {
   }
 }
 
+/* ==============================
+   RESPONSIVE MODAL
+============================== */
+@media (max-width: 600px){
+  .cart-modal-content {
+    max-width: 90%;
+    padding: 15px;
+  }
 
-
-
+  #cart-modal-items li img {
+    width: 50px;
+    height: 50px;
+  }
+}
