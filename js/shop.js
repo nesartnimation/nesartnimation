@@ -18,6 +18,16 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let allProducts = [];
 
 // =======================
+// CONTROL VISIBILIDAD CARRITO
+// =======================
+const allowedPages = ['tienda.html']; // páginas donde se muestra el carrito
+
+// solo mostramos carrito si estamos en una página permitida
+if (cartIcon && !allowedPages.some(page => window.location.pathname.endsWith(page))) {
+  cartIcon.style.display = 'none';
+}
+
+// =======================
 // GUARDAR + CONTADOR
 // =======================
 function updateCartCount() {
@@ -154,9 +164,8 @@ categoryLinks.forEach(link => {
 });
 
 // =======================
-// EXPONER FUNCIÓN PARA PRODUCTO.HTML
+// FUNCION GLOBAL PARA PRODUCTO.HTML
 // =======================
-// (para que el botón "Añadir al carrito" funcione allí)
 window.addToCart = function(product) {
   const existing = cart.find(item => item.id === product.id);
 
