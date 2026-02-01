@@ -426,6 +426,16 @@ body.originales #cart {
 }
 
 /* ==============================
+   BOTÓN BLOQUEADO CUANDO NO HAY STOCK
+============================== */
+#product-add-btn:disabled {
+  background: #ccc;
+  color: #777;
+  cursor: not-allowed;
+}
+
+
+/* ==============================
    RESPONSIVE TIENDA / PRODUCTO
 ============================== */
 @media (max-width: 900px) {
@@ -457,6 +467,7 @@ body.originales #cart {
     height: 50px;
   }
 }
+
 
 
 
