@@ -19,8 +19,6 @@
     "description": "Print escena comedia Snoop Dog estilo rubberhose cartoon 1920/1930 - tamaño A4.",
     "stock": 5
   },
-
-  {
   {
      "id": "horrormovie",
     "name": "HORROR MOVIE",
@@ -104,6 +102,7 @@
   "stock": 20
 }
 ]
+
 
 
 
