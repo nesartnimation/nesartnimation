@@ -12,13 +12,16 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let allProducts = []; // guardar productos desde JSON
 
 // =======================
-// CARRITO
+// FUNCION ACTUALIZAR CARRITO
 // =======================
 function updateCart() {
+  if (!cartItems) return;
+
   cartItems.innerHTML = '';
 
   if (cart.length === 0) {
     cartEmpty.style.display = 'block';
+    cartEmpty.textContent = 'Tu carrito está vacío';
   } else {
     cartEmpty.style.display = 'none';
     cart.forEach(item => {
@@ -28,8 +31,7 @@ function updateCart() {
     });
   }
 
-  // Mostrar total si existe
-  if (cart.length > 0 && cartTotal) {
+  if (cartTotal) {
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     cartTotal.textContent = `Total: ${total}€`;
   }
@@ -42,7 +44,7 @@ function updateCart() {
 // RENDER PRODUCTOS (TIENDA Y CATEGORÍAS)
 // =======================
 function renderProducts(products) {
-  if (!shop) return; // evita error si no hay sección shop
+  if (!shop) return; // evita errores si no hay sección shop
 
   shop.innerHTML = '';
 
@@ -52,7 +54,7 @@ function renderProducts(products) {
 
     div.innerHTML = `
       <div class="product-image-wrapper">
-        <a href="${product.link}">
+        <a href="${product.link}" class="product-link">
           <img src="${product.image}" alt="${product.name}">
         </a>
       </div>
@@ -98,15 +100,17 @@ categoryLinks.forEach(link => {
 });
 
 // =======================
-// ACCESO AL CHECKOUT DESDE EL CARRITO
+// ACCESO AL CHECKOUT DESDE CUALQUIER CATEGORÍA / TIENDA
 // =======================
 const cartContainer = document.getElementById('cart');
 if (cartContainer) {
   cartContainer.addEventListener('click', () => {
     if (cart.length === 0) {
-      // Mensaje dentro del dropdown
-      cartEmpty.textContent = 'Todavía no has puesto nada en tu carrito';
-      cartEmpty.style.display = 'block';
+      // Mensaje dentro del dropdown si no hay productos
+      if (cartEmpty) {
+        cartEmpty.textContent = 'Todavía no has puesto nada en tu carrito';
+        cartEmpty.style.display = 'block';
+      }
       return; // no redirigir
     }
     window.location.href = 'checkout.html';
@@ -114,7 +118,6 @@ if (cartContainer) {
 }
 
 // =======================
-// ACTUALIZAR CARRITO AL INICIO
+// INICIALIZACIÓN
 // =======================
 updateCart();
-
