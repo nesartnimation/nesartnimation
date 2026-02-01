@@ -8,7 +8,7 @@
 </head>
 <body class="portfolio">
 
-<!-- HEADER Y MENÚ -->
+<!-- HEADER / MENÚ -->
 <header id="main-header">
   <div class="logo-container">
     <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
@@ -23,7 +23,7 @@
     </ul>
   </nav>
 
-  <!-- CARRITO FLOTE -->
+  <!-- CARRITO FLOTE (solo en portfolio y productos) -->
   <div id="cart">
     <span id="cart-count">0</span> 🛒
   </div>
@@ -31,14 +31,11 @@
 
 <!-- MODAL CARRITO -->
 <div id="cart-modal">
-  <div id="cart-modal-content">
-    <button id="cart-modal-close">×</button>
-    <h2>Carrito</h2>
-    <ul id="cart-modal-items"></ul>
-    <p id="cart-modal-empty">Tu carrito está vacío</p>
-    <p id="cart-modal-total"></p>
-    <button id="cart-modal-checkout" class="checkout-button">Ir al checkout</button>
-  </div>
+  <h2>Tu carrito</h2>
+  <ul id="cart-items"></ul>
+  <p id="cart-empty">Todavía no has puesto nada en tu carrito</p>
+  <p id="cart-total"></p>
+  <button id="checkout-btn">Finalizar compra</button>
 </div>
 
 <!-- PRODUCTO -->
@@ -60,65 +57,61 @@
   </section>
 </main>
 
-<!-- SCRIPT PRODUCTO -->
+<!-- SCRIPT PRODUCTO Y CARRITO -->
 <script>
   // =======================
-  // VARIABLES MODAL CARRITO
+  // VARIABLES
   // =======================
   const cartButton = document.getElementById('cart');
   const cartModal = document.getElementById('cart-modal');
-  const cartModalClose = document.getElementById('cart-modal-close');
-  const cartModalItems = document.getElementById('cart-modal-items');
-  const cartModalEmpty = document.getElementById('cart-modal-empty');
-  const cartModalTotal = document.getElementById('cart-modal-total');
-  const cartModalCheckout = document.getElementById('cart-modal-checkout');
-  const cartCount = document.getElementById('cart-count');
+  const cartItemsEl = document.getElementById('cart-items');
+  const cartCountEl = document.getElementById('cart-count');
+  const cartEmptyEl = document.getElementById('cart-empty');
+  const cartTotalEl = document.getElementById('cart-total');
+  const checkoutBtn = document.getElementById('checkout-btn');
+  const addBtn = document.getElementById('product-add-btn');
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   // =======================
-  // FUNCIONES CARRITO / MODAL
+  // FUNCIONES DEL CARRITO
   // =======================
   function updateCart() {
-    cartCount.textContent = cart.reduce((sum,item)=>sum+item.quantity,0);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    renderCartModal();
-  }
+    cartItemsEl.innerHTML = '';
 
-  function renderCartModal() {
-    cartModalItems.innerHTML = '';
     if(cart.length === 0){
-      cartModalEmpty.style.display = 'block';
-      cartModalTotal.textContent = '';
+      cartEmptyEl.style.display = 'block';
+      cartTotalEl.textContent = '';
     } else {
-      cartModalEmpty.style.display = 'none';
+      cartEmptyEl.style.display = 'none';
       let total = 0;
-      cart.forEach((item,index)=>{
+      cart.forEach((item, index) => {
         const li = document.createElement('li');
         li.textContent = `${item.name} - ${item.price}€ x ${item.quantity}`;
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = '❌';
-        removeBtn.addEventListener('click', ()=>{
-          cart.splice(index,1);
-          updateCart();
-        });
-        li.appendChild(removeBtn);
-        cartModalItems.appendChild(li);
-        total += item.price*item.quantity;
+        cartItemsEl.appendChild(li);
+        total += item.price * item.quantity;
       });
-      cartModalTotal.textContent = `Total: ${total}€`;
+      cartTotalEl.textContent = `Total: ${total}€`;
     }
+
+    cartCountEl.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
 
-  function openCartModal(){ cartModal.classList.add('active'); renderCartModal(); }
-  function closeCartModal(){ cartModal.classList.remove('active'); }
+  // Mostrar modal al pinchar carrito
+  if(cartButton){
+    cartButton.addEventListener('click', () => {
+      if(cartModal){
+        cartModal.classList.toggle('active');
+        updateCart();
+      }
+    });
+  }
 
-  if(cartButton){ cartButton.addEventListener('click', openCartModal); }
-  if(cartModalClose){ cartModalClose.addEventListener('click', closeCartModal); }
-  if(cartModalCheckout){
-    cartModalCheckout.addEventListener('click', ()=>{
-      if(cart.length===0){ alert("Todavía no has puesto nada en tu carrito"); }
-      else { window.location.href='checkout.html'; }
+  // Finalizar compra
+  if(checkoutBtn){
+    checkoutBtn.addEventListener('click', () => {
+      window.location.href = 'checkout.html';
     });
   }
 
@@ -135,12 +128,11 @@
   const priceEl = document.getElementById('product-price');
   const descEl = document.getElementById('product-description');
   const stockEl = document.getElementById('product-stock');
-  const addBtn = document.getElementById('product-add-btn');
 
   fetch('data/products.json')
-    .then(res=>res.json())
-    .then(products=>{
-      const product = products.find(p=>p.id === productId);
+    .then(res => res.json())
+    .then(products => {
+      const product = products.find(p => p.id === productId);
       if(!product){
         titleEl.textContent = "Producto no encontrado";
         return;
@@ -153,17 +145,22 @@
       descEl.textContent = product.description || "Descripción pendiente";
       stockEl.textContent = `Stock: ${product.stock || '∞'}`;
 
-      addBtn.addEventListener('click', ()=>{
-        const existing = cart.find(item=>item.id===product.id);
-        if(existing) existing.quantity +=1;
-        else cart.push({id:product.id,name:product.name,price:product.price,quantity:1});
+      // Añadir al carrito
+      addBtn.addEventListener('click', () => {
+        const existing = cart.find(item => item.id === product.id);
+        if(existing){
+          existing.quantity += 1;
+        } else {
+          cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: 1
+          });
+        }
         updateCart();
-        openCartModal();
+        // Sin ventana emergente
       });
-    })
-    .catch(err=>{
-      console.error(err);
-      titleEl.textContent = "Error cargando producto";
     });
 </script>
 
