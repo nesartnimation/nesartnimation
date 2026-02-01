@@ -2,15 +2,15 @@ const gallery = document.getElementById('gallery');
 
 const images = [
   {
-    src: "images/Galeria/NesArt/obra1.jpg",
+    src: "images/Galeria/NesArt/BILLCYPHER.jpg",
     title: "Obra 1"
   },
   {
-    src: "images/Galeria/Comisiones/birds.png",
+    src: "images/Galeria/Comisiones/CATANDFISH.jpg",
     title: "Obra 2"
   },
   {
-    src: "images/Galeria/Originales/obra3.jpg",
+    src: "images/Galeria/Originales/CRANHELADO.jpg",
     title: "Obra 3"
   }
 ];
@@ -23,3 +23,4 @@ images.forEach(item => {
   `;
   gallery.appendChild(figure);
 });
+
