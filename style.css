@@ -178,7 +178,7 @@ body.portfolio {
 }
 
 .square-image img:hover {
-  transform: scale(1.05);
+  transform: scale(1.15);
 }
 
 .gallery-square figcaption {
@@ -456,6 +456,7 @@ body.originales #cart {
     height: 50px;
   }
 }
+
 
 
 
