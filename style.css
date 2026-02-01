@@ -464,7 +464,7 @@ body.portfolio {
 }
 
 #cart-count {
-  background: #ff0000;
+  background: #000000;
   color: #fff;
   border-radius: 50%;
   padding: 2px 8px;
@@ -522,6 +522,7 @@ body.portfolio {
     padding: 60px 20px;
   }
 }
+
 
 
 
