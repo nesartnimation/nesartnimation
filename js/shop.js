@@ -20,7 +20,7 @@ let allProducts = [];
 // =======================
 // CONTROL VISIBILIDAD CARRITO
 // =======================
-const allowedPages = ['tienda.html']; // páginas donde se muestra el carrito
+const allowedPages = ['Tienda.html']; // páginas donde se muestra el carrito
 
 // solo mostramos carrito si estamos en una página permitida
 if (cartIcon && !allowedPages.some(page => window.location.pathname.endsWith(page))) {
@@ -183,3 +183,4 @@ window.addToCart = function(product) {
 
   updateCartCount();
 };
+
