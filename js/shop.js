@@ -14,6 +14,11 @@ const cartModalEmpty = document.getElementById('cart-modal-empty');
 const cartModalClose = document.querySelector('.cart-close');
 const cartModalCheckout = document.getElementById('cart-modal-checkout');
 
+const checkoutModal = document.getElementById('checkout-modal');
+const checkoutClose = document.querySelector('.checkout-close');
+const checkoutForm = document.getElementById('checkout-form');
+const checkoutTotalModal = document.getElementById('checkout-total-modal');
+
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let allProducts = [];
 
@@ -46,87 +51,87 @@ function updateCart() {
 }
 
 // =======================
-// RENDER MODAL
+// RENDER MODAL CARRITO
 // =======================
 function renderCartModal() {
+  if(!cartModalItems) return;
+
   cartModalItems.innerHTML = '';
+  if(cart.length===0){
+    cartModalEmpty.style.display='block';
+    cartModalTotal.textContent='';
+  } else {
+    cartModalEmpty.style.display='none';
+    let total=0;
+    cart.forEach(item=>{
+      total += item.price * item.quantity;
 
-  if (cart.length === 0) {
-    cartModalEmpty.style.display = 'block';
-    cartModalTotal.textContent = '';
-    return;
+      const li = document.createElement('li');
+      li.style.display='flex';
+      li.style.alignItems='center';
+      li.style.justifyContent='space-between';
+      li.style.gap='10px';
+      li.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;">
+        <span>${item.name} - ${item.price}€ x </span>
+        <input type="number" min="1" value="${item.quantity}" data-id="${item.id}" style="width:50px;">
+        <button data-id="${item.id}">✖</button>
+      `;
+      // Cambiar cantidad
+      li.querySelector('input').addEventListener('change', e=>{
+        const val = parseInt(e.target.value);
+        if(val < 1) e.target.value=1;
+        const id = e.target.dataset.id;
+        const prod = cart.find(p=>p.id===id);
+        if(prod){
+          if(val>prod.stock){
+            alert(`No hay suficiente stock. Disponible: ${prod.stock}`);
+            e.target.value = prod.stock;
+            prod.quantity = prod.stock;
+          } else {
+            prod.quantity = val;
+          }
+          updateCart();
+        }
+      });
+      // Botón eliminar
+      li.querySelector('button').addEventListener('click', e=>{
+        const id = e.target.dataset.id;
+        cart = cart.filter(p=>p.id!==id);
+        updateCart();
+      });
+
+      cartModalItems.appendChild(li);
+    });
+    cartModalTotal.textContent = `Total: ${total}€`;
   }
-
-  cartModalEmpty.style.display = 'none';
-  let total = 0;
-
-  cart.forEach((item, index) => {
-    const subtotal = item.price * item.quantity;
-    total += subtotal;
-
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <img src="${item.image}">
-      <div style="flex:1">
-        <strong>${item.name}</strong>
-        <p>${item.price}€</p>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <input type="number" min="1" value="${item.quantity}">
-          <button>✖</button>
-        </div>
-        <p>Subtotal: ${subtotal}€</p>
-      </div>
-    `;
-
-    const input = li.querySelector('input');
-    const removeBtn = li.querySelector('button');
-
-    input.addEventListener('change', e => {
-      let val = parseInt(e.target.value);
-      if (val < 1) val = 1;
-      if (item.stock && val > item.stock) val = item.stock;
-      item.quantity = val;
-      updateCart();
-    });
-
-    removeBtn.addEventListener('click', () => {
-      cart.splice(index, 1);
-      updateCart();
-    });
-
-    cartModalItems.appendChild(li);
-  });
-
-  cartModalTotal.textContent = `Total: ${total}€`;
 }
-
 
 // =======================
 // RENDER PRODUCTOS
 // =======================
-function renderProducts(products) {
+function renderProducts(products){
   if(!shop) return;
-
   shop.innerHTML = '';
-
-  products.forEach(product => {
+  products.forEach(product=>{
     const div = document.createElement('div');
-    div.className = 'product';
+    div.className='product';
 
-    div.innerHTML = `
+    div.innerHTML=`
       <div class="product-image-wrapper">
-        <a href="producto.html?id=${product.id}">
-          <img src="${product.image}" alt="${product.name}">
-        </a>
+        <img src="${product.image}" alt="${product.name}">
       </div>
       <h3>${product.name}</h3>
       <p>${product.price}€</p>
     `;
 
+    div.querySelector('.product-image-wrapper').addEventListener('click',()=>{
+      window.location.href = product.link;
+    });
+
     shop.appendChild(div);
   });
 }
-
 
 // =======================
 // FILTRO POR CATEGORÍAS
@@ -158,7 +163,7 @@ categoryLinks.forEach(link=>{
 });
 
 // =======================
-// MODAL EVENTOS
+// MODAL CARRITO EVENTOS
 // =======================
 if(cartModalClose) cartModalClose.addEventListener('click',()=>cartModal.style.display='none');
 if(cartModalCheckout){
@@ -167,26 +172,61 @@ if(cartModalCheckout){
       alert('Todavía no has añadido productos');
       return;
     }
-    window.location.href='checkout.html';
+    // Mostrar checkout modal
+    let total = cart.reduce((sum,item)=>sum+item.price*item.quantity,0);
+    checkoutTotalModal.textContent = `Total: ${total}€`;
+    checkoutModal.style.display='flex';
   });
 }
 
 // Cerrar modal al click fuera
 window.addEventListener('click', e=>{
   if(e.target===cartModal) cartModal.style.display='none';
+  if(e.target===checkoutModal) checkoutModal.style.display='none';
 });
 
 // =======================
-// BOTÓN FLOTA
+// CERRAR MODAL CHECKOUT
+// =======================
+if(checkoutClose) checkoutClose.addEventListener('click',()=>checkoutModal.style.display='none');
+
+// =======================
+// CONFIRMAR COMPRA
+// =======================
+if(checkoutForm){
+  checkoutForm.addEventListener('submit', e=>{
+    e.preventDefault();
+
+    const name = document.getElementById('client-name').value;
+    const email = document.getElementById('client-email').value;
+    const address = document.getElementById('client-address').value;
+    const payment = document.getElementById('payment-method').value;
+
+    if(!name || !email || !address || !payment){
+      alert('Completa todos los campos antes de continuar');
+      return;
+    }
+
+    alert(`Compra realizada con éxito!\nGracias ${name}\nTotal: ${checkoutTotalModal.textContent}`);
+
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCart();
+    checkoutModal.style.display='none';
+  });
+}
+
+// =======================
+// BOTÓN FLOTA CARRITO
 // =======================
 const cartContainer = document.getElementById('cart');
 if(cartContainer){
   cartContainer.addEventListener('click', ()=>{
     if(cart.length===0){
-      if(cartModalEmpty) cartModalEmpty.textContent='Todavía no has puesto nada en tu carrito';
-      if(cartModalEmpty) cartModalEmpty.style.display='block';
+      cartModalEmpty.textContent='Todavía no has puesto nada en tu carrito';
+      cartModalEmpty.style.display='block';
     }
-    if(cartModal) cartModal.style.display='flex';
+    cartModal.style.display='flex';
   });
 }
 
@@ -194,6 +234,3 @@ if(cartContainer){
 // INICIALIZACIÓN
 // =======================
 updateCart();
-
-
-
