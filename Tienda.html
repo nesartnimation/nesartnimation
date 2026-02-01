@@ -8,55 +8,57 @@
 </head>
 <body class="portfolio">
 
-  <!-- ===== HEADER / MENU SUPERIOR ===== -->
-  <header id="main-header">
-    <div class="logo-container">
-      <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
-    </div>
-    <nav id="main-menu">
-      <ul>
-        <li><a href="Nesart.html">Nesart</a></li>
-        <li><a href="Comisiones.html">Comisiones</a></li>
-        <li><a href="Originales.html">Originales</a></li>
-        <li><a href="Tienda.html">Tienda</a></li>
-        <li><a href="Contacto.html">Contacto</a></li>
-      </ul>
-    </nav>
+<header id="main-header">
+  <div class="logo-container">
+    <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
+  </div>
+  <nav id="main-menu">
+    <ul>
+      <li><a href="Nesart.html">Nesart</a></li>
+      <li><a href="Comisiones.html">Comisiones</a></li>
+      <li><a href="Originales.html">Originales</a></li>
+      <li><a href="Tienda.html">Tienda</a></li>
+      <li><a href="Contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
 
   <!-- CARRITO -->
-    <div id="cart">
-      <span id="cart-count">0</span> 🛒
-      <div id="cart-dropdown">
-        <ul id="cart-items"></ul>
-        <p id="cart-empty">Tu carrito está vacío</p>
-        <p id="cart-total"></p>
-        <a href="checkout.html" class="checkout-link">Finalizar compra</a>
-      </div>
+  <div id="cart">
+    <span id="cart-count">0</span> 🛒
+    <div id="cart-dropdown">
+      <ul id="cart-items"></ul>
+      <p id="cart-empty">Tu carrito está vacío</p>
+      <p id="cart-total"></p>
     </div>
-  </header>
-
-  <!-- ===== CONTENEDOR PRINCIPAL ===== -->
-  <div class="shop-container">
-
-    <!-- SIDEBAR IZQUIERDO -->
-    <aside class="shop-sidebar">
-      <ul>
-        <li><a href="#" data-category="prints">Prints</a></li>
-        <li><a href="#" data-category="chapas">Chapas</a></li>
-        <li><a href="#" data-category="stickers">Stickers</a></li>
-        <li><a href="#" data-category="camisetas">Camisetas</a></li>
-        <li><a href="#" data-category="llaveros">Llaveros</a></li>
-      </ul>
-    </aside>
-
-    <!-- ===== GRID DE PRODUCTOS ===== -->
-    <main class="shop">
-      <!-- Los productos se cargarán automáticamente desde JSON -->
-    </main>
   </div>
+</header>
 
-  <!-- ===== SCRIPT TIENDA / CARRITO ===== -->
-  <script src="js/shop.js"></script>
+<div class="shop-container">
+  <aside class="shop-sidebar">
+    <ul>
+      <li><a href="#" data-category="prints">Prints</a></li>
+      <li><a href="#" data-category="chapas">Chapas</a></li>
+      <li><a href="#" data-category="stickers">Stickers</a></li>
+      <li><a href="#" data-category="camisetas">Camisetas</a></li>
+      <li><a href="#" data-category="llaveros">Llaveros</a></li>
+    </ul>
+  </aside>
+
+  <main class="shop"></main>
+</div>
+
+<!-- MODAL CARRITO -->
+<div id="cart-modal" class="cart-modal">
+  <div class="cart-modal-content">
+    <span class="cart-close">&times;</span>
+    <h2>Tu carrito</h2>
+    <ul id="cart-modal-items"></ul>
+    <p id="cart-modal-total"></p>
+    <button id="cart-modal-checkout">Finalizar compra</button>
+    <p id="cart-modal-empty">Tu carrito está vacío</p>
+  </div>
+</div>
+
+<script src="js/shop.js"></script>
 </body>
 </html>
-
