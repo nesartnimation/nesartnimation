@@ -258,59 +258,105 @@ body.portfolio {
 }
 
 /* ==============================
-   MODAL CARRITO (ALIEXPRESS STYLE)
+   MODAL CARRITO (ESTILO MODAL)
 ============================== */
-#cart-modal {
-  display: none;
+.cart-modal {
   position: fixed;
-  top: 80px;
-  right: 20px;
-  width: 340px;
-  max-height: 500px;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  padding: 16px;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+.cart-modal.active {
+  display: flex;
+}
+
+.cart-modal-content {
+  background: #ffffff;
+  width: 90%;
+  max-width: 520px;
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  max-height: 80vh;
   overflow-y: auto;
-  z-index: 3000;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
 }
 
-#cart-modal.active {
-  display: block;
+/* CERRAR */
+.cart-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
-#cart-modal h2 {
-  margin: 0 0 10px;
-}
-
-#cart-modal ul {
+/* LISTA PRODUCTOS */
+#cart-modal-items {
   list-style: none;
   padding: 0;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ITEM */
+.cart-modal-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cart-modal-item img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cart-modal-item-info {
+  flex: 1;
+}
+
+.cart-modal-item-info h4 {
   margin: 0;
+  font-size: 0.95rem;
+  font-weight: normal;
 }
 
-#cart-modal li {
-  margin-bottom: 8px;
+.cart-modal-item-info p {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: #666;
 }
 
-#cart-empty {
-  color: #ff4d4f;
-  font-weight: bold;
-}
-
-#cart-total {
+/* TOTAL */
+#cart-modal-total {
   font-weight: bold;
   margin-top: 10px;
 }
 
-#checkout-btn {
+/* BOTÓN */
+#cart-modal-checkout {
+  margin-top: 16px;
   width: 100%;
   padding: 12px;
-  background: #ff4d4f;
+  background: #000;
   color: #fff;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+#cart-modal-empty {
+  text-align: center;
+  color: #999;
+  margin-top: 20px;
 }
 
 /* ==============================
@@ -330,3 +376,4 @@ body.portfolio {
     flex-direction: column-reverse;
   }
 }
+
