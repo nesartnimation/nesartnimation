@@ -25,18 +25,26 @@
 
   <!-- CARRITO FLOTE -->
   <div id="cart">
-    <span id="cart-count">0</span> 🛒​​
-    <div id="cart-dropdown">
-      <ul id="cart-items"></ul>
-      <p id="cart-empty">Tu carrito está vacío</p>
-      <p id="cart-total"></p>
-    </div>
+    <span id="cart-count">0</span> 🛒
   </div>
 </header>
+
+<!-- MODAL CARRITO -->
+<div id="cart-modal">
+  <div id="cart-modal-content">
+    <button id="cart-modal-close">×</button>
+    <h2>Carrito</h2>
+    <ul id="cart-modal-items"></ul>
+    <p id="cart-modal-empty">Tu carrito está vacío</p>
+    <p id="cart-modal-total"></p>
+    <button id="cart-modal-checkout" class="checkout-button">Ir al checkout</button>
+  </div>
+</div>
 
 <!-- PRODUCTO -->
 <main style="padding-top: 180px;">
   <section class="product-page">
+    <!-- IZQUIERDA: INFO DEL PRODUCTO -->
     <div class="product-info">
       <h1 id="product-title">Producto</h1>
       <p id="product-description">Descripción del producto...</p>
@@ -44,14 +52,78 @@
       <p id="product-stock">Stock: 0</p>
       <button id="product-add-btn">Añadir al carrito</button>
     </div>
+
+    <!-- DERECHA: IMAGEN -->
     <div class="product-image">
       <img id="product-img" src="" alt="Producto">
     </div>
   </section>
 </main>
 
-<script src="js/shop.js"></script>
+<!-- SCRIPT PRODUCTO -->
 <script>
+  // =======================
+  // VARIABLES MODAL CARRITO
+  // =======================
+  const cartButton = document.getElementById('cart');
+  const cartModal = document.getElementById('cart-modal');
+  const cartModalClose = document.getElementById('cart-modal-close');
+  const cartModalItems = document.getElementById('cart-modal-items');
+  const cartModalEmpty = document.getElementById('cart-modal-empty');
+  const cartModalTotal = document.getElementById('cart-modal-total');
+  const cartModalCheckout = document.getElementById('cart-modal-checkout');
+  const cartCount = document.getElementById('cart-count');
+
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // =======================
+  // FUNCIONES CARRITO / MODAL
+  // =======================
+  function updateCart() {
+    cartCount.textContent = cart.reduce((sum,item)=>sum+item.quantity,0);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCartModal();
+  }
+
+  function renderCartModal() {
+    cartModalItems.innerHTML = '';
+    if(cart.length === 0){
+      cartModalEmpty.style.display = 'block';
+      cartModalTotal.textContent = '';
+    } else {
+      cartModalEmpty.style.display = 'none';
+      let total = 0;
+      cart.forEach((item,index)=>{
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - ${item.price}€ x ${item.quantity}`;
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = '❌';
+        removeBtn.addEventListener('click', ()=>{
+          cart.splice(index,1);
+          updateCart();
+        });
+        li.appendChild(removeBtn);
+        cartModalItems.appendChild(li);
+        total += item.price*item.quantity;
+      });
+      cartModalTotal.textContent = `Total: ${total}€`;
+    }
+  }
+
+  function openCartModal(){ cartModal.classList.add('active'); renderCartModal(); }
+  function closeCartModal(){ cartModal.classList.remove('active'); }
+
+  if(cartButton){ cartButton.addEventListener('click', openCartModal); }
+  if(cartModalClose){ cartModalClose.addEventListener('click', closeCartModal); }
+  if(cartModalCheckout){
+    cartModalCheckout.addEventListener('click', ()=>{
+      if(cart.length===0){ alert("Todavía no has puesto nada en tu carrito"); }
+      else { window.location.href='checkout.html'; }
+    });
+  }
+
+  updateCart();
+
   // =======================
   // CARGAR PRODUCTO
   // =======================
@@ -66,9 +138,9 @@
   const addBtn = document.getElementById('product-add-btn');
 
   fetch('data/products.json')
-    .then(res => res.json())
-    .then(products => {
-      const product = products.find(p => p.id === productId);
+    .then(res=>res.json())
+    .then(products=>{
+      const product = products.find(p=>p.id === productId);
       if(!product){
         titleEl.textContent = "Producto no encontrado";
         return;
@@ -82,25 +154,16 @@
       stockEl.textContent = `Stock: ${product.stock || '∞'}`;
 
       addBtn.addEventListener('click', ()=>{
-        // Añadir producto al carrito
-        const existing = cart.find(item => item.id === product.id);
-        if(existing){
-          existing.quantity = (existing.quantity || 1) + 1;
-        } else {
-          cart.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.image, // <-- guardamos imagen
-            quantity: 1
-          });
-        }
-        updateCart(); // actualizar modal
+        const existing = cart.find(item=>item.id===product.id);
+        if(existing) existing.quantity +=1;
+        else cart.push({id:product.id,name:product.name,price:product.price,quantity:1});
+        updateCart();
+        openCartModal();
       });
     })
     .catch(err=>{
       console.error(err);
-      titleEl.textContent="Error cargando producto";
+      titleEl.textContent = "Error cargando producto";
     });
 </script>
 
