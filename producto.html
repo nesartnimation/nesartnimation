@@ -1,61 +1,6 @@
 <script>
   // =======================
-  // VARIABLES DEL CARRITO
-  // =======================
-  const cartCount = document.getElementById('cart-count');
-  const cartContainer = document.getElementById('cart');
-  const cartModal = document.getElementById('cart-modal');
-  const cartModalItems = document.getElementById('cart-modal-items');
-  const cartModalTotal = document.getElementById('cart-modal-total');
-  const cartModalEmpty = document.getElementById('cart-modal-empty');
-  const cartModalClose = document.querySelector('.cart-close');
-  const cartModalCheckout = document.getElementById('cart-modal-checkout');
-
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-  function updateCart() {
-    // Contador
-    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = total;
-
-    // Modal
-    renderCartModal();
-
-    // Guardar
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
-
-  function renderCartModal() {
-    if(!cartModalItems) return;
-
-    cartModalItems.innerHTML = '';
-
-    if(cart.length === 0){
-      cartModalEmpty.style.display='block';
-      cartModalTotal.textContent='';
-      return;
-    }
-
-    cartModalEmpty.style.display='none';
-
-    let total = 0;
-    cart.forEach(item=>{
-      total += item.price * item.quantity;
-      const li = document.createElement('li');
-      li.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;margin-right:10px;">
-        <span>${item.name} - ${item.price}€ x ${item.quantity}</span>
-      `;
-      cartModalItems.appendChild(li);
-    });
-
-    cartModalTotal.textContent = `Total: ${total}€`;
-  }
-
-  updateCart();
-
-  // =======================
-  // CARGAR PRODUCTO
+  // ELEMENTOS DEL PRODUCTO
   // =======================
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get('id');
@@ -67,17 +12,32 @@
   const stockEl = document.getElementById('product-stock');
   const addBtn = document.getElementById('product-add-btn');
 
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  function updateGlobalCart() {
+    const cartCountEl = document.getElementById('cart-count');
+    if(cartCountEl) cartCountEl.textContent = cart.reduce((sum,item)=>sum+item.quantity,0);
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  // =======================
+  // CARGAR PRODUCTO DESDE JSON
+  // =======================
   fetch('data/products.json')
-    .then(res => res.json())
-    .then(products => {
-      const product = products.find(p => p.id === productId);
+    .then(res=>res.json())
+    .then(products=>{
+      const product = products.find(p=>p.id === productId);
+
       if(!product){
         titleEl.textContent = "Producto no encontrado";
-        addBtn.disabled = true;
+        imgEl.style.display = 'none';
+        priceEl.textContent = '';
+        descEl.textContent = '';
+        stockEl.textContent = '';
+        addBtn.style.display = 'none';
         return;
       }
 
-      // Mostrar información
       titleEl.textContent = product.name;
       imgEl.src = product.image;
       imgEl.alt = product.name;
@@ -85,11 +45,8 @@
       descEl.textContent = product.description || "Descripción pendiente";
       stockEl.textContent = `Stock: ${product.stock || '∞'}`;
 
-      // =======================
-      // BOTÓN AÑADIR AL CARRITO
-      // =======================
       addBtn.addEventListener('click', ()=>{
-        const existing = cart.find(item => item.id === product.id);
+        const existing = cart.find(item=>item.id===product.id);
         const currentQty = existing ? existing.quantity : 0;
 
         if(currentQty + 1 > product.stock){
@@ -97,60 +54,35 @@
           return;
         }
 
-        if(existing){
-          existing.quantity += 1;
-        } else {
-          cart.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            quantity: 1,
-            stock: product.stock
-          });
-        }
+        if(existing) existing.quantity += 1;
+        else cart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          quantity: 1,
+          stock: product.stock
+        });
 
-        updateCart();
-        // Mostramos el modal del carrito
+        updateGlobalCart();
+
+        // Mostrar modal si existe
+        const cartModal = document.getElementById('cart-modal');
+        const cartModalEmpty = document.getElementById('cart-modal-empty');
         if(cartModal){
           cartModal.style.display='flex';
-          cartModalEmpty.textContent='';
+          if(cartModalEmpty) cartModalEmpty.style.display='none';
         }
       });
+
     })
     .catch(err=>{
       console.error(err);
       titleEl.textContent="Error cargando producto";
-      addBtn.disabled = true;
+      imgEl.style.display = 'none';
+      priceEl.textContent = '';
+      descEl.textContent = '';
+      stockEl.textContent = '';
+      addBtn.style.display = 'none';
     });
-
-  // =======================
-  // MODAL CARRITO
-  // =======================
-  if(cartModalClose) cartModalClose.addEventListener('click',()=>cartModal.style.display='none');
-  if(cartModalCheckout){
-    cartModalCheckout.addEventListener('click',()=>{
-      if(cart.length===0){
-        alert('Todavía no has añadido productos');
-        return;
-      }
-      window.location.href='checkout.html';
-    });
-  }
-
-  // Cerrar modal al click fuera
-  window.addEventListener('click', e=>{
-    if(e.target===cartModal) cartModal.style.display='none';
-  });
-
-  // Botón flotante del carrito
-  if(cartContainer){
-    cartContainer.addEventListener('click', ()=>{
-      if(cart.length===0){
-        cartModalEmpty.textContent='Todavía no has puesto nada en tu carrito';
-        cartModalEmpty.style.display='block';
-      }
-      cartModal.style.display='flex';
-    });
-  }
 </script>
