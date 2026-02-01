@@ -1,7 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Producto - NesArt</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="portfolio producto">
+
+<header id="main-header">
+  <div class="logo-container">
+    <a href="tienda.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
+  </div>
+  <nav id="main-menu">
+    <ul>
+      <li><a href="Nesart.html">Nesart</a></li>
+      <li><a href="Comisiones.html">Comisiones</a></li>
+      <li><a href="Originales.html">Originales</a></li>
+      <li><a href="Tienda.html">Tienda</a></li>
+      <li><a href="Contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <div id="cart">
+    <span id="cart-count">0</span> 🛒
+  </div>
+</header>
+
+<main style="padding-top: 180px;">
+  <section class="product-page">
+    <div class="product-info">
+      <h1 id="product-title">Producto</h1>
+      <p id="product-description">Descripción del producto...</p>
+      <p id="product-price">Precio: 0€</p>
+      <p id="product-stock">Stock: 0</p>
+      <button id="product-add-btn">Añadir al carrito</button>
+    </div>
+    <div class="product-image">
+      <img id="product-img" src="" alt="Producto">
+    </div>
+  </section>
+</main>
+
 <script>
-  // =======================
-  // ELEMENTOS DEL PRODUCTO
-  // =======================
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get('id');
 
@@ -20,9 +61,6 @@
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
-  // =======================
-  // CARGAR PRODUCTO DESDE JSON
-  // =======================
   fetch('data/products.json')
     .then(res=>res.json())
     .then(products=>{
@@ -66,7 +104,6 @@
 
         updateGlobalCart();
 
-        // Mostrar modal si existe
         const cartModal = document.getElementById('cart-modal');
         const cartModalEmpty = document.getElementById('cart-modal-empty');
         if(cartModal){
@@ -74,7 +111,6 @@
           if(cartModalEmpty) cartModalEmpty.style.display='none';
         }
       });
-
     })
     .catch(err=>{
       console.error(err);
@@ -86,3 +122,6 @@
       addBtn.style.display = 'none';
     });
 </script>
+
+</body>
+</html>
