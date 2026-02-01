@@ -6,42 +6,64 @@ const cartItems = document.getElementById('cart-items');
 const cartCount = document.getElementById('cart-count');
 const cartEmpty = document.getElementById('cart-empty');
 const cartTotal = document.getElementById('cart-total');
-const categoryLinks = document.querySelectorAll('.shop-sidebar a');
 const cartContainer = document.getElementById('cart');
-
-// MODAL
-const cartModal = document.getElementById('cart-modal');
-const cartModalItems = document.getElementById('cart-modal-items');
-const cartModalTotal = document.getElementById('cart-modal-total');
-const cartModalEmpty = document.getElementById('cart-modal-empty');
-const cartModalClose = document.querySelector('.cart-close');
-const cartModalCheckout = document.getElementById('cart-modal-checkout');
+const categoryLinks = document.querySelectorAll('.shop-sidebar a');
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let allProducts = [];
 
 // =======================
-// ACTUALIZAR CARRITO
+// ACTUALIZAR CARRITO Y MOSTRAR MINIATURAS
 // =======================
 function updateCart() {
-  // actualizar contador y localStorage
-  cartCount.textContent = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-  localStorage.setItem('cart', JSON.stringify(cart));
+  cartItems.innerHTML = '';
 
-  // actualizar lista flotante
-  if(cartItems){
-    cartItems.innerHTML = '';
-    if(cart.length===0){
-      cartEmpty.style.display='block';
-    } else {
-      cartEmpty.style.display='none';
-      cart.forEach(item=>{
-        const li = document.createElement('li');
-        li.textContent = `${item.name} - ${item.price}€ x ${item.quantity || 1}`;
-        cartItems.appendChild(li);
+  if(cart.length === 0){
+    cartEmpty.textContent = "Tu carrito está vacío";
+    cartEmpty.style.display = 'block';
+  } else {
+    cartEmpty.style.display = 'none';
+    cart.forEach((item, index)=>{
+      const li = document.createElement('li');
+
+      li.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" class="cart-item-thumb">
+        <span>${item.name} - ${item.price}€ x ${item.quantity || 1}</span>
+        <button data-index="${index}">❌</button>
+      `;
+
+      li.querySelector('button').addEventListener('click', ()=>{
+        cart.splice(index,1);
+        updateCart();
       });
-    }
+
+      cartItems.appendChild(li);
+    });
   }
+
+  // Total
+  if(cartTotal){
+    const total = cart.reduce((sum,item)=> sum + item.price * (item.quantity || 1),0);
+    cartTotal.textContent = cart.length > 0 ? `Total: ${total}€` : '';
+  }
+
+  cartCount.textContent = cart.reduce((sum,item)=> sum + (item.quantity || 1),0);
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// =======================
+// ACCESO AL CARRITO (MODAL)
+// =======================
+if(cartContainer){
+  cartContainer.addEventListener('click', ()=>{
+    if(cart.length === 0){
+      cartEmpty.textContent = 'Todavía no has puesto nada en tu carrito';
+      cartEmpty.style.display = 'block';
+      return;
+    }
+    // Toggle modal
+    cartContainer.classList.toggle('open');
+  });
 }
 
 // =======================
@@ -50,12 +72,13 @@ function updateCart() {
 function renderProducts(products){
   if(!shop) return;
   shop.innerHTML = '';
+
   products.forEach(product=>{
     const div = document.createElement('div');
     div.className = 'product';
     div.innerHTML = `
       <div class="product-image-wrapper">
-        <a href="${product.link}">
+        <a href="producto.html?id=${product.id}">
           <img src="${product.image}" alt="${product.name}">
         </a>
       </div>
@@ -67,7 +90,7 @@ function renderProducts(products){
 }
 
 // =======================
-// FILTRO POR CATEGORÍAS
+// FILTRO CATEGORÍAS
 // =======================
 function filterCategory(category){
   if(category==='all') renderProducts(allProducts);
@@ -75,7 +98,7 @@ function filterCategory(category){
 }
 
 // =======================
-// CARGA JSON
+// CARGAR JSON
 // =======================
 fetch('data/products.json')
   .then(res=>res.json())
@@ -84,7 +107,7 @@ fetch('data/products.json')
     renderProducts(products);
     updateCart();
   })
-  .catch(err=>console.error('Error cargando productos:', err));
+  .catch(err=>console.error(err));
 
 // =======================
 // EVENTOS SIDEBAR
@@ -95,49 +118,3 @@ categoryLinks.forEach(link=>{
     filterCategory(link.dataset.category);
   });
 });
-
-// =======================
-// FUNCIONES MODAL CARRITO
-// =======================
-function openCartModal(){
-  if(cart.length===0){
-    cartModalEmpty.style.display='block';
-    cartModalItems.innerHTML='';
-    cartModalTotal.textContent='';
-  } else {
-    cartModalEmpty.style.display='none';
-    cartModalItems.innerHTML='';
-    let total=0;
-    cart.forEach(item=>{
-      const li=document.createElement('li');
-      li.textContent = `${item.name} - ${item.price}€ x ${item.quantity || 1}`;
-      cartModalItems.appendChild(li);
-      total += item.price*(item.quantity||1);
-    });
-    cartModalTotal.textContent = `Total: ${total}€`;
-  }
-  cartModal.style.display='block';
-}
-
-function closeCartModal(){
-  cartModal.style.display='none';
-}
-
-// abrir modal al click en carrito
-if(cartContainer) cartContainer.addEventListener('click', openCartModal);
-if(cartModalClose) cartModalClose.addEventListener('click', closeCartModal);
-
-// cerrar modal al pinchar fuera
-window.addEventListener('click', e=>{
-  if(e.target===cartModal) closeCartModal();
-});
-
-// botón finalizar compra dentro del modal
-if(cartModalCheckout){
-  cartModalCheckout.addEventListener('click', ()=>{
-    if(cart.length>0) window.location.href='checkout.html';
-  });
-}
-
-// iniciar contador al cargar
-updateCart();
