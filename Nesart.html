@@ -8,7 +8,6 @@
 </head>
 <body class="portfolio">
 
-  <!-- ===== HEADER Y MENÚ ===== -->
 <header id="main-header">
   <div class="logo-container">
     <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
@@ -23,7 +22,6 @@
     </ul>
   </nav>
 
-  <!-- CARRITO FLOTE -->
   <div id="cart">
     <span id="cart-count">0</span> 🛒
     <div id="cart-dropdown">
@@ -33,24 +31,29 @@
   </div>
 </header>
 
- <!-- Galería de arte dentro de caja gris -->
-<section class="gallery-masonry">
-    <figure>
-      <img src="images/Galeria/Nesart/BIRDS.png" alt="Birds">
-      <figcaption>Birds</figcaption>
-    </figure>
-    <figure>
-      <img src="images/Galeria/Nesart/OTRA.png" alt="Otra ilustración">
-      <figcaption>Otra ilustración</figcaption>
-    </figure>
-    <!-- Añadir más figuras según tus imágenes -->
-  </section>
+<!-- Galería de arte -->
+<section class="gallery-masonry" id="nesart-gallery"></section>
+
+<script>
+  const gallery = document.getElementById('nesart-gallery');
+
+  // Lista de imágenes de la carpeta
+  const images = [
+    "CATANDFISH.jpg",
+    "CRANHELADO.jpg",
+    "BILLCYPHER.jpg"
+    // Añade aquí los nombres de todas las imágenes que tengas en images/Galeria/Nesart
+  ];
+
+  images.forEach(filename => {
+    const figure = document.createElement('figure');
+    figure.innerHTML = `
+      <img src="images/Galeria/Nesart/${filename}" alt="${filename}">
+      <figcaption>${filename.replace(/\.[^/.]+$/, "")}</figcaption>
+    `;
+    gallery.appendChild(figure);
+  });
+</script>
 
 </body>
 </html>
-
-
-
-
-
-
