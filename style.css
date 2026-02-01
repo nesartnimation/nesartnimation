@@ -56,6 +56,12 @@ html, body {
   transform: scale(1.1);
   opacity: 0.9;
 }
+/* ==============================
+   DESACTIVAR HERO FUERA DE HOME
+============================== */
+body.portfolio #hero {
+  display: none;
+}
 
 /* ==============================
    HEADER / MENU
@@ -295,3 +301,4 @@ body.portfolio {
     flex-direction: column-reverse;
   }
 }
+
