@@ -1,7 +1,7 @@
 // =======================
 // VARIABLES GLOBALES
 // =======================
-const shop = document.querySelector('.shop');
+const shop = document.querySelector('.shop'); // solo en tienda/categorías
 const cartItems = document.getElementById('cart-items');
 const cartCount = document.getElementById('cart-count');
 const cartEmpty = document.getElementById('cart-empty');
@@ -9,25 +9,28 @@ const cartTotal = document.getElementById('cart-total');
 const categoryLinks = document.querySelectorAll('.shop-sidebar a');
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let allProducts = [];
+let allProducts = []; // para filtrar por categoría
 
 // =======================
 // FUNCION ACTUALIZAR CARRITO
 // =======================
 function updateCart() {
-  if (!cartItems) return;
+  if (cartItems) cartItems.innerHTML = '';
 
-  cartItems.innerHTML = '';
   if (cart.length === 0) {
-    cartEmpty.style.display = 'block';
-    cartEmpty.textContent = 'Tu carrito está vacío';
+    if (cartEmpty) {
+      cartEmpty.style.display = 'block';
+      cartEmpty.textContent = 'Tu carrito está vacío';
+    }
   } else {
-    cartEmpty.style.display = 'none';
-    cart.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = `${item.name} - ${item.price}€ x ${item.quantity}`;
-      cartItems.appendChild(li);
-    });
+    if (cartEmpty) cartEmpty.style.display = 'none';
+    if (cartItems) {
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - ${item.price}€ x ${item.quantity}`;
+        cartItems.appendChild(li);
+      });
+    }
   }
 
   if (cartTotal) {
@@ -35,15 +38,18 @@ function updateCart() {
     cartTotal.textContent = `Total: ${total}€`;
   }
 
-  cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+  if (cartCount) {
+    cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+  }
+
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 // =======================
-// RENDER PRODUCTOS (TIENDA + CATEGORÍAS)
+// RENDER PRODUCTOS (solo tienda/categorías)
 // =======================
 function renderProducts(products) {
-  if (!shop) return;
+  if (!shop) return; // no hay sección shop en página producto
   shop.innerHTML = '';
 
   products.forEach(product => {
@@ -72,16 +78,18 @@ function filterCategory(category) {
 }
 
 // =======================
-// CARGA JSON
+// CARGA JSON (solo tienda/categorías)
 // =======================
-fetch('data/products.json')
-  .then(res => res.json())
-  .then(products => {
-    allProducts = products;
-    renderProducts(products); // mostrar todos
-    updateCart();
-  })
-  .catch(err => console.error('Error cargando productos:', err));
+if (shop) {
+  fetch('data/products.json')
+    .then(res => res.json())
+    .then(products => {
+      allProducts = products;
+      renderProducts(products); // mostrar todos inicialmente
+      updateCart();
+    })
+    .catch(err => console.error('Error cargando productos:', err));
+}
 
 // =======================
 // EVENTOS SIDEBAR
@@ -94,11 +102,12 @@ categoryLinks.forEach(link => {
 });
 
 // =======================
-// ACCESO AL CHECKOUT DESDE TIENDA/CATEGORÍAS
+// ACCESO AL CHECKOUT DESDE EL CARRITO
 // =======================
 const cartContainer = document.getElementById('cart');
 if (cartContainer) {
   cartContainer.addEventListener('click', () => {
+    // el carrito puede estar en tienda, categorías o página de producto
     window.location.href = 'checkout.html';
   });
 }
