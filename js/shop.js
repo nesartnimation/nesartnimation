@@ -2,7 +2,7 @@
 // VARIABLES GLOBALES
 // =======================
 const shop = document.querySelector('.shop');
-const cartItems = document.getElementById('cart-items');
+const cartItems = document.getElementById('cart-items'); 
 const cartCount = document.getElementById('cart-count');
 const cartEmpty = document.getElementById('cart-empty');
 const categoryLinks = document.querySelectorAll('.shop-sidebar a');
@@ -18,7 +18,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let allProducts = [];
 
 // =======================
-// FUNCIONES CARRITO
+// ACTUALIZAR CARRITO
 // =======================
 function updateCart() {
   // Dropdown
@@ -28,7 +28,7 @@ function updateCart() {
       cartEmpty.style.display = 'block';
     } else {
       cartEmpty.style.display = 'none';
-      cart.forEach(item=>{
+      cart.forEach(item => {
         const li = document.createElement('li');
         li.textContent = `${item.name} - ${item.price}€ x ${item.quantity}`;
         cartItems.appendChild(li);
@@ -42,40 +42,33 @@ function updateCart() {
   // Modal
   renderCartModal();
 
-  // Guardar en localStorage
-  localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem('cart',JSON.stringify(cart));
 }
 
+// =======================
+// RENDER MODAL
+// =======================
 function renderCartModal() {
   if(!cartModalItems) return;
   cartModalItems.innerHTML = '';
-  if(cart.length===0){
-    cartModalEmpty.style.display = 'block';
-    cartModalTotal.textContent = '';
-    return;
-  }
-  cartModalEmpty.style.display='none';
-  let total=0;
-  cart.forEach(item=>{
-    total += item.price * item.quantity;
+  if(cart.length === 0){
+    if(cartModalEmpty) cartModalEmpty.style.display='block';
+    if(cartModalTotal) cartModalTotal.textContent='';
+  } else {
+    if(cartModalEmpty) cartModalEmpty.style.display='none';
+    let total = 0;
+    cart.forEach(item=>{
+      total += item.price * item.quantity;
 
-    const li = document.createElement('li');
-    li.style.display='flex';
-    li.style.alignItems='center';
-    li.style.gap='10px';
-    li.innerHTML = `
-      <img src="${item.image}" alt="${item.name}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;">
-      <span>${item.name} - ${item.price}€ x ${item.quantity}</span>
-      <button class="remove-btn" data-id="${item.id}">✖</button>
-    `;
-    li.querySelector('.remove-btn').addEventListener('click', ()=>{
-      cart = cart.filter(ci => ci.id !== item.id);
-      updateCart();
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;margin-right:10px;">
+        <span>${item.name} - ${item.price}€ x ${item.quantity}</span>
+      `;
+      cartModalItems.appendChild(li);
     });
-
-    cartModalItems.appendChild(li);
-  });
-  cartModalTotal.textContent = `Total: ${total}€`;
+    if(cartModalTotal) cartModalTotal.textContent = `Total: ${total}€`;
+  }
 }
 
 // =======================
@@ -86,17 +79,17 @@ function renderProducts(products) {
 
   shop.innerHTML = '';
 
-  products.forEach(product=>{
+  products.forEach(product => {
     const div = document.createElement('div');
-    div.className='product';
+    div.className = 'product';
 
-    div.innerHTML=`
+    div.innerHTML = `
       <div class="product-image-wrapper">
-        <a href="${product.link}"> <!-- Hacemos que el link funcione -->
+        <a href="producto.html?id=${product.id}">
           <img src="${product.image}" alt="${product.name}">
         </a>
       </div>
-      <h3>${product.name}</h3>
+      <h3><a href="producto.html?id=${product.id}">${product.name}</a></h3>
       <p>${product.price}€</p>
     `;
 
@@ -108,17 +101,12 @@ function renderProducts(products) {
 // FILTRO POR CATEGORÍAS
 // =======================
 function filterCategory(category){
-  categoryLinks.forEach(link=>{
-    if(link.dataset.category === category) link.classList.add('active');
-    else link.classList.remove('active');
-  });
-
   if(category==='all') renderProducts(allProducts);
   else renderProducts(allProducts.filter(p=>p.category===category));
 }
 
 // =======================
-// CARGAR JSON
+// CARGA JSON
 // =======================
 fetch('data/products.json')
   .then(res=>res.json())
@@ -126,8 +114,7 @@ fetch('data/products.json')
     allProducts = products;
     renderProducts(products);
     updateCart();
-  })
-  .catch(err=>console.error(err));
+  }).catch(err=>console.error(err));
 
 // =======================
 // EVENTOS SIDEBAR
@@ -142,9 +129,9 @@ categoryLinks.forEach(link=>{
 // =======================
 // MODAL EVENTOS
 // =======================
-if(cartModalClose) cartModalClose.addEventListener('click', ()=>cartModal.style.display='none');
+if(cartModalClose) cartModalClose.addEventListener('click',()=>cartModal.style.display='none');
 if(cartModalCheckout){
-  cartModalCheckout.addEventListener('click', ()=>{
+  cartModalCheckout.addEventListener('click',()=>{
     if(cart.length===0){
       alert('Todavía no has añadido productos');
       return;
@@ -155,18 +142,20 @@ if(cartModalCheckout){
 
 // Cerrar modal al click fuera
 window.addEventListener('click', e=>{
-  if(e.target === cartModal) cartModal.style.display='none';
+  if(e.target===cartModal) cartModal.style.display='none';
 });
 
-// Botón flotante carrito
+// =======================
+// BOTÓN FLOTA
+// =======================
 const cartContainer = document.getElementById('cart');
 if(cartContainer){
   cartContainer.addEventListener('click', ()=>{
     if(cart.length===0){
-      cartModalEmpty.textContent='Todavía no has puesto nada en tu carrito';
-      cartModalEmpty.style.display='block';
+      if(cartModalEmpty) cartModalEmpty.textContent='Todavía no has puesto nada en tu carrito';
+      if(cartModalEmpty) cartModalEmpty.style.display='block';
     }
-    cartModal.style.display='flex';
+    if(cartModal) cartModal.style.display='flex';
   });
 }
 
@@ -174,4 +163,3 @@ if(cartContainer){
 // INICIALIZACIÓN
 // =======================
 updateCart();
-
