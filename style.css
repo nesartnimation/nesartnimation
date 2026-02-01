@@ -17,13 +17,51 @@ html, body {
   background-color: #ffffff;
   scroll-behavior: smooth;
   overflow-x: hidden;
-  font-family: Arial, sans-serif;
+}
+
+/* ==============================
+   HOME (INDEX) — NO TOCAR
+============================== */
+#hero {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 3rem;
+  color: #ffffff;
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hero-text:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
 }
 
 /* ==============================
    HEADER / MENU
 ============================== */
 body.portfolio {
+  font-family: Arial, sans-serif;
   padding-top: 170px;
 }
 
@@ -60,7 +98,7 @@ body.portfolio {
 }
 
 /* ==============================
-   GALERÍA ARTÍSTICA (Comisiones / Originales)
+   GALERÍAS
 ============================== */
 .gallery-art {
   background-color: #f5f5f5;
@@ -76,19 +114,10 @@ body.portfolio {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease;
 }
 
-.gallery-art img:hover {
-  transform: scale(1.04);
-}
-
-/* ==============================
-   GALERÍA MASONRY
-============================== */
 .gallery-masonry {
   column-count: 3;
   column-gap: 40px;
@@ -99,16 +128,8 @@ body.portfolio {
 
 .gallery-masonry img {
   width: 100%;
-  height: auto;
   margin-bottom: 40px;
-  break-inside: avoid;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease;
-}
-
-.gallery-masonry img:hover {
-  transform: scale(1.03);
 }
 
 /* ==============================
@@ -122,39 +143,15 @@ body.portfolio {
   gap: 60px;
 }
 
-/* --- SIDEBAR IZQUIERDA --- */
 .shop-sidebar {
   width: 220px;
-  background: #000000;
-  color: #ffffff;
+  background: #000;
+  color: #fff;
   padding: 40px 25px;
   position: sticky;
   top: 170px;
-  min-height: calc(100vh - 170px);
 }
 
-.shop-sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.shop-sidebar li {
-  margin-bottom: 20px;
-}
-
-.shop-sidebar a {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-.shop-sidebar a:hover {
-  opacity: 0.7;
-}
-
-/* --- GRID PRODUCTOS --- */
 .shop {
   flex: 1;
   display: grid;
@@ -163,15 +160,7 @@ body.portfolio {
   padding: 0 60px;
 }
 
-/* --- PRODUCTO --- */
-.product {
-  text-align: center;
-}
-
-/* --- IMAGEN CUADRADA LLENA --- */
 .product-image-wrapper {
-  position: relative;
-  width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 12px;
@@ -181,25 +170,10 @@ body.portfolio {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
-  display: block;
-}
-
-/* --- TEXTO PRODUCTO --- */
-.product h3 {
-  margin: 18px 0 6px;
-  font-size: 1.1rem;
-  font-weight: normal;
-}
-
-.product p {
-  margin: 0;
-  color: #777;
-  font-size: 0.95rem;
 }
 
 /* ==============================
-   PÁGINA DE PRODUCTO
+   PÁGINA PRODUCTO
 ============================== */
 .product-page {
   display: flex;
@@ -209,54 +183,15 @@ body.portfolio {
   padding: 0 20px;
 }
 
-.product-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.product-info h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.product-info p {
-  font-size: 1rem;
-  color: #555;
-}
-
-#product-add-btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  background: #bfbdbd;
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  transition: background 0.3s ease;
-}
-
-#product-add-btn:hover {
-  background: #cc0000;
-}
-
-.product-image {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .product-image img {
-  width: 100%;
   max-width: 500px;
   border-radius: 12px;
 }
 
-/* ==============================
-   CARRITO FLOTE Y MODAL
-============================== */
+/* =========================================================
+   🔥 CARRITO MODAL (AÑADIDO — NO ROMPE HOME)
+========================================================= */
+
 #cart {
   position: fixed;
   top: 20px;
@@ -266,6 +201,9 @@ body.portfolio {
   border-radius: 12px;
   cursor: pointer;
   z-index: 2000;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 #cart-count {
@@ -279,14 +217,13 @@ body.portfolio {
 #cart-dropdown {
   display: none;
   position: absolute;
-  top: 40px;
+  top: 45px;
   right: 0;
   width: 320px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  padding: 12px;
-  z-index: 2000;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  padding: 14px;
 }
 
 #cart.open #cart-dropdown {
@@ -297,27 +234,52 @@ body.portfolio {
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 300px;
-  overflow-y: auto;
 }
 
 #cart-items li {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  gap: 8px;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .cart-item-thumb {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   object-fit: cover;
   border-radius: 6px;
 }
 
+.cart-item-info {
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.cart-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 #cart-total {
+  margin-top: 10px;
   font-weight: bold;
+}
+
+.cart-checkout-btn {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#cart-empty {
+  text-align: center;
+  color: #999;
   margin-top: 10px;
 }
 
@@ -325,47 +287,11 @@ body.portfolio {
    RESPONSIVE
 ============================== */
 @media (max-width: 900px) {
-  .shop-container {
-    flex-direction: column;
-    padding-top: 200px;
-  }
-
-  .shop-sidebar {
-    width: 100%;
-    min-height: auto;
-    position: relative;
-    top: 0;
-  }
-
   .shop {
     grid-template-columns: 1fr;
-    padding: 40px;
-  }
-
-  .gallery-art {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .gallery-masonry {
-    column-count: 2;
-    padding: 80px 40px;
   }
 
   .product-page {
     flex-direction: column-reverse;
-    margin-top: 220px;
-  }
-
-  .product-image img {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 500px) {
-  .gallery-art,
-  .gallery-masonry {
-    grid-template-columns: 1fr;
-    column-count: 1;
-    padding: 60px 20px;
   }
 }
