@@ -58,7 +58,6 @@ function renderCartModal() {
   }
 
   cartModalEmpty.style.display = 'none';
-
   let total = 0;
 
   cart.forEach((item, index) => {
@@ -71,24 +70,27 @@ function renderCartModal() {
       <div style="flex:1">
         <strong>${item.name}</strong>
         <p>${item.price}€</p>
-        <div style="display:flex; gap:8px; align-items:center;">
-          <input type="number" min="1" value="${item.quantity}" data-index="${index}">
-          <button data-index="${index}">✖</button>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="number" min="1" value="${item.quantity}">
+          <button>✖</button>
         </div>
         <p>Subtotal: ${subtotal}€</p>
       </div>
     `;
 
-    // eliminar producto
-    li.querySelector('button').addEventListener('click', () => {
-      cart.splice(index, 1);
+    const input = li.querySelector('input');
+    const removeBtn = li.querySelector('button');
+
+    input.addEventListener('change', e => {
+      let val = parseInt(e.target.value);
+      if (val < 1) val = 1;
+      if (item.stock && val > item.stock) val = item.stock;
+      item.quantity = val;
       updateCart();
     });
 
-    // cambiar cantidad
-    li.querySelector('input').addEventListener('change', e => {
-      const val = parseInt(e.target.value);
-      cart[index].quantity = val > 0 ? val : 1;
+    removeBtn.addEventListener('click', () => {
+      cart.splice(index, 1);
       updateCart();
     });
 
@@ -97,6 +99,7 @@ function renderCartModal() {
 
   cartModalTotal.textContent = `Total: ${total}€`;
 }
+
 
 // =======================
 // RENDER PRODUCTOS
@@ -191,5 +194,6 @@ if(cartContainer){
 // INICIALIZACIÓN
 // =======================
 updateCart();
+
 
 
