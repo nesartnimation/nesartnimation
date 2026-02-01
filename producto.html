@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+  
 <body class="portfolio producto">
 
 <header id="main-header">
@@ -122,6 +123,20 @@
       addBtn.style.display = 'none';
     });
 </script>
+  
+<!-- MODAL CARRITO -->
+<div id="cart-modal" class="cart-modal">
+  <div class="cart-modal-content">
+    <span class="cart-close">&times;</span>
+    <h2>Tu carrito</h2>
+    <ul id="cart-modal-items"></ul>
+    <p id="cart-modal-total"></p>
+    <button id="cart-modal-checkout">Finalizar compra</button>
+    <p id="cart-modal-empty">Tu carrito está vacío</p>
+  </div>
+</div>
+
+<script src="js/shop.js"></script>
 
 </body>
 </html>
