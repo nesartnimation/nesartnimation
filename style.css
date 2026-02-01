@@ -147,10 +147,9 @@ body.portfolio {
 /* ==============================
    NESART – GALERÍA CUADRADA
 ============================== */
-
 .gallery-square {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 🔴 3 columnas fijas */
+  grid-template-columns: repeat(3, 1fr);
   gap: 40px;
   max-width: 1200px;
   margin: 0 auto;
@@ -174,7 +173,7 @@ body.portfolio {
   height: 110%;
   object-fit: cover;
   object-position: center;
-  transform: scale(1.2); /* 🔴 ajusta: 1.05 – 1.2 */
+  transform: scale(1.2);
 }
 
 .square-image img:hover {
@@ -315,85 +314,111 @@ body.portfolio {
 }
 
 /* ==============================
-   MODAL CARRITO (AMPLIADO)
+   MODAL CARRITO Y CHECKOUT ESTILO SUPERFREAK
 ============================== */
-.cart-modal {
-  display: none; /* empieza oculto */
+.cart-modal,
+#checkout-modal {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
-  justify-content: center; /* centra horizontal */
-  align-items: center;     /* centra vertical */
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
   z-index: 3000;
 }
 
-.cart-modal-content {
+.cart-modal-content,
+#checkout-modal .cart-modal-content {
   background: #fff;
   border-radius: 12px;
-  padding: 25px;             /* un poco más de espacio */
-  width: 90%;                 /* modal más ancho */
-  max-width: 800px;           /* límite ancho */
+  padding: 25px;
+  width: 90%;
+  max-width: 850px; /* ancho grande tipo Superfreak */
   max-height: 90%;
   overflow-y: auto;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
   position: relative;
 }
 
-.cart-close {
+/* Cierre */
+.cart-close,
+#checkout-modal .checkout-close {
   position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 1.6rem;
+  top: 15px;
+  right: 20px;
+  font-size: 1.8rem;
   font-weight: bold;
   cursor: pointer;
   color: #333;
 }
 
-.cart-modal h2 {
+/* Título */
+.cart-modal h2,
+#checkout-modal h2 {
   margin-top: 0;
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: #333;
 }
 
-#cart-modal-items {
+/* Lista productos tipo tarjeta */
+#cart-modal-items,
+#checkout-modal #cart-modal-items {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 15px;
 }
 
-#cart-modal-items li {
+#cart-modal-items li,
+#checkout-modal #cart-modal-items li {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+  gap: 15px;
+  padding: 12px 10px;
+  border-radius: 10px;
+  background: #f9f9f9;
+  border: 1px solid #eee;
 }
 
-#cart-modal-items img {
-  width: 80px;      /* miniaturas más grandes */
-  height: 80px;
+#cart-modal-items img,
+#checkout-modal #cart-modal-items li img {
+  width: 90px;
+  height: 90px;
   object-fit: cover;
   border-radius: 8px;
 }
 
-#cart-modal-total {
+.cart-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-info span {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Total y botón */
+#cart-modal-total,
+#checkout-modal #cart-modal-total {
   font-weight: bold;
   text-align: right;
   font-size: 1.2rem;
   margin-top: 8px;
 }
 
-#cart-modal-empty {
+#cart-modal-empty,
+#checkout-modal #cart-modal-empty {
   text-align: center;
   color: #ff4d4f;
   font-weight: bold;
@@ -401,7 +426,8 @@ body.portfolio {
   margin: 10px 0;
 }
 
-#cart-modal-checkout {
+#cart-modal-checkout,
+#checkout-modal button {
   background: #ff4d4f;
   color: #fff;
   border: none;
@@ -413,7 +439,8 @@ body.portfolio {
   margin-top: 10px;
 }
 
-#cart-modal-checkout:hover {
+#cart-modal-checkout:hover,
+#checkout-modal button:hover {
   background: #e04344;
 }
 
@@ -431,72 +458,6 @@ body.originales #cart {
   background: #ccc;
   color: #777;
   cursor: not-allowed;
-}
-
-/* ==============================
-   MODAL CHECKOUT
-============================== */
-#checkout-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 4000;
-}
-
-#checkout-modal .cart-modal-content {
-  background: #fff;
-  border-radius: 12px;
-  padding: 25px;
-  width: 90%;
-  max-width: 500px;
-  max-height: 90%;
-  overflow-y: auto;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  position: relative;
-}
-
-#checkout-modal .checkout-close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 1.6rem;
-  font-weight: bold;
-  cursor: pointer;
-  color: #333;
-}
-
-#checkout-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-#checkout-form input, #checkout-form select, #checkout-form button {
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-#checkout-form button {
-  background: #ff4d4f;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-#checkout-form button:hover {
-  background: #e04344;
 }
 
 /* ==============================
@@ -521,13 +482,15 @@ body.originales #cart {
    RESPONSIVE MODAL
 ============================== */
 @media (max-width: 600px){
-  .cart-modal-content {
-    max-width: 90%;
+  .cart-modal-content,
+  #checkout-modal .cart-modal-content {
+    max-width: 95%;
     padding: 15px;
   }
 
-  #cart-modal-items li img {
-    width: 50px;
-    height: 50px;
+  #cart-modal-items li img,
+  #checkout-modal #cart-modal-items li img {
+    width: 60px;
+    height: 60px;
   }
 }
