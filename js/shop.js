@@ -89,13 +89,14 @@ function renderProducts(products) {
           <img src="${product.image}" alt="${product.name}">
         </a>
       </div>
-      <h3><a href="producto.html?id=${product.id}">${product.name}</a></h3>
+      <h3>${product.name}</h3>
       <p>${product.price}€</p>
     `;
 
     shop.appendChild(div);
   });
 }
+
 
 // =======================
 // FILTRO POR CATEGORÍAS
@@ -163,3 +164,4 @@ if(cartContainer){
 // INICIALIZACIÓN
 // =======================
 updateCart();
+
