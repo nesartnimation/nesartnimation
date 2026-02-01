@@ -32,7 +32,7 @@
 </header>
 
 <!-- Galería de arte -->
-<section class="gallery-masonry" id="nesart-gallery"></section>
+<section class="gallery-square" id="nesart-gallery"></section>
 
 <script>
   const gallery = document.getElementById('nesart-gallery');
@@ -45,15 +45,15 @@
     // Añade aquí los nombres de todas las imágenes que tengas en images/Galeria/Nesart
   ];
 
-  images.forEach(filename => {
+ images.forEach(file => {
     const figure = document.createElement('figure');
     figure.innerHTML = `
-      <img src="images/Galeria/Nesart/${filename}" alt="${filename}">
-      <figcaption>${filename.replace(/\.[^/.]+$/, "")}</figcaption>
+      <div class="square-image">
+        <img src="images/Galeria/Nesart/${file}" alt="${file}">
+      </div>
+      <figcaption>${file.replace(/\.[^/.]+$/, "")}</figcaption>
     `;
     gallery.appendChild(figure);
   });
 </script>
 
-</body>
-</html>
