@@ -1,64 +1,187 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Categoría - Tienda NesArt</title>
-  <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body class="portfolio tienda">
+<script>
+  // =======================
+  // VARIABLES
+  // =======================
+  const shop = document.getElementById('shop');
+  const cartItems = document.getElementById('cart-items'); 
+  const cartCount = document.getElementById('cart-count');
+  const cartEmpty = document.getElementById('cart-empty');
+  const categoryLinks = document.querySelectorAll('.shop-sidebar a');
 
-<!-- HEADER Y MENÚ -->
-<header id="main-header">
-  <div class="logo-container">
-    <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
-  </div>
-  <nav id="main-menu">
-    <ul>
-      <li><a href="Nesart.html">Nesart</a></li>
-      <li><a href="Comisiones.html">Comisiones</a></li>
-      <li><a href="Originales.html">Originales</a></li>
-      <li><a href="Tienda.html">Tienda</a></li>
-      <li><a href="Contacto.html">Contacto</a></li>
-    </ul>
-  </nav>
+  const cartModal = document.getElementById('cart-modal');
+  const cartModalItems = document.getElementById('cart-modal-items');
+  const cartModalTotal = document.getElementById('cart-modal-total');
+  const cartModalEmpty = document.getElementById('cart-modal-empty');
+  const cartModalClose = document.querySelector('.cart-close');
+  const cartModalCheckout = document.getElementById('cart-modal-checkout');
 
-  <!-- CARRITO FLOTA -->
-  <div id="cart">
-    <span id="cart-count">0</span> 🛒
-  </div>
-</header>
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let allProducts = [];
 
-<!-- CONTENIDO TIENDA -->
-<div class="shop-container">
-  <!-- SIDEBAR CATEGORÍAS -->
-  <aside class="shop-sidebar">
-    <ul>
-      <li><a href="#" data-category="all">Todos</a></li>
-      <li><a href="#" data-category="prints">Prints</a></li>
-      <li><a href="#" data-category="chapas">Chapas</a></li>
-      <li><a href="#" data-category="stickers">Stickers</a></li>
-      <li><a href="#" data-category="camisetas">Camisetas</a></li>
-      <li><a href="#" data-category="llaveros">Llaveros</a></li>
-    </ul>
-  </aside>
+  // =======================
+  // FUNCIONES CARRITO
+  // =======================
+  function updateCart() {
+    if(cartItems){
+      cartItems.innerHTML = '';
+      if(cart.length===0){
+        cartEmpty.style.display='block';
+      } else {
+        cartEmpty.style.display='none';
+        cart.forEach(item=>{
+          const li = document.createElement('li');
+          li.textContent = `${item.name} - ${item.price}€ x ${item.quantity}`;
+          cartItems.appendChild(li);
+        });
+      }
+    }
+    cartCount.textContent = cart.reduce((sum,item)=>sum+item.quantity,0);
+    renderCartModal();
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
 
-  <!-- PRODUCTOS -->
-  <main class="shop"></main>
-</div>
+  function renderCartModal() {
+    if(!cartModalItems) return;
+    cartModalItems.innerHTML = '';
+    if(cart.length===0){
+      cartModalEmpty.style.display='block';
+      cartModalTotal.textContent='';
+      return;
+    }
+    cartModalEmpty.style.display='none';
+    let total=0;
+    cart.forEach(item=>{
+      total += item.price * item.quantity;
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;margin-right:10px;">
+        <span>${item.name} - ${item.price}€ x ${item.quantity}</span>
+      `;
+      cartModalItems.appendChild(li);
+    });
+    cartModalTotal.textContent = `Total: ${total}€`;
+  }
 
-<!-- MODAL CARRITO -->
-<div id="cart-modal" class="cart-modal">
-  <div class="cart-modal-content">
-    <span class="cart-close">&times;</span>
-    <h2>Tu carrito</h2>
-    <ul id="cart-modal-items"></ul>
-    <p id="cart-modal-total"></p>
-    <button id="cart-modal-checkout">Finalizar compra</button>
-    <p id="cart-modal-empty">Tu carrito está vacío</p>
-  </div>
-</div>
+  // =======================
+  // RENDER PRODUCTOS
+  // =======================
+  function renderProducts(products) {
+    if(!shop) return;
 
-<script src="js/shop.js"></script>
-</body>
-</html>
+    shop.innerHTML = '';
+    products.forEach(product=>{
+      const div = document.createElement('div');
+      div.className='product';
+      div.innerHTML=`
+        <div class="product-image-wrapper">
+          <a href="${product.link}">
+            <img src="${product.image}" alt="${product.name}">
+          </a>
+        </div>
+        <h3>${product.name}</h3>
+        <p>${product.price}€</p>
+        <button class="add-to-cart-btn">Añadir al carrito</button>
+      `;
+
+      const addBtn = div.querySelector('.add-to-cart-btn');
+      addBtn.addEventListener('click', ()=>{
+        const existing = cart.find(item => item.id === product.id);
+        const currentQty = existing ? existing.quantity : 0;
+        if(currentQty + 1 > product.stock){
+          alert(`No hay suficiente stock de ${product.name}. Disponible: ${product.stock}`);
+          return;
+        }
+        if(existing) existing.quantity += 1;
+        else cart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          quantity: 1,
+          stock: product.stock
+        });
+        updateCart();
+        if(cartModal){
+          cartModal.style.display='flex';
+          cartModalEmpty.textContent='';
+        }
+      });
+
+      shop.appendChild(div);
+    });
+  }
+
+  // =======================
+  // FILTRAR POR CATEGORÍA
+  // =======================
+  function filterCategory(category){
+    categoryLinks.forEach(link=>{
+      if(link.dataset.category === category) link.classList.add('active');
+      else link.classList.remove('active');
+    });
+
+    if(category==='all') renderProducts(allProducts);
+    else renderProducts(allProducts.filter(p=>p.category===category));
+  }
+
+  // =======================
+  // CARGAR JSON
+  // =======================
+  fetch('data/products.json')
+    .then(res=>res.json())
+    .then(products=>{
+      allProducts = products;
+
+      // Filtrar según URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const catFromURL = urlParams.get('id');
+      if(catFromURL && allProducts.some(p=>p.category===catFromURL)){
+        filterCategory(catFromURL);
+      } else {
+        filterCategory('all');
+      }
+
+      updateCart();
+    }).catch(err=>console.error(err));
+
+  // =======================
+  // EVENTOS SIDEBAR
+  // =======================
+  categoryLinks.forEach(link=>{
+    link.addEventListener('click', e=>{
+      e.preventDefault();
+      filterCategory(link.dataset.category);
+    });
+  });
+
+  // =======================
+  // MODAL EVENTOS
+  // =======================
+  if(cartModalClose) cartModalClose.addEventListener('click',()=>cartModal.style.display='none');
+  if(cartModalCheckout){
+    cartModalCheckout.addEventListener('click',()=>{
+      if(cart.length===0){
+        alert('Todavía no has añadido productos');
+        return;
+      }
+      window.location.href='checkout.html';
+    });
+  }
+
+  window.addEventListener('click', e=>{
+    if(e.target===cartModal) cartModal.style.display='none';
+  });
+
+  // Botón flotante del carrito
+  const cartContainer = document.getElementById('cart');
+  if(cartContainer){
+    cartContainer.addEventListener('click', ()=>{
+      if(cart.length===0){
+        cartModalEmpty.textContent='Todavía no has puesto nada en tu carrito';
+        cartModalEmpty.style.display='block';
+      }
+      cartModal.style.display='flex';
+    });
+  }
+
+</script>
