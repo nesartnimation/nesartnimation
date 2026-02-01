@@ -150,7 +150,7 @@ body.portfolio {
 
 .gallery-square {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* 🔴 3 columnas fijas */
   gap: 40px;
   max-width: 1200px;
   margin: 0 auto;
@@ -188,7 +188,19 @@ body.portfolio {
   font-size: 0.9rem;
 }
 
+/* ===== RESPONSIVE NESART ===== */
 
+@media (max-width: 900px) {
+  .gallery-square {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-square {
+    grid-template-columns: 1fr;
+  }
+}
 /* ==============================
    TIENDA
 ============================== */
@@ -444,5 +456,6 @@ body.originales #cart {
     height: 50px;
   }
 }
+
 
 
