@@ -177,7 +177,6 @@ body.portfolio {
   transform: scale(1.2); /* 🔴 ajusta: 1.05 – 1.2 */
 }
 
-
 .square-image img:hover {
   transform: scale(1.15);
 }
@@ -190,7 +189,6 @@ body.portfolio {
 }
 
 /* ===== RESPONSIVE NESART ===== */
-
 @media (max-width: 900px) {
   .gallery-square {
     grid-template-columns: repeat(2, 1fr);
@@ -202,6 +200,7 @@ body.portfolio {
     grid-template-columns: 1fr;
   }
 }
+
 /* ==============================
    TIENDA
 ============================== */
@@ -316,7 +315,7 @@ body.portfolio {
 }
 
 /* ==============================
-   MODAL CARRITO
+   MODAL CARRITO (AMPLIADO)
 ============================== */
 .cart-modal {
   display: none; /* empieza oculto */
@@ -334,10 +333,10 @@ body.portfolio {
 .cart-modal-content {
   background: #fff;
   border-radius: 12px;
-  padding: 20px;
-  width: 90%;
-  max-width: 500px; /* más grande para miniaturas */
-  max-height: 80%;
+  padding: 25px;             /* un poco más de espacio */
+  width: 90%;                 /* modal más ancho */
+  max-width: 800px;           /* límite ancho */
+  max-height: 90%;
   overflow-y: auto;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   display: flex;
@@ -375,14 +374,14 @@ body.portfolio {
 #cart-modal-items li {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px;
+  gap: 12px;
+  padding: 10px;
   border-bottom: 1px solid #eee;
 }
 
 #cart-modal-items img {
-  width: 60px;
-  height: 60px;
+  width: 80px;      /* miniaturas más grandes */
+  height: 80px;
   object-fit: cover;
   border-radius: 8px;
 }
@@ -390,7 +389,7 @@ body.portfolio {
 #cart-modal-total {
   font-weight: bold;
   text-align: right;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-top: 8px;
 }
 
@@ -532,11 +531,3 @@ body.originales #cart {
     height: 50px;
   }
 }
-
-
-
-
-
-
-
-
