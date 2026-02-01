@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body class="portfolio">
 
 <header id="main-header">
@@ -18,47 +17,35 @@
 </header>
 
 <main class="checkout-container">
-
   <h1>Finalizar compra</h1>
-
   <div class="checkout-content">
-
-    <!-- LISTA DE PRODUCTOS -->
     <div class="checkout-items-container">
-      <div id="checkout-items">
-        <!-- Productos se renderizan desde JS -->
-      </div>
-      <p class="checkout-empty-message" id="checkout-empty">Todavía no has puesto nada en tu carrito</p>
+      <p class="checkout-empty-message" id="checkout-empty">Tu carrito está vacío</p>
+      <div id="checkout-items"></div>
     </div>
-
-    <!-- RESUMEN DEL PEDIDO -->
-    <aside class="checkout-summary">
+    <div class="checkout-summary">
       <h2>Resumen del pedido</h2>
       <p id="checkout-total">Total: 0€</p>
       <button class="checkout-button">Proceder al pago</button>
-    </aside>
-
+    </div>
   </div>
 </main>
 
 <script>
-const itemsContainer = document.getElementById('checkout-items');
-const emptyMessage = document.getElementById('checkout-empty');
-const totalEl = document.getElementById('checkout-total');
+const checkoutItems = document.getElementById('checkout-items');
+const checkoutEmpty = document.getElementById('checkout-empty');
+const checkoutTotal = document.getElementById('checkout-total');
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 function renderCheckout() {
-  itemsContainer.innerHTML = '';
-  let total = 0;
-
+  checkoutItems.innerHTML = '';
   if (cart.length === 0) {
-    emptyMessage.style.display = 'block';
-    totalEl.textContent = 'Total: 0€';
+    checkoutEmpty.style.display = 'block';
+    checkoutTotal.textContent = 'Total: 0€';
     return;
-  } else {
-    emptyMessage.style.display = 'none';
   }
-
+  checkoutEmpty.style.display = 'none';
+  let total = 0;
   cart.forEach((item, index) => {
     const subtotal = item.price * item.quantity;
     total += subtotal;
@@ -73,38 +60,29 @@ function renderCheckout() {
         <h3>${item.name}</h3>
         <p>Precio: ${item.price}€</p>
         <div class="checkout-item-controls">
-          <label>Cantidad: <input type="number" min="1" value="${item.quantity}" data-index="${index}"></label>
-          <button class="remove-item" data-index="${index}">Eliminar</button>
+          <input type="number" min="1" value="${item.quantity}" data-index="${index}">
+          <button data-index="${index}">✖</button>
         </div>
         <p class="checkout-subtotal">Subtotal: ${subtotal}€</p>
       </div>
     `;
-    itemsContainer.appendChild(div);
-  });
-
-  totalEl.textContent = `Total: ${total}€`;
-
-  // Eventos cantidad
-  document.querySelectorAll('.checkout-item-controls input').forEach(input => {
-    input.addEventListener('change', e => {
-      const idx = e.target.dataset.index;
+    // Botón eliminar
+    div.querySelector('button').addEventListener('click', () => {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCheckout();
+    });
+    // Cambiar cantidad
+    div.querySelector('input').addEventListener('change', e => {
       const val = parseInt(e.target.value);
       if (val < 1) e.target.value = 1;
-      cart[idx].quantity = val;
+      cart[index].quantity = e.target.value;
       localStorage.setItem('cart', JSON.stringify(cart));
       renderCheckout();
     });
+    checkoutItems.appendChild(div);
   });
-
-  // Eventos eliminar
-  document.querySelectorAll('.remove-item').forEach(button => {
-    button.addEventListener('click', e => {
-      const idx = e.target.dataset.index;
-      cart.splice(idx, 1);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      renderCheckout();
-    });
-  });
+  checkoutTotal.textContent = `Total: ${total}€`;
 }
 
 renderCheckout();
