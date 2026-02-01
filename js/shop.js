@@ -49,26 +49,53 @@ function updateCart() {
 // RENDER MODAL
 // =======================
 function renderCartModal() {
-  if(!cartModalItems) return;
   cartModalItems.innerHTML = '';
-  if(cart.length === 0){
-    if(cartModalEmpty) cartModalEmpty.style.display='block';
-    if(cartModalTotal) cartModalTotal.textContent='';
-  } else {
-    if(cartModalEmpty) cartModalEmpty.style.display='none';
-    let total = 0;
-    cart.forEach(item=>{
-      total += item.price * item.quantity;
 
-      const li = document.createElement('li');
-      li.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;margin-right:10px;">
-        <span>${item.name} - ${item.price}€ x ${item.quantity}</span>
-      `;
-      cartModalItems.appendChild(li);
-    });
-    if(cartModalTotal) cartModalTotal.textContent = `Total: ${total}€`;
+  if (cart.length === 0) {
+    cartModalEmpty.style.display = 'block';
+    cartModalTotal.textContent = '';
+    return;
   }
+
+  cartModalEmpty.style.display = 'none';
+
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    const subtotal = item.price * item.quantity;
+    total += subtotal;
+
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <img src="${item.image}">
+      <div style="flex:1">
+        <strong>${item.name}</strong>
+        <p>${item.price}€</p>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <input type="number" min="1" value="${item.quantity}" data-index="${index}">
+          <button data-index="${index}">✖</button>
+        </div>
+        <p>Subtotal: ${subtotal}€</p>
+      </div>
+    `;
+
+    // eliminar producto
+    li.querySelector('button').addEventListener('click', () => {
+      cart.splice(index, 1);
+      updateCart();
+    });
+
+    // cambiar cantidad
+    li.querySelector('input').addEventListener('change', e => {
+      const val = parseInt(e.target.value);
+      cart[index].quantity = val > 0 ? val : 1;
+      updateCart();
+    });
+
+    cartModalItems.appendChild(li);
+  });
+
+  cartModalTotal.textContent = `Total: ${total}€`;
 }
 
 // =======================
@@ -164,4 +191,5 @@ if(cartContainer){
 // INICIALIZACIÓN
 // =======================
 updateCart();
+
 
