@@ -9,7 +9,7 @@ const cartTotal = document.getElementById('cart-total');
 const categoryLinks = document.querySelectorAll('.shop-sidebar a');
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let allProducts = []; // guardar productos desde JSON
+let allProducts = [];
 
 // =======================
 // FUNCION ACTUALIZAR CARRITO
@@ -18,7 +18,6 @@ function updateCart() {
   if (!cartItems) return;
 
   cartItems.innerHTML = '';
-
   if (cart.length === 0) {
     cartEmpty.style.display = 'block';
     cartEmpty.textContent = 'Tu carrito está vacío';
@@ -41,11 +40,10 @@ function updateCart() {
 }
 
 // =======================
-// RENDER PRODUCTOS (TIENDA Y CATEGORÍAS)
+// RENDER PRODUCTOS (TIENDA + CATEGORÍAS)
 // =======================
 function renderProducts(products) {
-  if (!shop) return; // evita errores si no hay sección shop
-
+  if (!shop) return;
   shop.innerHTML = '';
 
   products.forEach(product => {
@@ -61,7 +59,6 @@ function renderProducts(products) {
       <h3>${product.name}</h3>
       <p>${product.price}€</p>
     `;
-
     shop.appendChild(div);
   });
 }
@@ -70,11 +67,8 @@ function renderProducts(products) {
 // FILTRO POR CATEGORÍAS
 // =======================
 function filterCategory(category) {
-  if (category === 'all') {
-    renderProducts(allProducts);
-  } else {
-    renderProducts(allProducts.filter(p => p.category === category));
-  }
+  if (category === 'all') renderProducts(allProducts);
+  else renderProducts(allProducts.filter(p => p.category === category));
 }
 
 // =======================
@@ -84,7 +78,7 @@ fetch('data/products.json')
   .then(res => res.json())
   .then(products => {
     allProducts = products;
-    renderProducts(products); // mostrar todos inicialmente
+    renderProducts(products); // mostrar todos
     updateCart();
   })
   .catch(err => console.error('Error cargando productos:', err));
@@ -100,19 +94,11 @@ categoryLinks.forEach(link => {
 });
 
 // =======================
-// ACCESO AL CHECKOUT DESDE CUALQUIER CATEGORÍA / TIENDA
+// ACCESO AL CHECKOUT DESDE TIENDA/CATEGORÍAS
 // =======================
 const cartContainer = document.getElementById('cart');
 if (cartContainer) {
   cartContainer.addEventListener('click', () => {
-    if (cart.length === 0) {
-      // Mensaje dentro del dropdown si no hay productos
-      if (cartEmpty) {
-        cartEmpty.textContent = 'Todavía no has puesto nada en tu carrito';
-        cartEmpty.style.display = 'block';
-      }
-      return; // no redirigir
-    }
     window.location.href = 'checkout.html';
   });
 }
