@@ -37,19 +37,35 @@
 <script>
   const gallery = document.getElementById('nesart-gallery');
 
-  // Imágenes dentro de images/Galeria/Nesart
   const images = [
-    "CATANDFISH.jpg",
-    "CRANHELADO.jpg",
-    "BILLCYPHER.jpg"
-    // añade todas las que quieras
+    {
+      file: "CATANDFISH.jpg",
+      title: "CAT & FISH",
+      desc: "Proyecto creativo enfocado en el mundo animal."
+    },
+    {
+      file: "CRANHELADO.jpg",
+      title: "CRANHELADO",
+      desc: "Ilustración humor negro estilo rubberhose."
+    },
+    {
+      file: "BILLCYPHER.jpg",
+      title: "BILL CYPHER",
+      desc: "Reinterpretación cartoon con estética 1930."
+    }
   ];
 
-  images.forEach(file => {
+  images.forEach(itemData => {
     const item = document.createElement('div');
     item.className = 'nesart-masonry-item';
     item.innerHTML = `
-      <img src="images/Galeria/Nesart/${file}" alt="">
+      <img src="images/Galeria/Nesart/${itemData.file}" alt="${itemData.title}">
+      <div class="nesart-overlay">
+        <div class="nesart-overlay-text">
+          <strong>${itemData.title}</strong><br>
+          <span>${itemData.desc}</span>
+        </div>
+      </div>
     `;
     gallery.appendChild(item);
   });
