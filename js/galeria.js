@@ -1,26 +1,40 @@
-const gallery = document.getElementById('gallery');
+<script>
+  const gallery = document.getElementById('nesart-gallery');
 
-const images = [
-  {
-    src: "images/Galeria/NesArt/BILLCYPHER.jpg",
-    title: "Obra 1"
-  },
-  {
-    src: "images/Galeria/Comisiones/CATANDFISH.jpg",
-    title: "Obra 2"
-  },
-  {
-    src: "images/Galeria/Originales/CRANHELADO.jpg",
-    title: "Obra 3"
-  }
-];
+  const projects = [
+    {
+      id: "cat-and-fish",
+      file: "CATANDFISH.jpg",
+      title: "CAT & FISH",
+      desc: "Proyecto creativo enfocado en el mundo animal."
+    },
+    {
+      id: "cranhelado",
+      file: "CRANHELADO.jpg",
+      title: "CRANHELADO",
+      desc: "Ilustración humor negro estilo rubberhose."
+    },
+    {
+      id: "bill-cypher",
+      file: "BILLCYPHER.jpg",
+      title: "BILL CYPHER",
+      desc: "Reinterpretación cartoon con estética 1930."
+    }
+  ];
 
-images.forEach(item => {
-  const figure = document.createElement('figure');
-  figure.innerHTML = `
-    <img src="${item.src}" alt="${item.title}">
-    <figcaption>${item.title}</figcaption>
-  `;
-  gallery.appendChild(figure);
-});
-
+  projects.forEach(p => {
+    const item = document.createElement('a');
+    item.href = `proyecto.html?id=${p.id}`;
+    item.className = 'nesart-masonry-item';
+    item.innerHTML = `
+      <img src="images/Galeria/Nesart/${p.file}" alt="${p.title}">
+      <div class="nesart-overlay">
+        <div class="nesart-overlay-text">
+          <strong>${p.title}</strong>
+          <span>${p.desc}</span>
+        </div>
+      </div>
+    `;
+    gallery.appendChild(item);
+  });
+</script>
