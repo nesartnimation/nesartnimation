@@ -145,54 +145,51 @@ body.portfolio {
 }
 
 /* ==============================
-   NESART – GALERÍA 
+   NESART – GALERÍA MASONRY ORGÁNICA
 ============================== */
 
 .nesart-page {
   padding: 180px 60px 120px;
 }
 
-.nesart-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 50px;
+.nesart-masonry {
+  column-count: 3;
+  column-gap: 40px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-.nesart-item {
-  width: 100%;
-  aspect-ratio: 1 / 1; /* cuadrado perfecto */
-  overflow: hidden;
-  background: #f2f2f2;
+.nesart-masonry-item {
+  break-inside: avoid;
+  margin-bottom: 40px;
 }
 
-.nesart-item img {
+.nesart-masonry-item img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  transition: transform 0.4s ease;
 }
 
-/* Hover elegante */
-.nesart-item:hover img {
-  transform: scale(1.08);
+.nesart-masonry-item img:hover {
+  transform: scale(1.03);
 }
 
 /* ==============================
    RESPONSIVE
 ============================== */
 
-@media (max-width: 1100px) {
-  .nesart-gallery {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 1000px) {
+  .nesart-masonry {
+    column-count: 2;
   }
 }
 
 @media (max-width: 600px) {
-  .nesart-gallery {
-    grid-template-columns: 1fr;
-    gap: 30px;
+  .nesart-masonry {
+    column-count: 1;
   }
 }
 
@@ -491,4 +488,5 @@ body.originales #cart {
     height: 60px;
   }
 }
+
 
