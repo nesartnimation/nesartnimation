@@ -29,25 +29,25 @@
   </div>
 </header>
 
-<!-- GALERÍA NESART ESTILO RIA & GREY -->
+<!-- GALERÍA NESART MASONRY -->
 <main class="nesart-page">
-  <section class="nesart-gallery" id="nesart-gallery"></section>
+  <section class="nesart-masonry" id="nesart-gallery"></section>
 </main>
 
 <script>
   const gallery = document.getElementById('nesart-gallery');
 
-  // Nombres de imágenes en images/Galeria/Nesart
+  // Imágenes dentro de images/Galeria/Nesart
   const images = [
     "CATANDFISH.jpg",
     "CRANHELADO.jpg",
     "BILLCYPHER.jpg"
-    // añade aquí todas las que quieras
+    // añade todas las que quieras
   ];
 
   images.forEach(file => {
     const item = document.createElement('div');
-    item.className = 'nesart-item';
+    item.className = 'nesart-masonry-item';
     item.innerHTML = `
       <img src="images/Galeria/Nesart/${file}" alt="">
     `;
