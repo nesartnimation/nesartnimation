@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Proyecto - Nesart</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="portfolio project">
+
+<header id="main-header">
+  <div class="logo-container">
+    <a href="Nesart.html">
+      <img src="images/LogoNesArt.png" class="logo">
+    </a>
+  </div>
+</header>
+
+<main class="project-page">
+  <section class="project-header">
+    <h1 id="project-title"></h1>
+    <p id="project-year"></p>
+    <p id="project-description"></p>
+  </section>
+
+  <section class="project-gallery" id="project-gallery"></section>
+</main>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+
+  fetch('data/nesart.json')
+    .then(res => res.json())
+    .then(data => {
+      const project = data.find(p => p.id === id);
+      if (!project) return;
+
+      document.getElementById('project-title').textContent = project.title;
+      document.getElementById('project-year').textContent = project.year;
+      document.getElementById('project-description').textContent = project.description;
+
+      const gallery = document.getElementById('project-gallery');
+      project.images.forEach(img => {
+        const figure = document.createElement('figure');
+        figure.innerHTML = `
+          <img src="images/Galeria/Nesart/${img}">
+        `;
+        gallery.appendChild(figure);
+      });
+    });
+</script>
+
+</body>
+</html>
