@@ -145,60 +145,57 @@ body.portfolio {
 }
 
 /* ==============================
-   NESART – GALERÍA CUADRADA
+   NESART – GALERÍA 
 ============================== */
-.gallery-square {
+
+.nesart-page {
+  padding: 180px 60px 120px;
+}
+
+.nesart-gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  max-width: 1200px;
+  gap: 50px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 100px 60px;
 }
 
-.gallery-square figure {
-  margin: 0;
-}
-
-.square-image {
+.nesart-item {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1; /* cuadrado perfecto */
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  background: #f2f2f2;
 }
 
-.square-image img {
-  width: 110%;
-  height: 110%;
+.nesart-item img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: center;
-  transform: scale(1.2);
+  transition: transform 0.6s ease;
 }
 
-.square-image img:hover {
-  transform: scale(1.15);
+/* Hover elegante */
+.nesart-item:hover img {
+  transform: scale(1.08);
 }
 
-.gallery-square figcaption {
-  margin-top: 10px;
-  text-align: center;
-  color: #555;
-  font-size: 0.9rem;
-}
+/* ==============================
+   RESPONSIVE
+============================== */
 
-/* ===== RESPONSIVE NESART ===== */
-@media (max-width: 900px) {
-  .gallery-square {
+@media (max-width: 1100px) {
+  .nesart-gallery {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 600px) {
-  .gallery-square {
+  .nesart-gallery {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
 }
+
 
 /* ==============================
    TIENDA
@@ -494,3 +491,4 @@ body.originales #cart {
     height: 60px;
   }
 }
+
