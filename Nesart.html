@@ -46,25 +46,28 @@ const projectDesc = document.getElementById('project-desc');
 const projectGallery = document.getElementById('project-gallery');
 const backBtn = document.getElementById('back-to-gallery');
 
-// Lista de proyectos
+// Lista de proyectos con mockups
 const projects = [
   {
     id: "catfish",
     title: "CAT & FISH",
     desc: "Proyecto creativo enfocado en el mundo animal.",
-    images: ["CATANDFISH.jpg", "CATANDFISH_2.jpg"]
+    images: ["CATANDFISH.jpg"],
+    mockups: ["PetFoodBag.jpg"]
   },
   {
     id: "cranhelado",
     title: "CRAN HELADO",
     desc: "Proyecto creativo de helados artísticos.",
-    images: ["CRANHELADO.jpg", "CRANHELADO_2.jpg"]
+    images: ["CRANHELADO.jpg""],
+    mockups: [""]
   },
   {
     id: "billcypher",
     title: "BILL CYPHER",
     desc: "Proyecto inspirado en Bill Cipher.",
-    images: ["BILLCYPHER.jpg", "BILLCYPHER_2.jpg"]
+    images: ["BILLCYPHER.jpg""],
+    mockups: [""]
   }
 ];
 
@@ -83,10 +86,19 @@ if(projectId){
 
     // Limpiar galería de proyecto
     projectGallery.innerHTML = '';
+    // Imágenes principales
     project.images.forEach(img=>{
       const imgEl = document.createElement('img');
       imgEl.src = `images/Galeria/Nesart/${img}`;
       projectGallery.appendChild(imgEl);
+    });
+    // Mockups
+    project.mockups.forEach(mock=>{
+      const mockEl = document.createElement('img');
+      mockEl.src = `images/Galeria/Nesart/${mock}`;
+      mockEl.style.border = "2px solid #ff4d4f"; // opcional destacar mockups
+      mockEl.style.borderRadius = "8px";
+      projectGallery.appendChild(mockEl);
     });
   }
 } else {
@@ -111,9 +123,7 @@ if(projectId){
 
 // Botón volver a galería
 backBtn.addEventListener('click', ()=>{
-  projectPage.style.display = 'none';
-  gallery.style.display = 'block';
-  history.pushState("", document.title, window.location.pathname); // limpia URL
+  window.location.href = "Nesart.html";
 });
 </script>
 </body>
