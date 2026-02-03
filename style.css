@@ -211,7 +211,7 @@ body.portfolio {
   transition: opacity 0.4s ease;
   padding: 20px;
   text-align: center;
-  pointer-events: none; /* permite clic en la imagen si quieres enlazar luego */
+  pointer-events: none;
 }
 
 .nesart-overlay-text {
@@ -236,22 +236,6 @@ body.portfolio {
   opacity: 1;
 }
 
-@media (max-width: 1000px) {
-  .nesart-masonry {
-    column-count: 2;
-  }
-}
-
-@media (max-width: 600px) {
-  .nesart-masonry {
-    column-count: 1;
-  }
-}
-
-
-/* ==============================
-   RESPONSIVE NESART
-============================== */
 @media (max-width: 1000px) {
   .nesart-masonry {
     column-count: 2;
@@ -395,12 +379,12 @@ body.portfolio {
 }
 
 .cart-modal-content,
-#checkout-modal .cart-modal-content {
+#checkout-modal .checkout-content {
   background: #fff;
   border-radius: 12px;
   padding: 25px;
   width: 90%;
-  max-width: 850px;
+  max-width: 1000px;
   max-height: 90%;
   overflow-y: auto;
   box-shadow: 0 12px 30px rgba(0,0,0,0.25);
@@ -508,11 +492,116 @@ body.portfolio {
   background: #e04344;
 }
 
-/* Ocultar carrito en páginas Nesart, Comisiones y Originales */
-body.nesart #cart,
-body.comisiones #cart,
-body.originales #cart {
-  display: none;
+/* ==============================
+   CHECKOUT SUPERFREAK DOS COLUMNAS
+============================== */
+.checkout-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* IZQUIERDA: DATOS CLIENTE */
+.checkout-left {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkout-left h2,
+.checkout-left h3 {
+  margin: 0 0 8px;
+}
+
+#checkout-form input,
+#checkout-form select,
+#checkout-form textarea,
+#checkout-form button {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#checkout-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+#checkout-form button {
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+#checkout-form button:hover {
+  background: #e04344;
+}
+
+/* DERECHA: RESUMEN CARRITO */
+.checkout-right {
+  flex: 1;
+  min-width: 250px;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkout-right h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+#checkout-cart-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#checkout-cart-items li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+#checkout-cart-items li img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+#discount-code {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#checkout-subtotal,
+#checkout-total {
+  font-weight: bold;
+  text-align: right;
+  margin: 0;
 }
 
 /* ==============================
@@ -557,5 +646,8 @@ body.originales #cart {
     width: 60px;
     height: 60px;
   }
-}
 
+  .checkout-container {
+    flex-direction: column;
+  }
+}
