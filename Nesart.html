@@ -29,24 +29,42 @@
 </main>
 
 <script>
+// Galería de proyectos
 const gallery = document.getElementById('nesart-gallery');
 
-// Lista de proyectos con mini descripción
+// Lista de proyectos con título y descripción
 const projects = [
-  { image: "CATANDFISH.jpg", title: "CAT & FISH", desc: "Proyecto creativo enfocado en el mundo animal." },
-  { image: "CRANHELADO.jpg", title: "CRAN HELADO", desc: "Proyecto creativo de helados artísticos." },
-  { image: "BILLCYPHER.jpg", title: "BILL CYPHER", desc: "Proyecto inspirado en Bill Cipher." }
+  { 
+    id: "CATANDFISH", 
+    image: "CATANDFISH.jpg", 
+    title: "CAT & FISH", 
+    desc: "Proyecto creativo enfocado en el mundo animal." 
+  },
+  { 
+    id: "CRANHELADO", 
+    image: "CRANHELADO.jpg", 
+    title: "CRAN HELADO", 
+    desc: "Proyecto creativo de helados artísticos." 
+  },
+  { 
+    id: "BILLCYPHER", 
+    image: "BILLCYPHER.jpg", 
+    title: "BILL CYPHER", 
+    desc: "Proyecto inspirado en Bill Cipher." 
+  }
 ];
 
-// Crear galería
+// Crear galería con enlace a project.html
 projects.forEach(proj => {
   const item = document.createElement("div");
   item.className = "nesart-masonry-item";
   item.innerHTML = `
-    <img src="images/Galeria/Nesart/${proj.image}" alt="${proj.title}">
-    <div class="nesart-overlay">
-      <div class="nesart-overlay-text"><strong>${proj.title}</strong>${proj.desc}</div>
-    </div>
+    <a href="project.html?id=${proj.id}">
+      <img src="images/Galeria/Nesart/${proj.image}" alt="${proj.title}">
+      <div class="nesart-overlay">
+        <div class="nesart-overlay-text"><strong>${proj.title}</strong>${proj.desc}</div>
+      </div>
+    </a>
   `;
   gallery.appendChild(item);
 });
