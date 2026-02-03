@@ -166,18 +166,20 @@ categoryLinks.forEach(link=>{
 // MODAL CARRITO EVENTOS
 // =======================
 if(cartModalClose) cartModalClose.addEventListener('click',()=>cartModal.style.display='none');
-if(cartModalCheckout){
-  cartModalCheckout.addEventListener('click',()=>{
-    if(cart.length===0){
-      alert('Todavía no has añadido productos');
-      return;
-    }
-    // Mostrar checkout modal
-    let total = cart.reduce((sum,item)=>sum+item.price*item.quantity,0);
-    checkoutTotalModal.textContent = `Total: ${total}€`;
-    checkoutModal.style.display='flex';
-  });
+
+// 🔹 Cambio aquí: mostrar checkout modal también desde Tienda.html
+function openCheckoutModal(){
+  if(cart.length===0){
+    alert('Todavía no has añadido productos');
+    return;
+  }
+  let total = cart.reduce((sum,item)=>sum+item.price*item.quantity,0);
+  if(checkoutTotalModal) checkoutTotalModal.textContent = `Total: ${total}€`;
+  if(checkoutModal) checkoutModal.style.display='flex';
 }
+
+// Botón finalizar compra
+if(cartModalCheckout) cartModalCheckout.addEventListener('click', openCheckoutModal);
 
 // Cerrar modal al click fuera
 window.addEventListener('click', e=>{
