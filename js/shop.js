@@ -18,6 +18,8 @@ const checkoutModal = document.getElementById('checkout-modal');
 const checkoutClose = document.querySelector('.checkout-close');
 const checkoutForm = document.getElementById('checkout-form');
 const checkoutTotalModal = document.getElementById('checkout-total-modal');
+const checkoutCartItems = document.getElementById('checkout-cart-items');
+const discountInput = document.getElementById('discount-code');
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let allProducts = [];
@@ -44,8 +46,11 @@ function updateCart() {
   // Contador
   if(cartCount) cartCount.textContent = cart.reduce((sum,item)=>sum+item.quantity,0);
 
-  // Modal
+  // Modal carrito
   renderCartModal();
+
+  // Modal checkout derecho
+  renderCheckoutCart();
 
   localStorage.setItem('cart',JSON.stringify(cart));
 }
@@ -108,6 +113,28 @@ function renderCartModal() {
 }
 
 // =======================
+// RENDER CHECKOUT DERECHO
+// =======================
+function renderCheckoutCart() {
+  if(!checkoutCartItems) return;
+  checkoutCartItems.innerHTML = '';
+  let subtotal = 0;
+  cart.forEach(item => {
+    subtotal += item.price * item.quantity;
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <img src="${item.image}" alt="${item.name}">
+      <span>${item.name} x ${item.quantity}</span>
+      <span>${(item.price*item.quantity).toFixed(2)}€</span>
+    `;
+    checkoutCartItems.appendChild(li);
+  });
+  const discount = parseFloat(discountInput?.value) || 0;
+  const total = Math.max(subtotal - discount,0);
+  if(checkoutTotalModal) checkoutTotalModal.textContent = `Total: ${total.toFixed(2)}€`;
+}
+
+// =======================
 // RENDER PRODUCTOS
 // =======================
 function renderProducts(products){
@@ -167,19 +194,23 @@ categoryLinks.forEach(link=>{
 // =======================
 if(cartModalClose) cartModalClose.addEventListener('click',()=>cartModal.style.display='none');
 
-// 🔹 Cambio aquí: mostrar checkout modal también desde Tienda.html
+// Abrir checkout modal (desde botón finalizar compra o tienda)
 function openCheckoutModal(){
   if(cart.length===0){
     alert('Todavía no has añadido productos');
     return;
   }
-  let total = cart.reduce((sum,item)=>sum+item.price*item.quantity,0);
-  if(checkoutTotalModal) checkoutTotalModal.textContent = `Total: ${total}€`;
+  renderCheckoutCart();
   if(checkoutModal) checkoutModal.style.display='flex';
 }
 
 // Botón finalizar compra
 if(cartModalCheckout) cartModalCheckout.addEventListener('click', openCheckoutModal);
+
+// Descuento código
+if(discountInput){
+  discountInput.addEventListener('input', renderCheckoutCart);
+}
 
 // Cerrar modal al click fuera
 window.addEventListener('click', e=>{
@@ -202,9 +233,14 @@ if(checkoutForm){
     const name = document.getElementById('client-name').value;
     const email = document.getElementById('client-email').value;
     const address = document.getElementById('client-address').value;
-    const payment = document.getElementById('payment-method').value;
+    const city = document.getElementById('client-city').value;
+    const postal = document.getElementById('client-postal').value;
+    const country = document.getElementById('client-country').value;
+    const phone = document.getElementById('client-phone').value;
+    const message = document.getElementById('client-message').value;
+    const payment = document.querySelector('input[name="payment-method"]:checked')?.value;
 
-    if(!name || !email || !address || !payment){
+    if(!name || !email || !address || !city || !postal || !country || !phone || !payment){
       alert('Completa todos los campos antes de continuar');
       return;
     }
@@ -215,6 +251,8 @@ if(checkoutForm){
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCart();
     checkoutModal.style.display='none';
+    checkoutForm.reset();
+    if(discountInput) discountInput.value = '';
   });
 }
 
