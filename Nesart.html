@@ -6,14 +6,12 @@
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
-<body class="portfolio nesart">
+<body class="portfolio nesart-page">
 
 <header id="main-header">
   <div class="logo-container">
     <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
   </div>
-
   <nav id="main-menu">
     <ul>
       <li><a href="Nesart.html">Nesart</a></li>
@@ -26,52 +24,58 @@
 
   <div id="cart">
     <span id="cart-count">0</span> 🛒
+    <div id="cart-dropdown">
+      <ul id="cart-items"></ul>
+      <p id="cart-empty">Tu carrito está vacío</p>
+    </div>
   </div>
 </header>
 
-<!-- GALERÍA NESART MASONRY -->
-<main class="nesart-page">
-  <section class="nesart-masonry" id="nesart-gallery"></section>
-</main>
+<!-- Galería tipo masonry -->
+<section class="nesart-masonry" id="nesart-gallery"></section>
 
 <script>
   const gallery = document.getElementById('nesart-gallery');
 
+  // Lista de imágenes con mini-descripción y enlace
   const images = [
     {
       file: "CATANDFISH.jpg",
       title: "CAT & FISH",
-      desc: "Proyecto creativo enfocado en el mundo animal."
+      desc: "Proyecto creativo enfocado en el mundo animal",
+      link: "proyectos/catandfish.html"
     },
     {
       file: "CRANHELADO.jpg",
       title: "CRANHELADO",
-      desc: "Ilustración humor negro estilo rubberhose."
+      desc: "Exploración de estilos cartoon rubberhose",
+      link: "proyectos/cranhelado.html"
     },
     {
       file: "BILLCYPHER.jpg",
       title: "BILL CYPHER",
-      desc: "Reinterpretación cartoon con estética 1930."
+      desc: "Diseño de personaje con narrativa visual",
+      link: "proyectos/billcypher.html"
     }
+    // Añadir más objetos de imagen según necesidad
   ];
 
-  images.forEach(itemData => {
-    const item = document.createElement('div');
-    item.className = 'nesart-masonry-item';
-    item.innerHTML = `
-      <img src="images/Galeria/Nesart/${itemData.file}" alt="${itemData.title}">
-      <div class="nesart-overlay">
-        <div class="nesart-overlay-text">
-          <strong>${itemData.title}</strong><br>
-          <span>${itemData.desc}</span>
+  images.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'nesart-masonry-item';
+    div.innerHTML = `
+      <a href="${item.link}">
+        <img src="images/Galeria/Nesart/${item.file}" alt="${item.title}">
+        <div class="nesart-overlay">
+          <div class="nesart-overlay-text">
+            <strong>${item.title}</strong>
+            ${item.desc}
+          </div>
         </div>
-      </div>
+      </a>
     `;
-    gallery.appendChild(item);
+    gallery.appendChild(div);
   });
 </script>
-
-<script src="js/shop.js"></script>
-
 </body>
 </html>
