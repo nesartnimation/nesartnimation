@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Nesart - Mi Portfolio Rubberhose</title>
+  <title>Nesart - Mi Portfolio</title>
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -21,61 +21,100 @@
       <li><a href="Contacto.html">Contacto</a></li>
     </ul>
   </nav>
-
-  <div id="cart">
-    <span id="cart-count">0</span> 🛒
-    <div id="cart-dropdown">
-      <ul id="cart-items"></ul>
-      <p id="cart-empty">Tu carrito está vacío</p>
-    </div>
-  </div>
 </header>
 
-<!-- Galería tipo masonry -->
-<section class="nesart-masonry" id="nesart-gallery"></section>
+<main>
+  <!-- Galería de Nesart -->
+  <section class="nesart-masonry" id="nesart-gallery"></section>
+
+  <!-- Contenedor de proyecto dinámico -->
+  <section class="project-page" id="project-page" style="display:none;">
+    <div class="project-header">
+      <h1 id="project-title"></h1>
+      <p id="project-desc"></p>
+    </div>
+    <div class="project-gallery" id="project-gallery"></div>
+    <button id="back-to-gallery">← Volver a la galería</button>
+  </section>
+</main>
 
 <script>
-  const gallery = document.getElementById('nesart-gallery');
+const gallery = document.getElementById('nesart-gallery');
+const projectPage = document.getElementById('project-page');
+const projectTitle = document.getElementById('project-title');
+const projectDesc = document.getElementById('project-desc');
+const projectGallery = document.getElementById('project-gallery');
+const backBtn = document.getElementById('back-to-gallery');
 
-  // Lista de imágenes con mini-descripción y enlace
-  const images = [
-    {
-      file: "CATANDFISH.jpg",
-      title: "CAT & FISH",
-      desc: "Proyecto creativo enfocado en el mundo animal",
-      link: "proyectos/catandfish.html"
-    },
-    {
-      file: "CRANHELADO.jpg",
-      title: "CRANHELADO",
-      desc: "Exploración de estilos cartoon rubberhose",
-      link: "proyectos/cranhelado.html"
-    },
-    {
-      file: "BILLCYPHER.jpg",
-      title: "BILL CYPHER",
-      desc: "Diseño de personaje con narrativa visual",
-      link: "proyectos/billcypher.html"
-    }
-    // Añadir más objetos de imagen según necesidad
-  ];
+// Lista de proyectos
+const projects = [
+  {
+    id: "catfish",
+    title: "CAT & FISH",
+    desc: "Proyecto creativo enfocado en el mundo animal.",
+    images: ["CATANDFISH.jpg", "CATANDFISH_2.jpg"]
+  },
+  {
+    id: "cranhelado",
+    title: "CRAN HELADO",
+    desc: "Proyecto creativo de helados artísticos.",
+    images: ["CRANHELADO.jpg", "CRANHELADO_2.jpg"]
+  },
+  {
+    id: "billcypher",
+    title: "BILL CYPHER",
+    desc: "Proyecto inspirado en Bill Cipher.",
+    images: ["BILLCYPHER.jpg", "BILLCYPHER_2.jpg"]
+  }
+];
 
-  images.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'nesart-masonry-item';
-    div.innerHTML = `
-      <a href="${item.link}">
-        <img src="images/Galeria/Nesart/${item.file}" alt="${item.title}">
+// Detecta si hay ?project=id en URL
+const urlParams = new URLSearchParams(window.location.search);
+const projectId = urlParams.get('project');
+
+if(projectId){
+  // Mostrar proyecto dinámico
+  const project = projects.find(p=>p.id===projectId);
+  if(project){
+    gallery.style.display = 'none';
+    projectPage.style.display = 'block';
+    projectTitle.textContent = project.title;
+    projectDesc.textContent = project.desc;
+
+    // Limpiar galería de proyecto
+    projectGallery.innerHTML = '';
+    project.images.forEach(img=>{
+      const imgEl = document.createElement('img');
+      imgEl.src = `images/Galeria/Nesart/${img}`;
+      projectGallery.appendChild(imgEl);
+    });
+  }
+} else {
+  // Mostrar galería principal
+  gallery.style.display = 'block';
+  projectPage.style.display = 'none';
+
+  projects.forEach(proj => {
+    const item = document.createElement("div");
+    item.className = "nesart-masonry-item";
+    item.innerHTML = `
+      <a href="Nesart.html?project=${proj.id}">
+        <img src="images/Galeria/Nesart/${proj.images[0]}" alt="${proj.title}">
         <div class="nesart-overlay">
-          <div class="nesart-overlay-text">
-            <strong>${item.title}</strong>
-            ${item.desc}
-          </div>
+          <div class="nesart-overlay-text"><strong>${proj.title}</strong>${proj.desc}</div>
         </div>
       </a>
     `;
-    gallery.appendChild(div);
+    gallery.appendChild(item);
   });
+}
+
+// Botón volver a galería
+backBtn.addEventListener('click', ()=>{
+  projectPage.style.display = 'none';
+  gallery.style.display = 'block';
+  history.pushState("", document.title, window.location.pathname); // limpia URL
+});
 </script>
 </body>
 </html>
