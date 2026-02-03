@@ -171,9 +171,8 @@ body.portfolio {
 }
 
 /* ==============================
-   NESART – GALERÍA MASONRY ORGÁNICA CON HOVER
+   NESART – GALERÍA MASONRY ORGÁNICA CON HOVER Y CLICK
 ============================== */
-
 .nesart-page {
   padding: 180px 60px 120px;
 }
@@ -190,6 +189,11 @@ body.portfolio {
   margin-bottom: 40px;
   position: relative;
   overflow: hidden;
+}
+
+.nesart-masonry-item a {
+  display: block;
+  position: relative;
 }
 
 .nesart-masonry-item img {
