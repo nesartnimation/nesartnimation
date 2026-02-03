@@ -191,11 +191,6 @@ body.portfolio {
   overflow: hidden;
 }
 
-.nesart-masonry-item a {
-  display: block;
-  position: relative;
-}
-
 .nesart-masonry-item img {
   width: 100%;
   height: auto;
@@ -216,7 +211,7 @@ body.portfolio {
   transition: opacity 0.4s ease;
   padding: 20px;
   text-align: center;
-  pointer-events: none; /* permite click en <a> debajo */
+  pointer-events: none; /* permite clic en la imagen si quieres enlazar luego */
 }
 
 .nesart-overlay-text {
@@ -240,6 +235,19 @@ body.portfolio {
 .nesart-masonry-item:hover .nesart-overlay {
   opacity: 1;
 }
+
+@media (max-width: 1000px) {
+  .nesart-masonry {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .nesart-masonry {
+    column-count: 1;
+  }
+}
+
 
 /* ==============================
    RESPONSIVE NESART
@@ -550,3 +558,4 @@ body.originales #cart {
     height: 60px;
   }
 }
+
