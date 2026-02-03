@@ -24,107 +24,33 @@
 </header>
 
 <main>
-  <!-- Galería de Nesart -->
+  <!-- Galería principal -->
   <section class="nesart-masonry" id="nesart-gallery"></section>
-
-  <!-- Contenedor de proyecto dinámico -->
-  <section class="project-page" id="project-page" style="display:none;">
-    <div class="project-header">
-      <h1 id="project-title"></h1>
-      <p id="project-desc"></p>
-    </div>
-    <div class="project-gallery" id="project-gallery"></div>
-    <button id="back-to-gallery">← Volver a la galería</button>
-  </section>
 </main>
 
 <script>
 const gallery = document.getElementById('nesart-gallery');
-const projectPage = document.getElementById('project-page');
-const projectTitle = document.getElementById('project-title');
-const projectDesc = document.getElementById('project-desc');
-const projectGallery = document.getElementById('project-gallery');
-const backBtn = document.getElementById('back-to-gallery');
 
-// Lista de proyectos con mockups
+// Lista de proyectos con mini descripción
 const projects = [
-  {
-    id: "catfish",
-    title: "CAT & FISH",
-    desc: "Proyecto creativo enfocado en el mundo animal.",
-    images: ["CATANDFISH.jpg", "CATANDFISH_2.jpg"],
-    mockups: ["PetFoodBag.jpg", "mockup2.jpg"]
-  },
-  {
-    id: "cranhelado",
-    title: "CRAN HELADO",
-    desc: "Proyecto creativo de helados artísticos.",
-    images: ["CRANHELADO.jpg", "CRANHELADO_2.jpg"],
-    mockups: ["mockup1.jpg", "mockup2.jpg"]
-  },
-  {
-    id: "billcypher",
-    title: "BILL CYPHER",
-    desc: "Proyecto inspirado en Bill Cipher.",
-    images: ["BILLCYPHER.jpg", "BILLCYPHER_2.jpg"],
-    mockups: ["mockup1.jpg", "mockup2.jpg"]
-  }
+  { image: "CATANDFISH.jpg", title: "CAT & FISH", desc: "Proyecto creativo enfocado en el mundo animal." },
+  { image: "CRANHELADO.jpg", title: "CRAN HELADO", desc: "Proyecto creativo de helados artísticos." },
+  { image: "BILLCYPHER.jpg", title: "BILL CYPHER", desc: "Proyecto inspirado en Bill Cipher." }
 ];
 
-// Detecta si hay ?project=id en URL
-const urlParams = new URLSearchParams(window.location.search);
-const projectId = urlParams.get('project');
-
-if(projectId){
-  // Mostrar proyecto dinámico
-  const project = projects.find(p=>p.id===projectId);
-  if(project){
-    gallery.style.display = 'none';
-    projectPage.style.display = 'block';
-    projectTitle.textContent = project.title;
-    projectDesc.textContent = project.desc;
-
-    // Limpiar galería de proyecto
-    projectGallery.innerHTML = '';
-    // Imágenes principales
-    project.images.forEach(img=>{
-      const imgEl = document.createElement('img');
-      imgEl.src = `images/Galeria/Nesart/${img}`;
-      projectGallery.appendChild(imgEl);
-    });
-    // Mockups
-    project.mockups.forEach(mock=>{
-      const mockEl = document.createElement('img');
-      mockEl.src = `images/Galeria/Nesart/${mock}`;
-      mockEl.style.border = "2px solid #ff4d4f"; // opcional destacar mockups
-      mockEl.style.borderRadius = "8px";
-      projectGallery.appendChild(mockEl);
-    });
-  }
-} else {
-  // Mostrar galería principal
-  gallery.style.display = 'block';
-  projectPage.style.display = 'none';
-
-  projects.forEach(proj => {
-    const item = document.createElement("div");
-    item.className = "nesart-masonry-item";
-    item.innerHTML = `
-      <a href="Nesart.html?project=${proj.id}">
-        <img src="images/Galeria/Nesart/${proj.images[0]}" alt="${proj.title}">
-        <div class="nesart-overlay">
-          <div class="nesart-overlay-text"><strong>${proj.title}</strong>${proj.desc}</div>
-        </div>
-      </a>
-    `;
-    gallery.appendChild(item);
-  });
-}
-
-// Botón volver a galería
-backBtn.addEventListener('click', ()=>{
-  window.location.href = "Nesart.html";
+// Crear galería
+projects.forEach(proj => {
+  const item = document.createElement("div");
+  item.className = "nesart-masonry-item";
+  item.innerHTML = `
+    <img src="images/Galeria/Nesart/${proj.image}" alt="${proj.title}">
+    <div class="nesart-overlay">
+      <div class="nesart-overlay-text"><strong>${proj.title}</strong>${proj.desc}</div>
+    </div>
+  `;
+  gallery.appendChild(item);
 });
 </script>
+
 </body>
 </html>
