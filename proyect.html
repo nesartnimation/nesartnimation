@@ -12,6 +12,7 @@
       max-width: 1200px;
       margin: auto;
     }
+
     #main-header {
       position: fixed;
       top: 0;
@@ -20,12 +21,10 @@
       text-align: center;
       z-index: 1000;
     }
-    .logo-container {
-      padding: 20px 0;
-    }
-    .logo {
-      height: 120px;
-    }
+
+    .logo-container { padding: 20px 0; }
+    .logo { height: 120px; }
+
     #main-menu ul {
       list-style: none;
       display: flex;
@@ -34,40 +33,45 @@
       padding: 10px 0;
       margin: 0;
     }
+
     #main-menu a {
       color: #666;
       text-decoration: none;
       font-size: 1.2rem;
     }
+
     .project-container {
       padding: 60px 20px;
       display: flex;
       flex-direction: column;
       gap: 40px;
     }
+
     .project-header h1 {
       font-size: 2.8rem;
       margin-bottom: 20px;
     }
+
     .project-description {
       font-size: 1.1rem;
       line-height: 1.6;
     }
+
     .mockups {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
     }
+
     .mockups img {
       width: 100%;
       border-radius: 12px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.15);
       object-fit: cover;
     }
+
     @media (max-width: 600px) {
-      .project-header h1 {
-        font-size: 2rem;
-      }
+      .project-header h1 { font-size: 2rem; }
     }
   </style>
 </head>
@@ -99,45 +103,47 @@
 </main>
 
 <script>
-  // Datos de proyectos (puedes añadir más)
-  const projects = {
-    CATANDFISH: {
-      title: "CAT & FISH",
-      desc: "Proyecto creativo enfocado en el mundo animal. Incluye ilustraciones, sketches y mockups del diseño final.",
-      mockups: ["PetFoodBag.jpg"]
-    },
-    CRANHELADO: {
-      title: "CRAN HELADO",
-      desc: "Proyecto creativo de helados artísticos. Mockups muestran variantes de packaging y presentación.",
-      mockups: ["CRANHELADO_1.png", "CRANHELADO_2.png"]
-    },
-    BILLCYPHER: {
-      title: "BILL CYPHER",
-      desc: "Proyecto inspirado en Bill Cipher. Mockups incluyen escenas, personajes y elementos gráficos.",
-      mockups: ["BILLCYPHER_1.png", "BILLCYPHER_2.png"]
-    }
-  };
-
-  // Leer ID de la URL
-  const params = new URLSearchParams(window.location.search);
-  const projectId = params.get("id");
-
-  if(projectId && projects[projectId]){
-    const project = projects[projectId];
-    document.getElementById("project-title").textContent = project.title;
-    document.getElementById("project-desc").textContent = project.desc;
-
-    const mockupContainer = document.getElementById("project-mockups");
-    project.mockups.forEach(filename => {
-      const img = document.createElement("img");
-      img.src = `images/MOCKUPS/${filename}`;
-      img.alt = project.title;
-      mockupContainer.appendChild(img);
-    });
-  } else {
-    document.getElementById("project-title").textContent = "Proyecto no encontrado";
-    document.getElementById("project-desc").textContent = "El proyecto que intentas ver no existe.";
+const projects = {
+  "CATANDFISH": {
+    title: "CAT & FISH",
+    desc: "Proyecto creativo enfocado en el mundo animal. Incluye ilustraciones, sketches y mockups del diseño final.",
+    mockups: ["PetFoodBag.jpg"]
+  },
+  "CRANHELADO": {
+    title: "CRAN HELADO",
+    desc: "Proyecto creativo de helados artísticos. Mockups muestran variantes de packaging y presentación.",
+    mockups: ["CRANHELADO_1.png","CRANHELADO_2.png"]
+  },
+  "BILLCYPHER": {
+    title: "BILL CYPHER",
+    desc: "Proyecto inspirado en Bill Cipher. Mockups incluyen escenas, personajes y elementos gráficos.",
+    mockups: ["BILLCYPHER_1.png","BILLCYPHER_2.png"]
   }
+};
+
+// Obtener ID de la URL
+const params = new URLSearchParams(window.location.search);
+const projectId = params.get("id");
+
+const titleEl = document.getElementById("project-title");
+const descEl = document.getElementById("project-desc");
+const mockupEl = document.getElementById("project-mockups");
+
+if(projectId && projects[projectId]){
+  const project = projects[projectId];
+  titleEl.textContent = project.title;
+  descEl.textContent = project.desc;
+
+  project.mockups.forEach(file => {
+    const img = document.createElement("img");
+    img.src = `images/MOCKUPS/${file}`;
+    img.alt = project.title;
+    mockupEl.appendChild(img);
+  });
+} else {
+  titleEl.textContent = "Proyecto no encontrado";
+  descEl.textContent = "El proyecto que intentas ver no existe.";
+}
 </script>
 
 </body>
