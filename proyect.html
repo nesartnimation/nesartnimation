@@ -1,11 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Proyecto Nesart</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Proyecto - NesArt</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body.project-page {
+      font-family: Arial, sans-serif;
+      padding-top: 170px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    #main-header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #fff;
+      text-align: center;
+      z-index: 1000;
+    }
+    .logo-container {
+      padding: 20px 0;
+    }
+    .logo {
+      height: 120px;
+    }
+    #main-menu ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 10px 0;
+      margin: 0;
+    }
+    #main-menu a {
+      color: #666;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    .project-container {
+      padding: 60px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .project-header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+    .project-description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .mockups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .mockups img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      object-fit: cover;
+    }
+    @media (max-width: 600px) {
+      .project-header h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
-<body class="portfolio">
+<body class="project-page">
 
 <header id="main-header">
   <div class="logo-container">
@@ -22,12 +88,57 @@
   </nav>
 </header>
 
-<main class="project-page">
-  <div id="project-title"></div>
-  <div id="project-description"></div>
-  <div id="project-mockups" class="project-gallery"></div>
+<main>
+  <div class="project-container">
+    <div class="project-header">
+      <h1 id="project-title"></h1>
+    </div>
+    <div class="project-description" id="project-desc"></div>
+    <div class="mockups" id="project-mockups"></div>
+  </div>
 </main>
 
-<script src="project.js"></script>
+<script>
+  // Datos de proyectos (puedes añadir más)
+  const projects = {
+    CATANDFISH: {
+      title: "CAT & FISH",
+      desc: "Proyecto creativo enfocado en el mundo animal. Incluye ilustraciones, sketches y mockups del diseño final.",
+      mockups: ["CATANDFISH_1.png", "CATANDFISH_2.png"]
+    },
+    CRANHELADO: {
+      title: "CRAN HELADO",
+      desc: "Proyecto creativo de helados artísticos. Mockups muestran variantes de packaging y presentación.",
+      mockups: ["CRANHELADO_1.png", "CRANHELADO_2.png"]
+    },
+    BILLCYPHER: {
+      title: "BILL CYPHER",
+      desc: "Proyecto inspirado en Bill Cipher. Mockups incluyen escenas, personajes y elementos gráficos.",
+      mockups: ["BILLCYPHER_1.png", "BILLCYPHER_2.png"]
+    }
+  };
+
+  // Leer ID de la URL
+  const params = new URLSearchParams(window.location.search);
+  const projectId = params.get("id");
+
+  if(projectId && projects[projectId]){
+    const project = projects[projectId];
+    document.getElementById("project-title").textContent = project.title;
+    document.getElementById("project-desc").textContent = project.desc;
+
+    const mockupContainer = document.getElementById("project-mockups");
+    project.mockups.forEach(filename => {
+      const img = document.createElement("img");
+      img.src = `images/MOCKUPS/${filename}`;
+      img.alt = project.title;
+      mockupContainer.appendChild(img);
+    });
+  } else {
+    document.getElementById("project-title").textContent = "Proyecto no encontrado";
+    document.getElementById("project-desc").textContent = "El proyecto que intentas ver no existe.";
+  }
+</script>
+
 </body>
 </html>
