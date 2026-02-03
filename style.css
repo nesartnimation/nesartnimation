@@ -74,27 +74,8 @@ body.portfolio {
   z-index: 1000;
 }
 
-.logo-container {
-  padding: 20px 0;
-}
-
 .logo {
   height: 120px;
-}
-
-#main-menu ul {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  padding: 10px 0;
-  margin: 0;
-}
-
-#main-menu a {
-  color: #666;
-  text-decoration: none;
-  font-size: 1.2rem;
 }
 
 /* ==============================
@@ -108,29 +89,25 @@ body.portfolio {
   gap: 60px;
 }
 
-/* SIDEBAR */
-.shop-sidebar {
-  width: 220px;
-  background: #000;
-  color: #fff;
-  padding: 40px 25px;
-  position: sticky;
-  top: 170px;
-}
-
-.shop-sidebar a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-/* GRID PRODUCTOS */
 .shop {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
   padding: 0 60px;
+}
+
+.product-image-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.product-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ==============================
@@ -144,7 +121,7 @@ body.portfolio {
   padding: 10px 14px;
   border-radius: 12px;
   cursor: pointer;
-  z-index: 2000;
+  z-index: 3000;
 }
 
 #cart-count {
@@ -155,7 +132,7 @@ body.portfolio {
 }
 
 /* ==============================
-   MODAL BASE
+   MODALES BASE
 ============================== */
 .cart-modal,
 #checkout-modal {
@@ -165,53 +142,43 @@ body.portfolio {
   background: rgba(0,0,0,0.65);
   justify-content: center;
   align-items: center;
-  z-index: 3000;
+  z-index: 4000;
 }
 
 /* ==============================
-   MODAL CARRITO
+   CONTENEDOR MODAL (COMPARTIDO)
 ============================== */
-.cart-modal-content {
-  background: #fff;
-  border-radius: 12px;
-  padding: 25px;
-  width: 90%;
-  max-width: 850px;
-  max-height: 90%;
-  overflow-y: auto;
-  position: relative;
-}
-
-/* ==============================
-   MODAL CHECKOUT (SUPERFREAK REAL)
-============================== */
-#checkout-modal .checkout-content {
+.cart-modal-content,
+.checkout-modal-content {
   background: #fff;
   border-radius: 14px;
   width: 95%;
   max-width: 1100px;
   max-height: 90%;
+  padding: 25px;
   overflow-y: auto;
-  padding: 30px;
   position: relative;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
 }
 
-/* CIERRE */
+/* ==============================
+   CIERRE
+============================== */
 .cart-close,
 .checkout-close {
   position: absolute;
   top: 15px;
   right: 20px;
-  font-size: 2rem;
+  font-size: 1.8rem;
   cursor: pointer;
 }
 
 /* ==============================
-   CHECKOUT GRID DOS COLUMNAS
+   CHECKOUT SUPERFREAK REAL
 ============================== */
-.checkout-container {
+.checkout-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.2fr 1fr;
   gap: 30px;
 }
 
@@ -231,23 +198,18 @@ body.portfolio {
 }
 
 .checkout-left textarea {
-  min-height: 90px;
+  min-height: 80px;
 }
 
-.checkout-left label {
+.payment-methods {
   display: flex;
-  gap: 10px;
-  align-items: center;
-  font-size: 0.95rem;
+  gap: 20px;
+  margin-top: 10px;
 }
 
-.checkout-left button {
-  background: #ff4d4f;
-  color: #fff;
-  border: none;
-  padding: 14px;
-  border-radius: 6px;
-  font-size: 1rem;
+.payment-methods label {
+  display: flex;
+  gap: 6px;
   cursor: pointer;
 }
 
@@ -255,7 +217,7 @@ body.portfolio {
 .checkout-right {
   background: #f9f9f9;
   border-radius: 12px;
-  padding: 20px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -263,29 +225,29 @@ body.portfolio {
 
 #checkout-cart-items {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  max-height: 350px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 300px;
-  overflow-y: auto;
 }
 
 #checkout-cart-items li {
   display: flex;
-  align-items: center;
   gap: 10px;
+  align-items: center;
   background: #fff;
   padding: 8px;
   border-radius: 8px;
 }
 
 #checkout-cart-items img {
-  width: 60px;
-  height: 60px;
-  border-radius: 6px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
+  border-radius: 6px;
 }
 
 #discount-code {
@@ -296,27 +258,49 @@ body.portfolio {
 
 #checkout-total-modal {
   font-weight: bold;
-  font-size: 1.2rem;
   text-align: right;
+  font-size: 1.2rem;
+}
+
+/* ==============================
+   BOTÓN CONFIRMAR
+============================== */
+.checkout-left button {
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.checkout-left button:hover {
+  background: #e04344;
 }
 
 /* ==============================
    RESPONSIVE
 ============================== */
 @media (max-width: 900px) {
-  .checkout-container {
+  .checkout-grid {
     grid-template-columns: 1fr;
   }
 
   .shop {
     grid-template-columns: 1fr;
+    padding: 40px;
   }
 }
 
 @media (max-width: 600px) {
   .cart-modal-content,
-  #checkout-modal .checkout-content {
-    width: 95%;
+  .checkout-modal-content {
     padding: 15px;
+  }
+
+  #checkout-cart-items img {
+    width: 60px;
+    height: 60px;
   }
 }
