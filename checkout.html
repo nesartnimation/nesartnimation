@@ -1,3 +1,51 @@
+<!-- MODAL CHECKOUT -->
+<div id="checkout-modal" class="cart-modal">
+  <div class="cart-modal-content">
+    <span class="checkout-close">&times;</span>
+    <h2>Finalizar Compra</h2>
+
+    <div class="checkout-container" style="display:flex; gap:20px; flex-wrap:wrap;">
+      
+      <!-- COLUMNA IZQUIERDA: RESUMEN DE COMPRA -->
+      <div class="checkout-left" style="flex:1; min-width:300px;">
+        <h3>Resumen de tu compra</h3>
+        <ul id="checkout-cart-items" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;"></ul>
+
+        <div class="checkout-prices" style="margin-top:15px;">
+          <p id="checkout-subtotal">Subtotal: 0€</p>
+          <p id="checkout-vat">IVA 21%: 0€</p>
+          <p id="checkout-shipping">Envío: 6€</p>
+          <p id="checkout-total" style="font-weight:bold;">Total: 0€</p>
+        </div>
+      </div>
+
+      <!-- COLUMNA DERECHA: DATOS DEL CLIENTE -->
+      <div class="checkout-right" style="flex:1; min-width:300px;">
+        <h3>Datos del Cliente</h3>
+        <input type="text" id="client-name" placeholder="Nombre" required>
+        <input type="email" id="client-email" placeholder="Email" required>
+        <input type="tel" id="client-phone" placeholder="Número de teléfono" required>
+        <input type="text" id="client-address" placeholder="Dirección" required>
+        <input type="text" id="client-postal" placeholder="Código postal" required>
+        <input type="text" id="client-country" placeholder="País" required>
+        <input type="text" id="client-city" placeholder="Ciudad" required>
+        <textarea id="client-message" placeholder="Mensaje (opcional)"></textarea>
+
+        <h3>Método de pago</h3>
+        <label>
+          <input type="radio" name="payment" value="card" checked> Tarjeta
+        </label>
+        <label>
+          <input type="radio" name="payment" value="paypal"> PayPal
+        </label>
+
+        <button id="checkout-confirm-btn" style="margin-top:15px; background:#ff4d4f; color:white; border:none; padding:10px 15px; border-radius:6px; cursor:pointer;">Confirmar Compra</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
   const checkoutItems = document.getElementById('checkout-items');
   const checkoutEmpty = document.getElementById('checkout-empty');
