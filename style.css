@@ -47,11 +47,18 @@ html, body {
   font-size: 3rem;
   color: #ffffff;
   text-decoration: none;
+  background: transparent;
   cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hero-text:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
 }
 
 /* ==============================
-   HEADER / MENU
+   HEADER / MENU (PORTFOLIO)
 ============================== */
 body.portfolio {
   font-family: Arial, sans-serif;
@@ -91,30 +98,80 @@ body.portfolio {
 }
 
 /* ==============================
-   GALERÍAS
+   GALERÍA ARTÍSTICA
 ============================== */
-.gallery-art,
+.gallery-art {
+  background-color: #f5f5f5;
+  padding: 100px 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallery-art img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.gallery-art img:hover {
+  transform: scale(1.04);
+}
+
+/* ==============================
+   GALERÍA MASONRY
+============================== */
 .gallery-masonry {
+  column-count: 3;
+  column-gap: 40px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 100px 60px;
 }
 
-.gallery-art {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-}
-
-.gallery-art img,
 .gallery-masonry img {
   width: 100%;
+  height: auto;
+  margin-bottom: 40px;
+  break-inside: avoid;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
+/* PROJECT PAGE */
+.project-page {
+  max-width: 1100px;
+  margin: auto;
+  padding: 180px 20px 60px;
+}
+
+.project-header {
+  margin-bottom: 60px;
+}
+
+.project-header h1 {
+  font-size: 3rem;
+}
+
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+.project-gallery img {
+  width: 100%;
+  display: block;
+}
+
 /* ==============================
-   NESART
+   NESART – GALERÍA MASONRY ORGÁNICA CON HOVER Y CLICK
 ============================== */
 .nesart-page {
   padding: 180px 60px 120px;
@@ -131,12 +188,64 @@ body.portfolio {
   break-inside: avoid;
   margin-bottom: 40px;
   position: relative;
+  overflow: hidden;
 }
 
 .nesart-masonry-item img {
   width: 100%;
+  height: auto;
+  display: block;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.nesart-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  padding: 20px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.nesart-overlay-text {
+  color: #fff;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.nesart-overlay-text strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.nesart-masonry-item:hover img {
+  filter: brightness(0.75);
+  transform: scale(1.03);
+}
+
+.nesart-masonry-item:hover .nesart-overlay {
+  opacity: 1;
+}
+
+@media (max-width: 1000px) {
+  .nesart-masonry {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .nesart-masonry {
+    column-count: 1;
+  }
 }
 
 /* ==============================
@@ -150,6 +259,7 @@ body.portfolio {
   gap: 60px;
 }
 
+/* SIDEBAR */
 .shop-sidebar {
   width: 220px;
   background: #000;
@@ -159,6 +269,23 @@ body.portfolio {
   top: 170px;
 }
 
+.shop-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shop-sidebar li {
+  margin-bottom: 20px;
+}
+
+.shop-sidebar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* GRID PRODUCTOS */
 .shop {
   flex: 1;
   display: grid;
@@ -167,7 +294,13 @@ body.portfolio {
   padding: 0 60px;
 }
 
+.product {
+  text-align: center;
+}
+
+/* IMAGEN CUADRADA */
 .product-image-wrapper {
+  width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 12px;
@@ -177,16 +310,44 @@ body.portfolio {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+}
+
+/* TEXTO PRODUCTO */
+.product h3 {
+  margin: 18px 0 6px;
+}
+
+.product p {
+  margin: 0;
+  color: #777;
 }
 
 /* ==============================
-   CARRITO ICONO
+   PÁGINA PRODUCTO
+============================== */
+.product-page {
+  display: flex;
+  max-width: 1200px;
+  margin: 200px auto 100px;
+  gap: 60px;
+  padding: 0 20px;
+}
+
+.product-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+}
+
+/* ==============================
+   CARRITO (SOLO TIENDA / PRODUCTOS)
 ============================== */
 #cart {
   position: fixed;
   top: 20px;
   right: 20px;
-  background: white;
+  background: rgba(255,255,255,0.95);
   padding: 10px 14px;
   border-radius: 12px;
   cursor: pointer;
@@ -195,152 +356,298 @@ body.portfolio {
 
 #cart-count {
   background: red;
-  color: white;
+  color: #fff;
   border-radius: 50%;
   padding: 2px 8px;
 }
 
 /* ==============================
-   MODAL CARRITO
+   MODAL CARRITO Y CHECKOUT ESTILO SUPERFREAK
 ============================== */
-.cart-modal {
+.cart-modal,
+#checkout-modal {
   display: none;
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.6);
-  z-index: 3000;
   justify-content: center;
   align-items: center;
+  z-index: 3000;
 }
 
-.cart-modal-content {
+.cart-modal-content,
+#checkout-modal .checkout-content {
   background: #fff;
   border-radius: 12px;
   padding: 25px;
   width: 90%;
-  max-width: 600px;
-}
-
-/* ==============================
-   CHECKOUT MODAL NUEVO
-============================== */
-#checkout-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 4000;
-  justify-content: center;
-  align-items: center;
-}
-
-.checkout-box {
-  background: #fff;
-  width: 95%;
-  max-width: 1100px;
-  max-height: 90vh;
-  border-radius: 12px;
-  padding: 40px;
-  display: flex;
-  gap: 40px;
+  max-width: 1000px;
+  max-height: 90%;
   overflow-y: auto;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   position: relative;
 }
 
-.checkout-title {
-  position: absolute;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-
-.checkout-close {
+/* Cierre */
+.cart-close,
+#checkout-modal .checkout-close {
   position: absolute;
   top: 15px;
   right: 20px;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
+  font-weight: bold;
   cursor: pointer;
+  color: #333;
 }
 
-/* COLUMNA IZQUIERDA */
-.checkout-cart {
-  flex: 1;
-  background: #f9f9f9;
-  border-radius: 10px;
-  padding: 25px;
+/* Título */
+.cart-modal h2,
+#checkout-modal h2 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #333;
 }
 
-.checkout-cart ul {
+/* Lista productos tipo tarjeta */
+#cart-modal-items,
+#checkout-modal #cart-modal-items {
   list-style: none;
+  margin: 0;
   padding: 0;
-}
-
-.checkout-cart li {
   display: flex;
+  flex-direction: column;
   gap: 15px;
-  margin-bottom: 15px;
 }
 
-.checkout-cart img {
-  width: 70px;
-  height: 70px;
-  border-radius: 6px;
-  object-fit: cover;
-}
-
-/* COLUMNA DERECHA */
-.checkout-form {
-  flex: 1;
-}
-
-.checkout-form .field {
-  margin-bottom: 14px;
-}
-
-.checkout-form input,
-.checkout-form textarea {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #aaa;
-  padding: 8px 0;
-}
-
-/* MÉTODOS DE PAGO */
-.payment-options {
+#cart-modal-items li,
+#checkout-modal #cart-modal-items li {
   display: flex;
-  gap: 20px;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 10px;
+  border-radius: 10px;
+  background: #f9f9f9;
+  border: 1px solid #eee;
 }
 
-.payment-option {
+#cart-modal-items img,
+#checkout-modal #cart-modal-items li img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cart-item-info {
   flex: 1;
-  border: 1px solid #ccc;
-  padding: 14px;
-  border-radius: 8px;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
-/* BOTÓN */
-.checkout-pay {
-  background: black;
-  color: white;
+.cart-item-info span {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Total y botón */
+#cart-modal-total,
+#checkout-modal #cart-modal-total {
+  font-weight: bold;
+  text-align: right;
+  font-size: 1.2rem;
+  margin-top: 8px;
+}
+
+#cart-modal-empty,
+#checkout-modal #cart-modal-empty {
+  text-align: center;
+  color: #ff4d4f;
+  font-weight: bold;
+  display: none;
+  margin: 10px 0;
+}
+
+#cart-modal-checkout,
+#checkout-modal button {
+  background: #ff4d4f;
+  color: #fff;
   border: none;
-  width: 100%;
-  padding: 14px;
-  border-radius: 8px;
+  padding: 12px 20px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+#cart-modal-checkout:hover,
+#checkout-modal button:hover {
+  background: #e04344;
 }
 
 /* ==============================
-   RESPONSIVE
+   CHECKOUT SUPERFREAK DOS COLUMNAS
+============================== */
+.checkout-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* IZQUIERDA: DATOS CLIENTE */
+.checkout-left {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkout-left h2,
+.checkout-left h3 {
+  margin: 0 0 8px;
+}
+
+#checkout-form input,
+#checkout-form select,
+#checkout-form textarea,
+#checkout-form button {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#checkout-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+#checkout-form button {
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+#checkout-form button:hover {
+  background: #e04344;
+}
+
+/* DERECHA: RESUMEN CARRITO */
+.checkout-right {
+  flex: 1;
+  min-width: 250px;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkout-right h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+#checkout-cart-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#checkout-cart-items li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+#checkout-cart-items li img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+#discount-code {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#checkout-subtotal,
+#checkout-total {
+  font-weight: bold;
+  text-align: right;
+  margin: 0;
+}
+
+/* ==============================
+   BOTÓN BLOQUEADO CUANDO NO HAY STOCK
+============================== */
+#product-add-btn:disabled {
+  background: #ccc;
+  color: #777;
+  cursor: not-allowed;
+}
+
+/* ==============================
+   RESPONSIVE TIENDA / PRODUCTO
 ============================== */
 @media (max-width: 900px) {
-  .shop {
-    grid-template-columns: 1fr;
+  .shop-container {
+    flex-direction: column;
   }
 
-  .checkout-box {
+  .shop {
+    grid-template-columns: 1fr;
+    padding: 40px;
+  }
+
+  .product-page {
+    flex-direction: column-reverse;
+  }
+}
+
+/* ==============================
+   RESPONSIVE MODAL
+============================== */
+@media (max-width: 600px){
+  .cart-modal-content,
+  #checkout-modal .cart-modal-content {
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  #cart-modal-items li img,
+  #checkout-modal #cart-modal-items li img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .checkout-container {
     flex-direction: column;
   }
 }
