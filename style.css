@@ -93,7 +93,157 @@ body.portfolio {
 /* ==============================
    GALERÍA / PROJECT / NESART
 ============================== */
-/* Mantengo tus estilos originales de galerías y masonry, no hay duplicados */
+/* ==============================
+   GALERÍA ARTÍSTICA
+============================== */
+.gallery-art {
+  background-color: #f5f5f5;
+  padding: 100px 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallery-art img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.gallery-art img:hover {
+  transform: scale(1.04);
+}
+
+/* ==============================
+   GALERÍA MASONRY
+============================== */
+.gallery-masonry {
+  column-count: 3;
+  column-gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 60px;
+}
+
+.gallery-masonry img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 40px;
+  break-inside: avoid;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* PROJECT PAGE */
+.project-page {
+  max-width: 1100px;
+  margin: auto;
+  padding: 180px 20px 60px;
+}
+
+.project-header {
+  margin-bottom: 60px;
+}
+
+.project-header h1 {
+  font-size: 3rem;
+}
+
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+.project-gallery img {
+  width: 100%;
+  display: block;
+}
+
+/* ==============================
+   NESART – GALERÍA MASONRY ORGÁNICA CON HOVER Y CLICK
+============================== */
+.nesart-page {
+  padding: 180px 60px 120px;
+}
+
+.nesart-masonry {
+  column-count: 3;
+  column-gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.nesart-masonry-item {
+  break-inside: avoid;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.nesart-masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.nesart-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  padding: 20px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.nesart-overlay-text {
+  color: #fff;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.nesart-overlay-text strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.nesart-masonry-item:hover img {
+  filter: brightness(0.75);
+  transform: scale(1.03);
+}
+
+.nesart-masonry-item:hover .nesart-overlay {
+  opacity: 1;
+}
+
+@media (max-width: 1000px) {
+  .nesart-masonry {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .nesart-masonry {
+    column-count: 1;
+  }
+}
+
 
 /* ==============================
    TIENDA
@@ -374,5 +524,6 @@ body.portfolio {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
 
 
