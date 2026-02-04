@@ -93,6 +93,28 @@ body.portfolio {
 /* ==============================
    GALERÍA / PROJECT / NESART
 ============================== */
+/* Contenedores para limitar tamaño de imagen */
+.gallery-art-item,
+.gallery-masonry-item,
+.nesart-masonry-item,
+.project-gallery-item {
+  width: 100%;
+  max-width: 400px;  /* ajusta según tu diseño */
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.gallery-art-item img,
+.gallery-masonry-item img,
+.nesart-masonry-item img,
+.project-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* ==============================
    GALERÍA ARTÍSTICA
 ============================== */
@@ -243,7 +265,6 @@ body.portfolio {
     column-count: 1;
   }
 }
-
 
 /* ==============================
    TIENDA
@@ -400,16 +421,16 @@ body.portfolio {
   background: #f9f9f9;
   padding: 8px;
   border-radius: 6px;
-  flex-shrink: 0;        /* evita que el li crezca verticalmente */
+  flex-shrink: 0;
 }
 
 #cart-modal-items img,
 .checkout-left ul#checkout-cart-items li img {
-  width: 120px;            /* tamaño fijo miniatura */
+  width: 120px;
   height: 120px;
   object-fit: cover;
   border-radius: 6px;
-  flex-shrink: 0;         /* evita que la imagen se estire */
+  flex-shrink: 0;
 }
 
 .cart-item-info { flex: 1; display: flex; flex-direction: column; }
@@ -524,6 +545,3 @@ body.portfolio {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
-
-
-
