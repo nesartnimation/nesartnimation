@@ -123,6 +123,23 @@
     if(category==='all') renderProducts(allProducts);
     else renderProducts(allProducts.filter(p=>p.category===category));
   }
+  // =======================
+  // MODAL CARRITO
+  // =======================
+<div id="cart-modal" class="cart-modal">
+  <div class="cart-modal-content">
+    <span class="cart-close">&times;</span>
+    <h2>Tu carrito</h2>
+
+    <ul id="cart-modal-items"></ul>
+    <p id="cart-modal-empty">Tu carrito está vacío</p>
+
+    <div class="cart-footer">
+      <p id="cart-modal-total"></p>
+      <button id="cart-modal-checkout">Finalizar compra</button>
+    </div>
+  </div>
+</div>
 
   // =======================
   // CARGAR JSON
