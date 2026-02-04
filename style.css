@@ -493,76 +493,21 @@ body.portfolio {
 }
 
 /* ==============================
-   CHECKOUT SUPERFREAK DOS COLUMNAS
+   CHECKOUT MODAL DOS COLUMNAS
 ============================== */
 .checkout-container {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
+  gap: 20px;
 }
 
-/* IZQUIERDA: DATOS CLIENTE */
-.checkout-left {
-  flex: 1;
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.checkout-left h2,
-.checkout-left h3 {
-  margin: 0 0 8px;
-}
-
-#checkout-form input,
-#checkout-form select,
-#checkout-form textarea,
-#checkout-form button {
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-#checkout-form textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-#checkout-form button {
-  background: #ff4d4f;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  margin-top: 10px;
-}
-
-#checkout-form button:hover {
-  background: #e04344;
-}
-
-/* DERECHA: RESUMEN CARRITO */
+.checkout-left,
 .checkout-right {
   flex: 1;
-  min-width: 250px;
-  background: #f9f9f9;
-  padding: 15px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  min-width: 300px;
 }
 
-.checkout-right h2 {
-  margin-top: 0;
-  text-align: center;
-}
-
-#checkout-cart-items {
+.checkout-left ul#checkout-cart-items {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -571,38 +516,67 @@ body.portfolio {
   gap: 10px;
 }
 
-#checkout-cart-items li {
+.checkout-left ul#checkout-cart-items li {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
-  padding: 6px;
-  background: #fff;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-#checkout-cart-items li img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
+  background: #f9f9f9;
+  padding: 8px;
   border-radius: 6px;
 }
 
-#discount-code {
-  padding: 10px;
+.checkout-left .checkout-prices p {
+  margin: 6px 0;
+  font-size: 1rem;
+}
+
+.checkout-left .checkout-prices p#checkout-total {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.checkout-right input,
+.checkout-right textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  width: 100%;
   box-sizing: border-box;
 }
 
-#checkout-subtotal,
-#checkout-total {
-  font-weight: bold;
-  text-align: right;
-  margin: 0;
+.checkout-right textarea {
+  min-height: 80px;
+  resize: vertical;
 }
+
+.checkout-right label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: normal;
+}
+
+.checkout-right button#checkout-confirm-btn {
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.checkout-right button#checkout-confirm-btn:hover {
+  background: #e04344;
+}
+
+@media(max-width:900px){
+  .checkout-container {
+    flex-direction: column;
+  }
+}
+
 
 /* ==============================
    BOTÓN BLOQUEADO CUANDO NO HAY STOCK
@@ -651,3 +625,4 @@ body.portfolio {
     flex-direction: column;
   }
 }
+
