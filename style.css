@@ -255,8 +255,8 @@ body.portfolio {
 
 #cart-modal-items img,
 #checkout-cart-items img {
-  width: 90px;
-  height: 90px;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   border-radius: 8px;
 }
@@ -373,3 +373,4 @@ body.portfolio {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
