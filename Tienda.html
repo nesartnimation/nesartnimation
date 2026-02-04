@@ -64,35 +64,100 @@
   </div>
 </div>
 
-<!-- Modal de checkout -->
-<div id="checkout-modal">
-  <div class="checkout-modal-content">
-    <span class="checkout-close">×</span>
-    <h2>Finalizar Compra</h2>
-    <div class="checkout-grid">
-      <!-- IZQUIERDA: Formulario cliente -->
-      <div class="checkout-left">
-        <form id="checkout-form">
-          <input type="text" id="client-name" placeholder="Nombre completo" required>
-          <input type="email" id="client-email" placeholder="Email" required>
-          <input type="tel" id="client-phone" placeholder="Teléfono" required>
-          <input type="text" id="client-address" placeholder="Dirección" required>
-          <input type="text" id="client-city" placeholder="Ciudad" required>
-          <input type="text" id="client-postal" placeholder="Código Postal" required>
-          <input type="text" id="client-country" placeholder="País" required>
-          <textarea id="client-message" placeholder="Mensaje (opcional)"></textarea>
-          <h3>Método de pago</h3>
-          <label><input type="radio" name="payment-method" value="paypal" required> PayPal</label>
-          <label><input type="radio" name="payment-method" value="tarjeta" required> Tarjeta de crédito</label>
-          <button type="submit">Confirmar Compra</button>
-        </form>
-      </div>
-      <!-- DERECHA: Carrito + total + descuento -->
-      <div class="checkout-right">
+<!-- CHECKOUT MODAL -->
+<div id="checkout-modal" class="checkout-overlay">
+  <div class="checkout-box">
+
+    <div class="checkout-header">
+      <span class="checkout-back">←</span>
+      <h2>Checkout</h2>
+      <span class="checkout-close">×</span>
+    </div>
+
+    <div class="checkout-content">
+
+      <!-- LEFT: CART -->
+      <div class="checkout-cart">
+        <h3>Your Cart</h3>
+
         <ul id="checkout-cart-items"></ul>
-        <input type="number" id="discount-code" placeholder="Código de descuento">
-        <p id="checkout-total-modal">Total: 0€</p>
+
+        <div class="discount-row">
+          <input type="text" placeholder="Discount Code">
+          <button>Submit</button>
+        </div>
+
+        <div class="price-row">
+          <span>Subtotal</span>
+          <span id="checkout-subtotal">0€</span>
+        </div>
+
+        <div class="price-row">
+          <span>VAT (Spain)</span>
+          <span>0€</span>
+        </div>
+
+        <div class="price-row">
+          <span>Shipping (Spain)</span>
+          <span>1€</span>
+        </div>
+
+        <div class="price-total">
+          <span>Total</span>
+          <span id="checkout-total">0€</span>
+        </div>
       </div>
+
+      <!-- RIGHT: CUSTOMER -->
+      <div class="checkout-form">
+        <h3>Customer details</h3>
+
+        <input type="text" placeholder="Name">
+        <div class="two-cols">
+          <input type="email" placeholder="Email">
+          <input type="tel" placeholder="Phone Number">
+        </div>
+
+        <input type="text" placeholder="Address">
+
+        <div class="two-cols">
+          <input type="text" placeholder="Zip">
+          <input type="text" placeholder="City">
+        </div>
+
+        <div class="two-cols">
+          <input type="text" placeholder="Country" value="Spain">
+          <input type="text" placeholder="State">
+        </div>
+
+        <textarea placeholder="Message"></textarea>
+
+        <label class="checkbox">
+          <input type="checkbox" checked> Ship to this Address
+        </label>
+
+        <h4>Choose how to pay</h4>
+
+        <div class="payment-methods">
+          <label class="payment active">
+            <input type="radio" name="payment" checked>
+            With Card
+          </label>
+
+          <label class="payment">
+            <input type="radio" name="payment">
+            With PayPal
+          </label>
+        </div>
+
+        <button class="pay-now">Pay Now</button>
+
+        <p class="legal">
+          By submitting this order I accept:
+          <a href="#">Terms</a> and <a href="#">Privacy</a>
+        </p>
+      </div>
+
     </div>
   </div>
 </div>
@@ -100,6 +165,7 @@
 <script src="js/shop.js"></script>
 </body>
 </html>
+
 
 
 
