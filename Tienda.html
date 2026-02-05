@@ -36,7 +36,7 @@
     <ul>
       <li><a href="#" data-category="prints">Prints</a></li>
       <li><a href="#" data-category="chapas">Chapas</a></li>
-      <li><a href="#" data-category="totebags">Totebags</a></li>
+      <li><a href="#" data-category="llaveros">Totebags</a></li>
       <li><a href="#" data-category="camisetas">Camisetas</a></li>
       <li><a href="#" data-category="stickers">Stickers</a></li>
       <li><a href="#" data-category="llaveros">Llaveros</a></li>
@@ -47,70 +47,54 @@
   <main class="shop"></main>
 </div>
 
-<!-- MODAL CARRITO -->
-<div id="cart-modal" class="cart-modal">
-  <div class="cart-modal-content">
-    <span class="cart-close">&times;</span>
-    <h2>Tu carrito</h2>
-    <ul id="cart-modal-items"></ul>
-    <p id="cart-modal-empty">Tu carrito está vacío</p>
-    <div class="cart-footer">
-      <p id="cart-modal-total"></p>
-      <button id="cart-modal-checkout">Finalizar compra</button>
-    </div>
-  </div>
-</div>
+<!-- Scripts -->
+<script src="js/cart.js"></script>
+<script>
+  // =======================
+  // CARGAR PRODUCTOS Y FILTRAR
+  // =======================
+  let allProducts = [];
+  const shop = document.querySelector('.shop');
+  const categoryLinks = document.querySelectorAll('.shop-sidebar a');
 
-  <!-- MODAL CHECKOUT -->
-<div id="checkout-modal" class="cart-modal">
-  <div class="cart-modal-content">
-    <span class="checkout-close">&times;</span>
-    <h2>Finalizar Compra</h2>
+  fetch('data/products.json')
+    .then(res => res.json())
+    .then(products => {
+      allProducts = products;
 
-    <div class="checkout-container" style="display:flex; gap:20px; flex-wrap:wrap;">
-      
-      <!-- COLUMNA IZQUIERDA: RESUMEN DE COMPRA -->
-      <div class="checkout-left" style="flex:1; min-width:300px;">
-        <h3>Resumen de tu compra</h3>
-        <ul id="checkout-cart-items" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;"></ul>
+      // Filtrar según URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const catFromURL = urlParams.get('id');
+      if(catFromURL && allProducts.some(p=>p.category===catFromURL)){
+        filterCategory(catFromURL);
+      } else {
+        filterCategory('all');
+      }
+    }).catch(err => console.error(err));
 
-        <div class="checkout-prices" style="margin-top:15px;">
-          <p id="checkout-subtotal">Subtotal: 0€</p>
-          <p id="checkout-vat">IVA 21%: 0€</p>
-          <p id="checkout-shipping">Envío: 6€</p>
-          <p id="checkout-total" style="font-weight:bold;">Total: 0€</p>
-        </div>
-      </div>
+  // =======================
+  // FILTRAR POR CATEGORÍA
+  // =======================
+  function filterCategory(category){
+    categoryLinks.forEach(link=>{
+      if(link.dataset.category === category) link.classList.add('active');
+      else link.classList.remove('active');
+    });
 
-      <!-- COLUMNA DERECHA: DATOS DEL CLIENTE -->
-      <div class="checkout-right" style="flex:1; min-width:300px;">
-        <h3>Datos del Cliente</h3>
-        <input type="text" id="client-name" placeholder="Nombre" required>
-        <input type="email" id="client-email" placeholder="Email" required>
-        <input type="tel" id="client-phone" placeholder="Número de teléfono" required>
-        <input type="text" id="client-address" placeholder="Dirección" required>
-        <input type="text" id="client-postal" placeholder="Código postal" required>
-        <input type="text" id="client-country" placeholder="País" required>
-        <input type="text" id="client-city" placeholder="Ciudad" required>
-        <textarea id="client-message" placeholder="Mensaje (opcional)"></textarea>
+    if(category==='all') renderProducts(allProducts);
+    else renderProducts(allProducts.filter(p=>p.category===category));
+  }
 
-        <h3>Método de pago</h3>
-        <label>
-          <input type="radio" name="payment" value="card" checked> Tarjeta
-        </label>
-        <label>
-          <input type="radio" name="payment" value="paypal"> PayPal
-        </label>
+  // =======================
+  // EVENTOS SIDEBAR
+  // =======================
+  categoryLinks.forEach(link=>{
+    link.addEventListener('click', e=>{
+      e.preventDefault();
+      filterCategory(link.dataset.category);
+    });
+  });
+</script>
 
-        <button id="checkout-confirm-btn" style="margin-top:15px; background:#ff4d4f; color:white; border:none; padding:10px 15px; border-radius:6px; cursor:pointer;">Confirmar Compra</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-<script src="js/shop.js"></script>
 </body>
 </html>
-
