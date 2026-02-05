@@ -99,7 +99,8 @@ body.portfolio {
 .nesart-masonry-item,
 .project-gallery-item {
   width: 100%;
-  max-width: 400px;  
+  max-width: 400px;  /* ajusta según tu diseño */
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 12px;
 }
@@ -194,10 +195,11 @@ body.portfolio {
   padding: 180px 60px 120px;
 }
 
+/* --- MODIFICADO PARA AMPLIAR IMAGEN Y CONTENEDOR --- */
 .nesart-masonry {
   column-count: 3;
   column-gap: 40px;
-  max-width: 1400px;
+  max-width: 1600px;  /* antes 1400px */
   margin: 0 auto;
 }
 
@@ -206,15 +208,21 @@ body.portfolio {
   margin-bottom: 40px;
   position: relative;
   overflow: hidden;
+  min-height: 250px; /* antes no tenía, ahora más grande */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .nesart-masonry-item img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain; /* mantiene imagen completa */
   display: block;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   transition: transform 0.4s ease, filter 0.4s ease;
+  margin: 0 auto; /* centra horizontalmente */
 }
 
 .nesart-overlay {
@@ -359,39 +367,14 @@ body.portfolio {
 #checkout-modal {
   display: none;
   position: fixed;
-  inset: 0;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(0,0,0,0.6);
   justify-content: center;
   align-items: center;
   z-index: 3000;
 }
 
-/* ==============================
-   CHECKOUT - ARREGLADO PARA TIENDA/CATEGORÍAS
-============================== */
-#checkout-modal .checkout-box {
-  width: 90%;
-  max-width: 1000px;
-  background: #fff;
-  border-radius: 12px;
-  padding: 0;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-}
-
-#checkout-modal .checkout-content {
-  display: flex;
-  gap: 20px;
-  padding: 25px;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.checkout-left, .checkout-right {
-  flex: 1;
-  min-width: 300px;
-}
-
-/* Cierre */
 .cart-modal-content,
 #checkout-modal .checkout-content {
   background: #fff;
@@ -405,6 +388,7 @@ body.portfolio {
   position: relative;
 }
 
+/* Cierre */
 .cart-close,
 #checkout-modal .checkout-close {
   position: absolute;
@@ -416,6 +400,7 @@ body.portfolio {
   color: #333;
 }
 
+/* Título */
 .cart-modal h2,
 #checkout-modal h2 {
   margin-top: 0;
@@ -424,6 +409,7 @@ body.portfolio {
   color: #333;
 }
 
+/* LISTA PRODUCTOS */
 #cart-modal-items,
 #checkout-cart-items {
   list-style: none;
@@ -457,6 +443,7 @@ body.portfolio {
 .cart-item-info { flex: 1; display: flex; flex-direction: column; }
 .cart-item-info span { font-size: 1rem; color: #333; }
 
+/* Total y botón */
 #cart-modal-total,
 #checkout-total {
   font-weight: bold;
