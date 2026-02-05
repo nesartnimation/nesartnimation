@@ -6,12 +6,12 @@
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+<body class="portfolio product-page-body">
 
-<body class="portfolio producto">
-
+<!-- HEADER -->
 <header id="main-header">
   <div class="logo-container">
-    <a href="Tienda.html">
+    <a href="nesart.html">
       <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
     </a>
   </div>
@@ -26,160 +26,71 @@
     </ul>
   </nav>
 
+  <!-- CARRITO FLOTANTE -->
   <div id="cart">
     <span id="cart-count">0</span> 🛒
   </div>
 </header>
 
-<main style="padding-top:180px;">
-  <section class="product-page">
+<!-- CONTENIDO PRODUCTO -->
+<section class="product-page">
 
-    <div class="product-info">
-      <h1 id="product-title"></h1>
-      <p id="product-description"></p>
-      <p id="product-price"></p>
-      <p id="product-stock"></p>
-      <button id="product-add-btn">Añadir al carrito</button>
-    </div>
-
-    <div class="product-image">
-      <img id="product-img" alt="">
-    </div>
-
-  </section>
-</main>
-
-<!-- MODAL CARRITO -->
-<div id="cart-modal" class="cart-modal">
-  <div class="cart-modal-content">
-    <span class="cart-close">&times;</span>
-    <h2>Tu carrito</h2>
-    <ul id="cart-modal-items"></ul>
-    <p id="cart-modal-total"></p>
-    <button id="cart-modal-checkout">Finalizar compra</button>
-    <p id="cart-modal-empty">Tu carrito está vacío</p>
+  <!-- IMAGEN -->
+  <div class="product-image">
+    <img id="product-image" src="" alt="">
   </div>
-</div>
 
-  <!-- MODAL CHECKOUT -->
-<div id="checkout-modal" class="cart-modal">
-  <div class="cart-modal-content">
-    <span class="checkout-close">&times;</span>
-    <h2>Finalizar Compra</h2>
+  <!-- INFO -->
+  <div class="product-info">
+    <h1 id="product-name"></h1>
+    <p id="product-price"></p>
+    <p id="product-description"></p>
 
-    <div class="checkout-container" style="display:flex; gap:20px; flex-wrap:wrap;">
-      
-      <!-- COLUMNA IZQUIERDA: RESUMEN DE COMPRA -->
-      <div class="checkout-left" style="flex:1; min-width:300px;">
-        <h3>Resumen de tu compra</h3>
-        <ul id="checkout-cart-items" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;"></ul>
-
-        <div class="checkout-prices" style="margin-top:15px;">
-          <p id="checkout-subtotal">Subtotal: 0€</p>
-          <p id="checkout-vat">IVA 21%: 0€</p>
-          <p id="checkout-shipping">Envío: 6€</p>
-          <p id="checkout-total" style="font-weight:bold;">Total: 0€</p>
-        </div>
-      </div>
-
-      <!-- COLUMNA DERECHA: DATOS DEL CLIENTE -->
-      <div class="checkout-right" style="flex:1; min-width:300px;">
-        <h3>Datos del Cliente</h3>
-        <input type="text" id="client-name" placeholder="Nombre" required>
-        <input type="email" id="client-email" placeholder="Email" required>
-        <input type="tel" id="client-phone" placeholder="Número de teléfono" required>
-        <input type="text" id="client-address" placeholder="Dirección" required>
-        <input type="text" id="client-postal" placeholder="Código postal" required>
-        <input type="text" id="client-country" placeholder="País" required>
-        <input type="text" id="client-city" placeholder="Ciudad" required>
-        <textarea id="client-message" placeholder="Mensaje (opcional)"></textarea>
-
-        <h3>Método de pago</h3>
-        <label>
-          <input type="radio" name="payment" value="card" checked> Tarjeta
-        </label>
-        <label>
-          <input type="radio" name="payment" value="paypal"> PayPal
-        </label>
-
-        <button id="checkout-confirm-btn" style="margin-top:15px; background:#ff4d4f; color:white; border:none; padding:10px 15px; border-radius:6px; cursor:pointer;">Confirmar Compra</button>
-      </div>
-
-    </div>
+    <button id="add-to-cart-btn">Añadir al carrito</button>
   </div>
-</div>
 
+</section>
+
+<!-- SCRIPTS -->
+<script src="js/cart.js"></script>
 
 <script>
-const urlParams = new URLSearchParams(window.location.search);
-const productId = urlParams.get('id');
+  // =======================
+  // CARGAR PRODUCTO
+  // =======================
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get('id');
 
-const titleEl = document.getElementById('product-title');
-const imgEl = document.getElementById('product-img');
-const priceEl = document.getElementById('product-price');
-const descEl = document.getElementById('product-description');
-const stockEl = document.getElementById('product-stock');
-const addBtn = document.getElementById('product-add-btn');
+  let currentProduct = null;
 
-fetch('data/products.json')
-  .then(res => res.json())
-  .then(products => {
-    const product = products.find(p => p.id === productId);
-    if (!product) {
-      titleEl.textContent = 'Producto no encontrado';
-      addBtn.style.display = 'none';
-      return;
-    }
+  fetch('data/products.json')
+    .then(res => res.json())
+    .then(products => {
+      currentProduct = products.find(p => p.id === productId);
+      if (!currentProduct) return;
 
-    const stock = product.stock ?? Infinity;
-
-    titleEl.textContent = product.name;
-    imgEl.src = product.image;
-    imgEl.alt = product.name;
-    priceEl.textContent = `Precio: ${product.price}€`;
-    descEl.textContent = product.description || '';
-    stockEl.textContent = `Stock: ${stock === Infinity ? '∞' : stock}`;
-
-    if (stock === 0) {
-      addBtn.disabled = true;
-      addBtn.textContent = 'Sin stock';
-    }
-
-    addBtn.addEventListener('click', () => {
-      const existing = cart.find(i => i.id === product.id);
-      const currentQty = existing ? existing.quantity : 0;
-
-      if (currentQty + 1 > stock) return;
-
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        cart.push({
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          image: product.image,
-          quantity: 1,
-          stock: stock
-        });
-      }
-
-      if (currentQty + 1 === stock) {
-        addBtn.disabled = true;
-        addBtn.textContent = 'Sin stock';
-      }
-
-      updateCart();
-      cartModal.style.display = 'flex';
+      document.getElementById('product-image').src = currentProduct.image;
+      document.getElementById('product-image').alt = currentProduct.name;
+      document.getElementById('product-name').textContent = currentProduct.name;
+      document.getElementById('product-price').textContent = `${currentProduct.price}€`;
+      document.getElementById('product-description').textContent = currentProduct.description;
     });
-  })
-  .catch(err => {
-    console.error(err);
-    titleEl.textContent = 'Error cargando producto';
-    addBtn.style.display = 'none';
+
+  // =======================
+  // AÑADIR AL CARRITO
+  // =======================
+  document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+    if (!currentProduct) return;
+
+    addToCart({
+      id: currentProduct.id,
+      name: currentProduct.name,
+      price: currentProduct.price,
+      image: currentProduct.image,
+      stock: currentProduct.stock
+    });
   });
 </script>
 
-<script src="js/shop.js"></script>
 </body>
 </html>
