@@ -61,69 +61,54 @@
   </div>
 </div>
 
-<!-- CHECKOUT MODAL (igual que producto.html) -->
-<div id="checkout-modal" class="checkout-overlay">
-  <div class="checkout-box">
-    <div class="checkout-header">
-      <span class="checkout-back">←</span>
-      <h2>Checkout</h2>
-      <span class="checkout-close">×</span>
-    </div>
+  <!-- MODAL CHECKOUT -->
+<div id="checkout-modal" class="cart-modal">
+  <div class="cart-modal-content">
+    <span class="checkout-close">&times;</span>
+    <h2>Finalizar Compra</h2>
 
-    <div class="checkout-content">
-      <!-- LEFT: CART -->
-      <div class="checkout-left">
-        <ul id="checkout-cart-items"></ul>
-        <div class="checkout-prices">
-          <p>Subtotal: <span id="checkout-subtotal">0€</span></p>
-          <p id="checkout-total">0€</p>
+    <div class="checkout-container" style="display:flex; gap:20px; flex-wrap:wrap;">
+      
+      <!-- COLUMNA IZQUIERDA: RESUMEN DE COMPRA -->
+      <div class="checkout-left" style="flex:1; min-width:300px;">
+        <h3>Resumen de tu compra</h3>
+        <ul id="checkout-cart-items" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;"></ul>
+
+        <div class="checkout-prices" style="margin-top:15px;">
+          <p id="checkout-subtotal">Subtotal: 0€</p>
+          <p id="checkout-vat">IVA 21%: 0€</p>
+          <p id="checkout-shipping">Envío: 6€</p>
+          <p id="checkout-total" style="font-weight:bold;">Total: 0€</p>
         </div>
       </div>
 
-      <!-- RIGHT: CUSTOMER -->
-      <div class="checkout-right">
-        <input type="text" placeholder="Name">
-        <div class="two-cols">
-          <input type="email" placeholder="Email">
-          <input type="tel" placeholder="Phone Number">
-        </div>
-        <input type="text" placeholder="Address">
-        <div class="two-cols">
-          <input type="text" placeholder="Zip">
-          <input type="text" placeholder="City">
-        </div>
-        <div class="two-cols">
-          <input type="text" placeholder="Country" value="Spain">
-          <input type="text" placeholder="State">
-        </div>
-        <textarea placeholder="Message"></textarea>
+      <!-- COLUMNA DERECHA: DATOS DEL CLIENTE -->
+      <div class="checkout-right" style="flex:1; min-width:300px;">
+        <h3>Datos del Cliente</h3>
+        <input type="text" id="client-name" placeholder="Nombre" required>
+        <input type="email" id="client-email" placeholder="Email" required>
+        <input type="tel" id="client-phone" placeholder="Número de teléfono" required>
+        <input type="text" id="client-address" placeholder="Dirección" required>
+        <input type="text" id="client-postal" placeholder="Código postal" required>
+        <input type="text" id="client-country" placeholder="País" required>
+        <input type="text" id="client-city" placeholder="Ciudad" required>
+        <textarea id="client-message" placeholder="Mensaje (opcional)"></textarea>
 
-        <label class="checkbox">
-          <input type="checkbox" checked> Ship to this Address
+        <h3>Método de pago</h3>
+        <label>
+          <input type="radio" name="payment" value="card" checked> Tarjeta
+        </label>
+        <label>
+          <input type="radio" name="payment" value="paypal"> PayPal
         </label>
 
-        <h4>Choose how to pay</h4>
-        <div class="payment-methods">
-          <label class="payment active">
-            <input type="radio" name="payment" checked>
-            With Card
-          </label>
-          <label class="payment">
-            <input type="radio" name="payment">
-            With PayPal
-          </label>
-        </div>
-
-        <button class="pay-now">Pay Now</button>
-
-        <p class="legal">
-          By submitting this order I accept:
-          <a href="#">Terms</a> and <a href="#">Privacy</a>
-        </p>
+        <button id="checkout-confirm-btn" style="margin-top:15px; background:#ff4d4f; color:white; border:none; padding:10px 15px; border-radius:6px; cursor:pointer;">Confirmar Compra</button>
       </div>
+
     </div>
   </div>
 </div>
+
 
 <script src="js/shop.js"></script>
 </body>
