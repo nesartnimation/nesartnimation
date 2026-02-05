@@ -6,13 +6,17 @@
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body class="portfolio tienda">
 
 <!-- HEADER Y MENÚ -->
 <header id="main-header">
   <div class="logo-container">
-    <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
+    <a href="nesart.html">
+      <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
+    </a>
   </div>
+
   <nav id="main-menu">
     <ul>
       <li><a href="Nesart.html">Nesart</a></li>
@@ -23,7 +27,7 @@
     </ul>
   </nav>
 
-  <!-- CARRITO FLOTA -->
+  <!-- CARRITO -->
   <div id="cart">
     <span id="cart-count">0</span> 🛒
   </div>
@@ -31,62 +35,39 @@
 
 <!-- CONTENIDO TIENDA -->
 <div class="shop-container">
-  <!-- SIDEBAR CATEGORÍAS -->
+
+  <!-- SIDEBAR -->
   <aside class="shop-sidebar">
     <ul>
       <li><a href="#" data-category="prints">Prints</a></li>
       <li><a href="#" data-category="chapas">Chapas</a></li>
-      <li><a href="#" data-category="llaveros">Totebags</a></li>
+      <li><a href="#" data-category="totebags">Totebags</a></li>
       <li><a href="#" data-category="camisetas">Camisetas</a></li>
       <li><a href="#" data-category="stickers">Stickers</a></li>
       <li><a href="#" data-category="llaveros">Llaveros</a></li>
-
     </ul>
   </aside>
 
   <!-- PRODUCTOS -->
   <main class="shop"></main>
 </div>
-  
-<!-- MODAL CARRITO -->
-<div id="cart-modal" class="cart-modal">
-  <div class="cart-modal-content">
-    <span class="cart-close">&times;</span>
-    <h2>Tu carrito</h2>
 
-    <ul id="cart-modal-items"></ul>
-    <p id="cart-modal-empty">Tu carrito está vacío</p>
-
-    <div class="cart-footer">
-      <p id="cart-modal-total"></p>
-      <button id="cart-modal-checkout">Finalizar compra</button>
-    </div>
-  </div>
-</div>
-
-
-<!-- CHECKOUT MODAL -->
+<!-- CHECKOUT MODAL (ÚNICO) -->
 <div id="checkout-modal" class="checkout-overlay">
   <div class="checkout-box">
 
     <div class="checkout-header">
-      <span class="checkout-back">←</span>
-      <h2>Checkout</h2>
       <span class="checkout-close">×</span>
+      <h2>Checkout</h2>
     </div>
 
     <div class="checkout-content">
 
-      <!-- LEFT: CART -->
+      <!-- COLUMNA IZQUIERDA -->
       <div class="checkout-cart">
-        <h3>Your Cart</h3>
+        <h3>Resumen</h3>
 
         <ul id="checkout-cart-items"></ul>
-
-        <div class="discount-row">
-          <input type="text" placeholder="Discount Code">
-          <button>Submit</button>
-        </div>
 
         <div class="price-row">
           <span>Subtotal</span>
@@ -94,13 +75,13 @@
         </div>
 
         <div class="price-row">
-          <span>VAT (Spain)</span>
-          <span>0€</span>
+          <span>IVA (21%)</span>
+          <span id="checkout-vat">0€</span>
         </div>
 
         <div class="price-row">
-          <span>Shipping (Spain)</span>
-          <span>1€</span>
+          <span>Envío</span>
+          <span>6€</span>
         </div>
 
         <div class="price-total">
@@ -109,54 +90,36 @@
         </div>
       </div>
 
-      <!-- RIGHT: CUSTOMER -->
+      <!-- COLUMNA DERECHA -->
       <div class="checkout-form">
-        <h3>Customer details</h3>
+        <h3>Datos del cliente</h3>
 
-        <input type="text" placeholder="Name">
-        <div class="two-cols">
-          <input type="email" placeholder="Email">
-          <input type="tel" placeholder="Phone Number">
-        </div>
-
-        <input type="text" placeholder="Address">
+        <input type="text" placeholder="Nombre">
+        <input type="email" placeholder="Email">
+        <input type="tel" placeholder="Teléfono">
+        <input type="text" placeholder="Dirección">
 
         <div class="two-cols">
-          <input type="text" placeholder="Zip">
-          <input type="text" placeholder="City">
+          <input type="text" placeholder="Código postal">
+          <input type="text" placeholder="Ciudad">
         </div>
 
-        <div class="two-cols">
-          <input type="text" placeholder="Country" value="Spain">
-          <input type="text" placeholder="State">
-        </div>
+        <input type="text" placeholder="País" value="España">
 
-        <textarea placeholder="Message"></textarea>
+        <textarea placeholder="Mensaje"></textarea>
 
-        <label class="checkbox">
-          <input type="checkbox" checked> Ship to this Address
-        </label>
-
-        <h4>Choose how to pay</h4>
+        <h4>Método de pago</h4>
 
         <div class="payment-methods">
           <label class="payment active">
-            <input type="radio" name="payment" checked>
-            With Card
+            <input type="radio" name="payment" checked> Tarjeta
           </label>
-
           <label class="payment">
-            <input type="radio" name="payment">
-            With PayPal
+            <input type="radio" name="payment"> PayPal
           </label>
         </div>
 
-        <button class="pay-now">Pay Now</button>
-
-        <p class="legal">
-          By submitting this order I accept:
-          <a href="#">Terms</a> and <a href="#">Privacy</a>
-        </p>
+        <button class="pay-now">Pagar ahora</button>
       </div>
 
     </div>
@@ -164,12 +127,18 @@
 </div>
 
 <script src="js/shop.js"></script>
+
+<script>
+  // Abrir checkout desde icono carrito
+  document.getElementById('cart').addEventListener('click', () => {
+    document.getElementById('checkout-modal').style.display = 'flex';
+  });
+
+  // Cerrar checkout
+  document.querySelector('.checkout-close').addEventListener('click', () => {
+    document.getElementById('checkout-modal').style.display = 'none';
+  });
+</script>
+
 </body>
 </html>
-
-
-
-
-
-
-
