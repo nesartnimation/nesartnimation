@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Categorías - NesArt</title>
+  <title>Categoría - NesArt</title>
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body class="portfolio categorias">
+<body class="portfolio tienda">
 
 <!-- HEADER Y MENÚ -->
 <header id="main-header">
@@ -36,7 +36,7 @@
     <ul>
       <li><a href="#" data-category="prints">Prints</a></li>
       <li><a href="#" data-category="chapas">Chapas</a></li>
-      <li><a href="#" data-category="totebags">Totebags</a></li>
+      <li><a href="#" data-category="llaveros">Totebags</a></li>
       <li><a href="#" data-category="camisetas">Camisetas</a></li>
       <li><a href="#" data-category="stickers">Stickers</a></li>
       <li><a href="#" data-category="llaveros">Llaveros</a></li>
@@ -47,170 +47,53 @@
   <main class="shop"></main>
 </div>
 
-<!-- MODAL CARRITO -->
-<div id="cart-modal" class="cart-modal">
-  <div class="cart-modal-content">
-    <span class="cart-close">&times;</span>
-    <h2>Tu carrito</h2>
-    <ul id="cart-modal-items"></ul>
-    <p id="cart-modal-empty">Tu carrito está vacío</p>
-    <div class="cart-footer">
-      <p id="cart-modal-total"></p>
-      <button id="cart-modal-checkout">Finalizar compra</button>
-    </div>
-  </div>
-</div>
-
-  <!-- MODAL CHECKOUT -->
-<div id="checkout-modal" class="cart-modal">
-  <div class="cart-modal-content">
-    <span class="checkout-close">&times;</span>
-    <h2>Finalizar Compra</h2>
-
-    <div class="checkout-container" style="display:flex; gap:20px; flex-wrap:wrap;">
-      
-      <!-- COLUMNA IZQUIERDA: RESUMEN DE COMPRA -->
-      <div class="checkout-left" style="flex:1; min-width:300px;">
-        <h3>Resumen de tu compra</h3>
-        <ul id="checkout-cart-items" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;"></ul>
-
-        <div class="checkout-prices" style="margin-top:15px;">
-          <p id="checkout-subtotal">Subtotal: 0€</p>
-          <p id="checkout-vat">IVA 21%: 0€</p>
-          <p id="checkout-shipping">Envío: 6€</p>
-          <p id="checkout-total" style="font-weight:bold;">Total: 0€</p>
-        </div>
-      </div>
-
-      <!-- COLUMNA DERECHA: DATOS DEL CLIENTE -->
-      <div class="checkout-right" style="flex:1; min-width:300px;">
-        <h3>Datos del Cliente</h3>
-        <input type="text" id="client-name" placeholder="Nombre" required>
-        <input type="email" id="client-email" placeholder="Email" required>
-        <input type="tel" id="client-phone" placeholder="Número de teléfono" required>
-        <input type="text" id="client-address" placeholder="Dirección" required>
-        <input type="text" id="client-postal" placeholder="Código postal" required>
-        <input type="text" id="client-country" placeholder="País" required>
-        <input type="text" id="client-city" placeholder="Ciudad" required>
-        <textarea id="client-message" placeholder="Mensaje (opcional)"></textarea>
-
-        <h3>Método de pago</h3>
-        <label>
-          <input type="radio" name="payment" value="card" checked> Tarjeta
-        </label>
-        <label>
-          <input type="radio" name="payment" value="paypal"> PayPal
-        </label>
-
-        <button id="checkout-confirm-btn" style="margin-top:15px; background:#ff4d4f; color:white; border:none; padding:10px 15px; border-radius:6px; cursor:pointer;">Confirmar Compra</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-<script src="js/shop.js"></script>
-</body>
-</html>
-
-<!-- SCRIPT -->
+<!-- Scripts -->
+<script src="js/cart.js"></script>
 <script>
-const shop = document.getElementById('shop');
-const cartCount = document.getElementById('cart-count');
-const categoryLinks = document.querySelectorAll('.shop-sidebar a');
+  // =======================
+  // CARGAR PRODUCTOS Y FILTRAR
+  // =======================
+  let allProducts = [];
+  const shop = document.querySelector('.shop');
+  const categoryLinks = document.querySelectorAll('.shop-sidebar a');
 
-const checkoutModal = document.getElementById('checkout-modal');
-const checkoutItems = document.getElementById('checkout-cart-items');
-const checkoutSubtotal = document.getElementById('checkout-subtotal');
-const checkoutIVA = document.getElementById('checkout-iva');
-const checkoutTotal = document.getElementById('checkout-total');
-const checkoutClose = document.querySelector('.checkout-close');
+  fetch('data/products.json')
+    .then(res => res.json())
+    .then(products => {
+      allProducts = products;
 
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let allProducts = [];
+      // Filtrar según URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const catFromURL = urlParams.get('id');
+      if(catFromURL && allProducts.some(p=>p.category===catFromURL)){
+        filterCategory(catFromURL);
+      } else {
+        filterCategory('all');
+      }
+    }).catch(err => console.error(err));
 
-function updateCartCount(){
-  cartCount.textContent = cart.reduce((s,i)=>s+i.quantity,0);
-  localStorage.setItem('cart', JSON.stringify(cart));
-}
+  // =======================
+  // FILTRAR POR CATEGORÍA
+  // =======================
+  function filterCategory(category){
+    categoryLinks.forEach(link=>{
+      if(link.dataset.category === category) link.classList.add('active');
+      else link.classList.remove('active');
+    });
 
-function renderCheckout(){
-  checkoutItems.innerHTML = '';
-  let subtotal = 0;
+    if(category==='all') renderProducts(allProducts);
+    else renderProducts(allProducts.filter(p=>p.category===category));
+  }
 
-  cart.forEach(item=>{
-    subtotal += item.price * item.quantity;
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <img src="${item.image}">
-      <div>
-        <strong>${item.name}</strong><br>
-        ${item.price}€ x ${item.quantity}
-      </div>
-    `;
-    checkoutItems.appendChild(li);
+  // =======================
+  // EVENTOS SIDEBAR
+  // =======================
+  categoryLinks.forEach(link=>{
+    link.addEventListener('click', e=>{
+      e.preventDefault();
+      filterCategory(link.dataset.category);
+    });
   });
-
-  const iva = subtotal * 0.21;
-  const shipping = cart.length ? 6 : 0;
-  const total = subtotal + iva + shipping;
-
-  checkoutSubtotal.textContent = `${subtotal.toFixed(2)}€`;
-  checkoutIVA.textContent = `${iva.toFixed(2)}€`;
-  checkoutTotal.textContent = `Total: ${total.toFixed(2)}€`;
-}
-
-function openCheckout(){
-  if(cart.length === 0) return;
-  renderCheckout();
-  checkoutModal.style.display = 'flex';
-}
-
-checkoutClose.onclick = ()=> checkoutModal.style.display='none';
-document.getElementById('cart').onclick = openCheckout;
-
-function renderProducts(products){
-  shop.innerHTML = '';
-  products.forEach(p=>{
-    const div = document.createElement('div');
-    div.className = 'product';
-    div.innerHTML = `
-      <div class="product-image-wrapper">
-        <a href="${p.link}">
-          <img src="${p.image}">
-        </a>
-      </div>
-      <h3>${p.name}</h3>
-      <p>${p.price}€</p>
-      <button>Añadir al carrito</button>
-    `;
-    div.querySelector('button').onclick = ()=>{
-      const existing = cart.find(i=>i.id===p.id);
-      if(existing) existing.quantity++;
-      else cart.push({...p, quantity:1});
-      updateCartCount();
-      openCheckout();
-    };
-    shop.appendChild(div);
-  });
-}
-
-fetch('data/products.json')
-.then(r=>r.json())
-.then(data=>{
-  allProducts = data;
-  renderProducts(allProducts);
-  updateCartCount();
-});
-
-categoryLinks.forEach(link=>{
-  link.onclick = e=>{
-    e.preventDefault();
-    const cat = link.dataset.category;
-    renderProducts(cat==='all' ? allProducts : allProducts.filter(p=>p.category===cat));
-  };
-});
 </script>
 
 </body>
