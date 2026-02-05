@@ -46,6 +46,55 @@
   <!-- PRODUCTOS -->
   <main class="shop"></main>
 </div>
+<!-- MODAL CARRITO -->
+<div id="cart-modal" class="cart-modal">
+  <div class="cart-modal-content">
+    <span class="cart-close">&times;</span>
+    <h2>Tu carrito</h2>
+
+    <ul id="cart-modal-items"></ul>
+    <p id="cart-modal-empty">Tu carrito está vacío</p>
+
+    <div class="cart-footer">
+      <p id="cart-modal-total"></p>
+      <button id="cart-modal-checkout">Finalizar compra</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CHECKOUT -->
+<div id="checkout-modal">
+  <div class="cart-modal-content">
+    <span class="checkout-close">&times;</span>
+    <h2>Checkout</h2>
+
+    <div class="checkout-container">
+      <div class="checkout-left">
+        <ul id="checkout-cart-items"></ul>
+
+        <div class="checkout-prices">
+          <p>Subtotal: <span id="checkout-subtotal">0€</span></p>
+          <p>IVA (21%): <span id="checkout-iva">0€</span></p>
+          <p>Envío: <span>6€</span></p>
+          <p id="checkout-total">Total: 0€</p>
+        </div>
+      </div>
+
+      <div class="checkout-right">
+        <input type="text" placeholder="Nombre">
+        <input type="email" placeholder="Email">
+        <input type="tel" placeholder="Teléfono">
+        <input type="text" placeholder="Dirección">
+        <input type="text" placeholder="Código postal">
+        <input type="text" placeholder="Ciudad">
+        <input type="text" placeholder="País">
+        <textarea placeholder="Mensaje"></textarea>
+
+        <button id="checkout-confirm-btn">Pagar ahora</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Scripts -->
 <script src="js/cart.js"></script>
@@ -98,3 +147,4 @@
 
 </body>
 </html>
+
