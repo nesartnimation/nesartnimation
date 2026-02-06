@@ -92,7 +92,7 @@ body.portfolio {
 
 /* ==============================
    GALERÍA / PROJECT / NESART
-============================== */
+============================= */
 /* Contenedores para limitar tamaño de imagen */
 .gallery-art-item,
 .gallery-masonry-item,
@@ -266,28 +266,6 @@ body.portfolio {
 }
 
 /* ==============================
-   BOTÓN AÑADIR AL CARRITO
-============================== */
-.add-to-cart-btn {
-  font-family: Arial, sans-serif;
-  font-weight: 300;       /* tipografía fina */
-  font-size: 1rem;
-  color: #000;            /* texto negro */
-  background: #fff;       /* fondo blanco */
-  border: 1px solid #000; /* borde negro fino */
-  border-radius: 6px;
-  padding: 8px 14px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.add-to-cart-btn:hover {
-  background: #000;
-  color: #fff;
-  border-color: #000;
-}
-
-/* ==============================
    TIENDA
 ============================== */
 .shop-container {
@@ -336,6 +314,29 @@ body.portfolio {
 }
 .product h3 { margin: 18px 0 6px; }
 .product p { margin: 0; color: #777; }
+
+/* ==============================
+   NUEVO: ESTILO BOTÓN AÑADIR AL CARRITO
+============================== */
+.shop .product .add-to-cart-btn {
+  font-family: Arial, sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  color: #000;
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+}
+
+.shop .product .add-to-cart-btn:hover {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
 
 /* ==============================
    PÁGINA PRODUCTO
@@ -587,4 +588,3 @@ body.portfolio {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
-
