@@ -329,7 +329,7 @@ body.portfolio {
   padding: 8px 14px;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .shop .product .add-to-cart-btn:hover {
@@ -588,3 +588,4 @@ body.portfolio {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
