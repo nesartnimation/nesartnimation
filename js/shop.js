@@ -50,7 +50,8 @@ function renderProducts(products) {
         stock: product.stock
       };
 
-      window.addToCart(productForCart);
+     window.addToCart(productForCart, { openModal: false });
+
     });
 
     shop.appendChild(div);
@@ -93,3 +94,4 @@ fetch('data/products.json')
     renderProducts(allProducts);
   })
   .catch(err => console.error('Error cargando productos:', err));
+
