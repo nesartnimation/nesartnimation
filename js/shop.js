@@ -15,29 +15,28 @@ function renderProducts(products) {
   shop.innerHTML = '';
 
   products.forEach((product, index) => {
-    // Aseguramos que cada producto tenga un ID único
+    // Aseguramos que cada producto tenga un ID único y stock definido
     if (!product.id) product.id = `prod-${index}`;
     if (product.stock === undefined) product.stock = 99;
 
     const div = document.createElement('div');
     div.className = 'product';
 
+    // 🔹 Imagen envuelta en <a> para que el CSS funcione y sea clicable
     div.innerHTML = `
       <div class="product-image-wrapper">
-        <img src="${product.image}" alt="${product.name}">
+        <a href="${product.link ?? '#'}">
+          <img src="${product.image}" alt="${product.name}">
+        </a>
       </div>
       <h3>${product.name}</h3>
       <p>${product.price}€</p>
       <button class="add-to-cart-btn">Añadir al carrito</button>
     `;
 
-    // Ir a ficha de producto
-    div.querySelector('.product-image-wrapper').addEventListener('click', () => {
-      if (product.link) window.location.href = product.link;
-    });
-
-    // Añadir al carrito
-    div.querySelector('.add-to-cart-btn').addEventListener('click', () => {
+    // Añadir al carrito usando la función global de cart.js
+    const addBtn = div.querySelector('.add-to-cart-btn');
+    addBtn.addEventListener('click', () => {
       if (typeof window.addToCart !== 'function') {
         console.error('addToCart no está disponible. Asegúrate de cargar cart.js antes de shop.js');
         return;
@@ -85,7 +84,7 @@ fetch('data/products.json')
   .then(products => {
     allProducts = products;
 
-    // Aseguramos IDs únicos para todos los productos
+    // Aseguramos IDs únicos y stock por seguridad
     allProducts.forEach((p, i) => {
       if (!p.id) p.id = `prod-${i}`;
       if (p.stock === undefined) p.stock = 99;
