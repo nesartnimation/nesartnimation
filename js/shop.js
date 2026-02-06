@@ -14,7 +14,11 @@ function renderProducts(products) {
 
   shop.innerHTML = '';
 
-  products.forEach(product => {
+  products.forEach((product, index) => {
+    // Aseguramos que cada producto tenga un ID único
+    if (!product.id) product.id = `prod-${index}`;
+    if (product.stock === undefined) product.stock = 99;
+
     const div = document.createElement('div');
     div.className = 'product';
 
@@ -29,26 +33,22 @@ function renderProducts(products) {
 
     // Ir a ficha de producto
     div.querySelector('.product-image-wrapper').addEventListener('click', () => {
-      window.location.href = product.link;
+      if (product.link) window.location.href = product.link;
     });
 
-    // =======================
-    // AÑADIR AL CARRITO (🔥 CLAVE)
-    // =======================
+    // Añadir al carrito
     div.querySelector('.add-to-cart-btn').addEventListener('click', () => {
-
       if (typeof window.addToCart !== 'function') {
-        console.error('addToCart no está disponible. cart.js no cargado.');
+        console.error('addToCart no está disponible. Asegúrate de cargar cart.js antes de shop.js');
         return;
       }
 
-      // 🔒 Normalizamos el objeto para cart.js
       const productForCart = {
         id: product.id,
         name: product.name,
         price: Number(product.price),
         image: product.image,
-        stock: product.stock ?? 99 // fallback seguro
+        stock: product.stock
       };
 
       window.addToCart(productForCart);
@@ -62,14 +62,8 @@ function renderProducts(products) {
 // FILTRO POR CATEGORÍAS
 // =======================
 function filterCategory(category) {
-  if (category === 'all') {
-    renderProducts(allProducts);
-  } else {
-    const filtered = allProducts.filter(
-      product => product.category === category
-    );
-    renderProducts(filtered);
-  }
+  if (category === 'all') renderProducts(allProducts);
+  else renderProducts(allProducts.filter(p => p.category === category));
 }
 
 // =======================
@@ -91,14 +85,12 @@ fetch('data/products.json')
   .then(products => {
     allProducts = products;
 
-    // 🧠 Seguridad: aseguramos IDs únicos
-    allProducts.forEach((p, index) => {
-      if (!p.id) p.id = `prod-${index}`;
+    // Aseguramos IDs únicos para todos los productos
+    allProducts.forEach((p, i) => {
+      if (!p.id) p.id = `prod-${i}`;
+      if (p.stock === undefined) p.stock = 99;
     });
 
     renderProducts(allProducts);
   })
-  .catch(err => {
-    console.error('Error cargando productos:', err);
-  });
-+
+  .catch(err => console.error('Error cargando productos:', err));
