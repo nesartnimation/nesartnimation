@@ -32,13 +32,26 @@ function renderProducts(products) {
       window.location.href = product.link;
     });
 
-    // Añadir al carrito (cart.js)
+    // =======================
+    // AÑADIR AL CARRITO (🔥 CLAVE)
+    // =======================
     div.querySelector('.add-to-cart-btn').addEventListener('click', () => {
-      if (typeof window.addToCart === 'function') {
-        window.addToCart(product);
-      } else {
-        console.error('addToCart no está disponible. ¿Está cargado cart.js?');
+
+      if (typeof window.addToCart !== 'function') {
+        console.error('addToCart no está disponible. cart.js no cargado.');
+        return;
       }
+
+      // 🔒 Normalizamos el objeto para cart.js
+      const productForCart = {
+        id: product.id,
+        name: product.name,
+        price: Number(product.price),
+        image: product.image,
+        stock: product.stock ?? 99 // fallback seguro
+      };
+
+      window.addToCart(productForCart);
     });
 
     shop.appendChild(div);
@@ -77,8 +90,15 @@ fetch('data/products.json')
   .then(res => res.json())
   .then(products => {
     allProducts = products;
+
+    // 🧠 Seguridad: aseguramos IDs únicos
+    allProducts.forEach((p, index) => {
+      if (!p.id) p.id = `prod-${index}`;
+    });
+
     renderProducts(allProducts);
   })
   .catch(err => {
     console.error('Error cargando productos:', err);
   });
++
