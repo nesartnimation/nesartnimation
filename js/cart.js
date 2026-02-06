@@ -24,7 +24,7 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 // =======================
 // AÑADIR AL CARRITO (🔥 FALTABA)
 // =======================
-window.addToCart = function(product) {
+window.addToCart = function(product, options = { openModal: true }) {
   const existing = cart.find(item => item.id === product.id);
 
   if (existing) {
@@ -46,10 +46,12 @@ window.addToCart = function(product) {
 
   updateCart();
 
-  if (cartModal) {
+  // Solo abrir modal si options.openModal es true
+  if (options.openModal && cartModal) {
     cartModal.style.display = 'flex';
   }
 };
+
 
 // =======================
 // ACTUALIZAR CARRITO
