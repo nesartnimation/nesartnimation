@@ -316,9 +316,9 @@ body.portfolio {
 .product p { margin: 0; color: #777; }
 
 /* ==============================
-   NUEVO: ESTILO BOTÓN AÑADIR AL CARRITO
+   ESTILO BOTÓN AÑADIR AL CARRITO
 ============================== */
-.shop .product .add-to-cart-btn {
+.add-to-cart-btn {
   font-family: Arial, sans-serif;
   font-weight: 300;
   font-size: 1rem;
@@ -332,11 +332,12 @@ body.portfolio {
   margin-top: 15px;
 }
 
-.shop .product .add-to-cart-btn:hover {
+.add-to-cart-btn:hover {
   background: #000;
   color: #fff;
   border-color: #000;
 }
+
 
 /* ==============================
    PÁGINA PRODUCTO
@@ -588,4 +589,5 @@ body.portfolio {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
 
