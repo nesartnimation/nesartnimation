@@ -136,10 +136,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === cartModal) cartModal.style.display = 'none';
     if (e.target === checkoutModal) checkoutModal.style.display = 'none';
   });
+window.addToCart = function (product) {
+  const existing = cart.find(item => item.id === product.id);
 
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      quantity: 1,
+      stock: product.stock
+    });
+  }
   /* =======================
      INIT
   ======================= */
+  saveCart();
   updateCartCount();
-
+  renderCartModal();
+};
 });
