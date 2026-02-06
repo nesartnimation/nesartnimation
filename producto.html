@@ -46,10 +46,12 @@
     <p id="product-price"></p>
     <p id="product-description"></p>
 
-   <button class="add-to-cart-btn" id="add-to-cart-btn">Añadir al carrito</button>
+    <!-- Botón con el mismo estilo que Tienda -->
+    <button class="add-to-cart-btn" id="add-to-cart-btn">Añadir al carrito</button>
   </div>
 
 </section>
+
 <!-- MODAL CARRITO -->
 <div id="cart-modal" class="cart-modal">
   <div class="cart-modal-content">
@@ -127,18 +129,19 @@
     });
 
   // =======================
-  // AÑADIR AL CARRITO
+  // AÑADIR AL CARRITO (SIN ABRIR MODAL)
   // =======================
-  document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+  document.getElementById('add-to-cart-btn').addEventListener('click', (e) => {
     if (!currentProduct) return;
 
+    // Evitar que cart.js abra el modal automáticamente
     addToCart({
       id: currentProduct.id,
       name: currentProduct.name,
       price: currentProduct.price,
       image: currentProduct.image,
       stock: currentProduct.stock
-    });
+    }, { openModal: false }); // pasamos objeto de opciones
   });
 </script>
 
