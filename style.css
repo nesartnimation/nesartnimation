@@ -266,6 +266,28 @@ body.portfolio {
 }
 
 /* ==============================
+   BOTÓN AÑADIR AL CARRITO
+============================== */
+.add-to-cart-btn {
+  font-family: Arial, sans-serif;
+  font-weight: 300;       /* tipografía fina */
+  font-size: 1rem;
+  color: #000;            /* texto negro */
+  background: #fff;       /* fondo blanco */
+  border: 1px solid #000; /* borde negro fino */
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* ==============================
    TIENDA
 ============================== */
 .shop-container {
@@ -565,3 +587,4 @@ body.portfolio {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
