@@ -4,23 +4,23 @@
     <span class="checkout-close">&times;</span>
     <h2>Finalizar Compra</h2>
 
-    <div class="checkout-container" style="display:flex; gap:20px; flex-wrap:wrap;">
+    <div class="checkout-container">
       
       <!-- COLUMNA IZQUIERDA: RESUMEN DE COMPRA -->
-      <div class="checkout-left" style="flex:1; min-width:300px;">
+      <div class="checkout-left">
         <h3>Resumen de tu compra</h3>
-        <ul id="checkout-cart-items" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;"></ul>
+        <ul id="checkout-cart-items"></ul>
 
-        <div class="checkout-prices" style="margin-top:15px;">
+        <div class="checkout-prices">
           <p id="checkout-subtotal">Subtotal: 0€</p>
           <p id="checkout-vat">IVA 21%: 0€</p>
           <p id="checkout-shipping">Envío: 6€</p>
-          <p id="checkout-total" style="font-weight:bold;">Total: 0€</p>
+          <p id="checkout-total">Total: 0€</p>
         </div>
       </div>
 
       <!-- COLUMNA DERECHA: DATOS DEL CLIENTE -->
-      <div class="checkout-right" style="flex:1; min-width:300px;">
+      <div class="checkout-right">
         <h3>Datos del Cliente</h3>
         <input type="text" id="client-name" placeholder="Nombre" required>
         <input type="email" id="client-email" placeholder="Email" required>
@@ -33,18 +33,18 @@
 
         <!-- MÉTODOS DE PAGO CON GRÁFICOS -->
         <h3>Método de pago</h3>
-        <div class="payment-methods" style="display:flex; gap:10px; margin-bottom:15px;">
-          <button class="payment-btn active" data-method="card" style="display:flex; align-items:center; gap:5px; padding:8px 12px; border:1px solid #ccc; border-radius:6px; cursor:pointer;">
-            <img src="images/creditcard.svg" alt="Pago con tarjeta" style="width:24px;height:24px;">
+        <div class="payment-methods">
+          <button class="payment-btn active" data-method="card">
+            <img src="images/creditcard.svg" alt="Pago con tarjeta">
             <span>Tarjeta</span>
           </button>
-          <button class="payment-btn" data-method="paypal" style="display:flex; align-items:center; gap:5px; padding:8px 12px; border:1px solid #ccc; border-radius:6px; cursor:pointer;">
-            <img src="images/paypal.svg" alt="Pago con PayPal" style="width:24px;height:24px;">
+          <button class="payment-btn" data-method="paypal">
+            <img src="images/paypal.svg" alt="Pago con PayPal">
             <span>PayPal</span>
           </button>
         </div>
 
-        <button id="checkout-confirm-btn" style="margin-top:15px; background:#ff4d4f; color:white; border:none; padding:10px 15px; border-radius:6px; cursor:pointer;">Confirmar Compra</button>
+        <button id="checkout-confirm-btn">Confirmar Compra</button>
       </div>
 
     </div>
@@ -77,12 +77,12 @@
   function renderCheckout() {
     checkoutItems.innerHTML = '';
     if(cart.length === 0){
-      checkoutEmpty.style.display = 'block';
-      checkoutTotal.textContent = 'Total: 0€';
+      if(checkoutEmpty) checkoutEmpty.style.display = 'block';
+      if(checkoutTotal) checkoutTotal.textContent = 'Total: 0€';
       updateGlobalCart();
       return;
     }
-    checkoutEmpty.style.display = 'none';
+    if(checkoutEmpty) checkoutEmpty.style.display = 'none';
 
     let total = 0;
 
@@ -131,7 +131,7 @@
       checkoutItems.appendChild(div);
     });
 
-    checkoutTotal.textContent = `Total: ${total}€`;
+    if(checkoutTotal) checkoutTotal.textContent = `Total: ${total}€`;
     updateGlobalCart();
   }
 
