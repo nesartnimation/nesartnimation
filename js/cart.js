@@ -18,12 +18,10 @@ const checkoutConfirmBtn = document.getElementById('checkout-confirm-btn');
 const checkoutCartItems = document.getElementById('checkout-cart-items');
 
 const checkoutSubtotalEl = document.getElementById('checkout-subtotal');
-const checkoutIVAEl = document.getElementById('checkout-iva');
 const checkoutShippingEl = document.getElementById('checkout-shipping');
 const checkoutTotalEl = document.getElementById('checkout-total');
 
 const SHIPPING_COST = 6;
-const IVA_PERCENT = 21;
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
