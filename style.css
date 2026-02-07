@@ -1,11 +1,11 @@
 /* ==============================
    GOOGLE FONT SOLO HOME
-============================== */
+============================= */
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 
 /* ==============================
    RESET
-============================== */
+============================= */
 * {
   box-sizing: border-box;
 }
@@ -21,7 +21,7 @@ html, body {
 
 /* ==============================
    HOME (INDEX)
-============================== */
+============================= */
 #hero {
   position: fixed;
   inset: 0;
@@ -57,7 +57,7 @@ html, body {
 
 /* ==============================
    HEADER / MENU (PORTFOLIO)
-============================== */
+============================= */
 body.portfolio {
   font-family: Arial, sans-serif;
   padding-top: 170px;
@@ -116,7 +116,7 @@ body.portfolio {
 
 /* ==============================
    GALERÍA ARTÍSTICA
-============================== */
+============================= */
 .gallery-art {
   background-color: #f5f5f5;
   padding: 100px 60px;
@@ -143,7 +143,7 @@ body.portfolio {
 
 /* ==============================
    GALERÍA MASONRY
-============================== */
+============================= */
 .gallery-masonry {
   column-count: 3;
   column-gap: 40px;
@@ -189,7 +189,7 @@ body.portfolio {
 
 /* ==============================
    NESART – GALERÍA MASONRY ORGÁNICA CON HOVER Y CLICK
-============================== */
+============================= */
 .nesart-page {
   padding: 180px 60px 120px;
 }
@@ -267,7 +267,7 @@ body.portfolio {
 
 /* ==============================
    TIENDA
-============================== */
+============================= */
 .shop-container {
   display: flex;
   max-width: 1400px;
@@ -317,7 +317,7 @@ body.portfolio {
 
 /* ==============================
    ESTILO BOTÓN AÑADIR AL CARRITO
-============================== */
+============================= */
 .add-to-cart-btn {
   font-family: Arial, sans-serif;
   font-weight: 300;
@@ -341,7 +341,7 @@ body.portfolio {
 
 /* ==============================
    PÁGINA PRODUCTO
-============================== */
+============================= */
 .product-page {
   display: flex;
   max-width: 1200px;
@@ -357,7 +357,7 @@ body.portfolio {
 
 /* ==============================
    CARRITO
-============================== */
+============================= */
 #cart {
   position: fixed;
   top: 20px;
@@ -378,7 +378,7 @@ body.portfolio {
 
 /* ==============================
    MODAL CARRITO Y CHECKOUT
-============================== */
+============================= */
 .cart-modal,
 #checkout-modal {
   display: none;
@@ -392,7 +392,7 @@ body.portfolio {
 
 /* ==============================
    CHECKOUT - ARREGLADO PARA TIENDA/CATEGORÍAS
-============================== */
+============================= */
 #checkout-modal .checkout-box {
   width: 90%;
   max-width: 1000px;
@@ -517,7 +517,7 @@ body.portfolio {
 
 /* ==============================
    CHECKOUT DOS COLUMNAS
-============================== */
+============================= */
 .checkout-container {
   display: flex;
   flex-wrap: wrap;
@@ -575,6 +575,45 @@ body.portfolio {
 
 .checkout-right label { display: block; margin-bottom: 8px; font-weight: normal; }
 
+/* ==============================
+   NUEVO: BOTONES MÉTODO DE PAGO
+============================= */
+.payment-methods {
+  display: flex;
+  gap: 10px;
+}
+
+.payment-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+.payment-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.payment-btn span {
+  font-size: 0.95rem;
+}
+
+.payment-btn:hover {
+  border-color: #000;
+  background: #f5f5f5;
+}
+
+.payment-btn.active {
+  border-color: #ff4d4f;
+  background: #ffe5e6;
+}
+
 /* Responsive */
 @media(max-width:900px){
   .checkout-container { flex-direction: column; }
@@ -589,5 +628,3 @@ body.portfolio {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
-
-
