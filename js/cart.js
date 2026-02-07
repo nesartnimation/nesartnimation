@@ -164,18 +164,22 @@ function renderCheckoutCart() {
     const totalItem = item.price * item.quantity;
 
     const li = document.createElement('li');
+    li.className = 'checkout-item';
     li.innerHTML = `
       <div class="checkout-item-image">
         <img src="${item.image}" alt="${item.name}">
       </div>
-      <span>${item.name} x ${item.quantity}</span>
-      <span>${totalItem.toFixed(2)}€</span>
+      <div class="checkout-item-info">
+        <span>${item.name} x ${item.quantity}</span>
+        <span>${totalItem.toFixed(2)}€</span>
+      </div>
     `;
     checkoutCartItems.appendChild(li);
   });
 
-  if (checkoutSubtotalEl) checkoutSubtotalEl.textContent = `${subtotal.toFixed(2)}€`;
-  if (checkoutTotalEl) checkoutTotalEl.textContent = `Total: ${total.toFixed(2)}€`;
+  // Subtotal, IVA y total
+  if(checkoutSubtotalEl) checkoutSubtotalEl.textContent = `${subtotal.toFixed(2)}€`;
+  if(checkoutTotalEl) checkoutTotalEl.textContent = `Total: ${total.toFixed(2)}€`;
 }
 
 // =======================
