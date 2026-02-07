@@ -49,7 +49,6 @@ window.addToCart = function(product, options = { openModal: true }) {
 
   updateCart();
 
-  // ✅ Ahora no se abre automáticamente, solo si options.openModal=true
   if (options.openModal && cartModal) {
     cartModal.style.display = 'flex';
   }
@@ -166,7 +165,9 @@ function renderCheckoutCart() {
 
     const li = document.createElement('li');
     li.innerHTML = `
-      <img src="${item.image}">
+      <div class="checkout-item-image">
+        <img src="${item.image}" alt="${item.name}">
+      </div>
       <span>${item.name} x ${item.quantity}</span>
       <span>${totalItem.toFixed(2)}€</span>
     `;
