@@ -24,6 +24,7 @@ const checkoutTotalEl = document.getElementById('checkout-total');
 const SHIPPING_COST = 6;
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let selectedPaymentMethod = null; // Nueva variable para método de pago
 
 // =======================
 // AÑADIR AL CARRITO
@@ -216,6 +217,20 @@ window.addEventListener('click', e => {
 });
 
 // =======================
+// SELECCIÓN MÉTODO DE PAGO
+// =======================
+const paymentButtons = document.querySelectorAll('.payment-btn');
+paymentButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Limpiar selección anterior
+    paymentButtons.forEach(b => b.classList.remove('selected'));
+    // Marcar el seleccionado
+    btn.classList.add('selected');
+    selectedPaymentMethod = btn.dataset.method;
+  });
+});
+
+// =======================
 // BOTÓN CONFIRMAR COMPRA
 // =======================
 if (checkoutConfirmBtn) {
@@ -226,8 +241,14 @@ if (checkoutConfirmBtn) {
       return;
     }
 
-    alert('¡Compra realizada con éxito!');
+    if (!selectedPaymentMethod) {
+      alert('Debes seleccionar un método de pago antes de confirmar la compra.');
+      return;
+    }
+
+    alert(`¡Compra realizada con éxito! Método de pago: ${selectedPaymentMethod}`);
     cart = [];
+    selectedPaymentMethod = null; // reset para la próxima compra
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCart();
     checkoutModal.style.display = 'none';
