@@ -8,6 +8,7 @@
 </head>
 <body class="portfolio product-page-body">
 
+<!-- HEADER -->
 <header id="main-header">
   <div class="logo-container">
     <a href="nesart.html">
@@ -25,22 +26,28 @@
     </ul>
   </nav>
 
+  <!-- CARRITO FLOTANTE -->
   <div id="cart">
     <span id="cart-count">0</span> 🛒
   </div>
 </header>
 
+<!-- CONTENIDO PRODUCTO -->
 <section class="product-page">
+
+  <!-- IMAGEN -->
   <div class="product-image">
     <img id="product-image" src="" alt="">
   </div>
 
+  <!-- INFO -->
   <div class="product-info">
     <h1 id="product-name"></h1>
     <p id="product-price"></p>
     <p id="product-description"></p>
     <button class="add-to-cart-btn" id="add-to-cart-btn">Añadir al carrito</button>
   </div>
+
 </section>
 
 <!-- MODAL CARRITO -->
@@ -62,36 +69,18 @@
   <div class="cart-modal-content">
     <span class="checkout-close">&times;</span>
     <h2>Checkout</h2>
-
-    <div class="checkout-container">
-      <div class="checkout-left">
-        <ul id="checkout-cart-items"></ul>
-        <div class="checkout-prices">
-          <p>Subtotal: <span id="checkout-subtotal">0€</span></p>
-          <p>IVA (21%): <span id="checkout-iva">Incluido</span></p>
-          <p>Envío: <span>6€</span></p>
-          <p id="checkout-total">Total: 0€</p>
-        </div>
-      </div>
-
-      <div class="checkout-right">
-        <input type="text" placeholder="Nombre">
-        <input type="email" placeholder="Email">
-        <input type="tel" placeholder="Teléfono">
-        <input type="text" placeholder="Dirección">
-        <input type="text" placeholder="Código postal">
-        <input type="text" placeholder="Ciudad">
-        <input type="text" placeholder="País">
-        <textarea placeholder="Mensaje"></textarea>
-        <button id="checkout-confirm-btn">Pagar ahora</button>
-      </div>
+    <ul id="checkout-cart-items"></ul>
+    <div class="checkout-prices">
+      <p>Subtotal: <span id="checkout-subtotal">0€</span></p>
+      <p>Envío: 6€</p>
+      <p id="checkout-total">Total: 0€</p>
     </div>
   </div>
 </div>
 
 <!-- SCRIPTS -->
+<script src="js/shop.js"></script>
 <script src="js/cart.js"></script>
-
 <script>
   const params = new URLSearchParams(window.location.search);
   const productId = params.get('id');
@@ -112,7 +101,14 @@
 
   document.getElementById('add-to-cart-btn').addEventListener('click', () => {
     if (!currentProduct) return;
-    addToCart(currentProduct, { openModal: false });
+
+    addToCart({
+      id: currentProduct.id,
+      name: currentProduct.name,
+      price: currentProduct.price,
+      image: currentProduct.image,
+      stock: currentProduct.stock
+    }, { openModal: false });
   });
 </script>
 
