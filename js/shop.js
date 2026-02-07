@@ -7,7 +7,7 @@ const categoryLinks = document.querySelectorAll('.shop-sidebar a');
 let allProducts = [];
 
 // =======================
-// RENDER PRODUCTOS
+// RENDERIZAR PRODUCTOS
 // =======================
 function renderProducts(products) {
   if (!shop) return;
@@ -15,17 +15,17 @@ function renderProducts(products) {
   shop.innerHTML = '';
 
   products.forEach((product, index) => {
-    // Aseguramos que cada producto tenga un ID único y stock definido
-    if (!product.id) product.id = `prod-${index}`;
-    if (product.stock === undefined) product.stock = 99;
+    // Garantizar ID y stock
+    const productId = product.id || `prod-${index}`;
+    const productStock = product.stock ?? 99;
 
     const div = document.createElement('div');
     div.className = 'product';
 
-    // 🔹 Imagen envuelta en <a> para que el CSS funcione y sea clicable
+    // Imagen con link a producto
     div.innerHTML = `
       <div class="product-image-wrapper">
-        <a href="${product.link ?? '#'}">
+        <a href="producto.html?id=${productId}">
           <img src="${product.image}" alt="${product.name}">
         </a>
       </div>
@@ -34,7 +34,7 @@ function renderProducts(products) {
       <button class="add-to-cart-btn">Añadir al carrito</button>
     `;
 
-    // Añadir al carrito usando la función global de cart.js
+    // Botón "Añadir al carrito"
     const addBtn = div.querySelector('.add-to-cart-btn');
     addBtn.addEventListener('click', () => {
       if (typeof window.addToCart !== 'function') {
@@ -42,16 +42,13 @@ function renderProducts(products) {
         return;
       }
 
-      const productForCart = {
-        id: product.id,
+      window.addToCart({
+        id: productId,
         name: product.name,
         price: Number(product.price),
         image: product.image,
-        stock: product.stock
-      };
-
-     window.addToCart(productForCart, { openModal: false });
-
+        stock: productStock
+      }, { openModal: false });
     });
 
     shop.appendChild(div);
@@ -59,11 +56,16 @@ function renderProducts(products) {
 }
 
 // =======================
-// FILTRO POR CATEGORÍAS
+// FILTRO POR CATEGORÍA
 // =======================
 function filterCategory(category) {
   if (category === 'all') renderProducts(allProducts);
   else renderProducts(allProducts.filter(p => p.category === category));
+
+  // Marcar link activo
+  categoryLinks.forEach(link => {
+    link.classList.toggle('active', link.dataset.category === category);
+  });
 }
 
 // =======================
@@ -83,15 +85,16 @@ categoryLinks.forEach(link => {
 fetch('data/products.json')
   .then(res => res.json())
   .then(products => {
-    allProducts = products;
-
-    // Aseguramos IDs únicos y stock por seguridad
-    allProducts.forEach((p, i) => {
-      if (!p.id) p.id = `prod-${i}`;
-      if (p.stock === undefined) p.stock = 99;
-    });
+    allProducts = products.map((p, i) => ({
+      id: p.id || `prod-${i}`,
+      name: p.name,
+      price: p.price,
+      image: p.image,
+      category: p.category || 'uncategorized',
+      stock: p.stock ?? 99,
+      link: p.link ?? `producto.html?id=${p.id || `prod-${i}`}`
+    }));
 
     renderProducts(allProducts);
   })
   .catch(err => console.error('Error cargando productos:', err));
-
