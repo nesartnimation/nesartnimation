@@ -31,13 +31,18 @@
         <input type="text" id="client-city" placeholder="Ciudad" required>
         <textarea id="client-message" placeholder="Mensaje (opcional)"></textarea>
 
+        <!-- MÉTODOS DE PAGO CON GRÁFICOS -->
         <h3>Método de pago</h3>
-        <label>
-          <input type="radio" name="payment" value="card" checked> Tarjeta
-        </label>
-        <label>
-          <input type="radio" name="payment" value="paypal"> PayPal
-        </label>
+        <div class="payment-methods" style="display:flex; gap:10px; margin-bottom:15px;">
+          <button class="payment-btn" data-method="card" style="display:flex; align-items:center; gap:5px; padding:8px 12px; border:1px solid #ccc; border-radius:6px; cursor:pointer;">
+            <img src="images/creditcard.svg" alt="Pago con tarjeta" style="width:24px;height:24px;">
+            <span>Tarjeta</span>
+          </button>
+          <button class="payment-btn" data-method="paypal" style="display:flex; align-items:center; gap:5px; padding:8px 12px; border:1px solid #ccc; border-radius:6px; cursor:pointer;">
+            <img src="images/paypal.svg" alt="Pago con PayPal" style="width:24px;height:24px;">
+            <span>PayPal</span>
+          </button>
+        </div>
 
         <button id="checkout-confirm-btn" style="margin-top:15px; background:#ff4d4f; color:white; border:none; padding:10px 15px; border-radius:6px; cursor:pointer;">Confirmar Compra</button>
       </div>
@@ -127,7 +132,7 @@
   renderCheckout();
 
   // Botón finalizar compra
-  const checkoutBtn = document.querySelector('.checkout-button');
+  const checkoutBtn = document.querySelector('#checkout-confirm-btn');
   if(checkoutBtn){
     checkoutBtn.addEventListener('click', ()=>{
       if(cart.length === 0){
