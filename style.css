@@ -93,6 +93,7 @@ body.portfolio {
 /* ==============================
    GALERÍA / PROJECT / NESART
 ============================= */
+/* Contenedores para limitar tamaño de imagen */
 .gallery-art-item,
 .gallery-masonry-item,
 .nesart-masonry-item,
@@ -388,36 +389,6 @@ body.portfolio {
   z-index: 3000;
 }
 
-/* ==============================
-   CHECKOUT - ARREGLADO PARA TIENDA/CATEGORÍAS
-============================= */
-#checkout-modal .checkout-box {
-  width: 90%;
-  max-width: 1000px;
-  background: #fff;
-  border-radius: 12px;
-  padding: 0;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-}
-
-/* ==============================
-   CHECKOUT CONTENT - AJUSTE PARA VER BOTONES
-============================= */
-#checkout-modal .checkout-content {
-  display: flex;
-  gap: 20px;
-  padding: 25px;
-  max-height: 95vh; /* antes era 90%, aumentado para más espacio */
-  overflow-y: auto;  /* mantiene scroll si ventana muy pequeña */
-}
-
-.checkout-left, .checkout-right {
-  flex: 1;
-  min-width: 300px;
-  padding-bottom: 20px; /* evita que botones queden cortados */
-}
-
-/* Cierre */
 .cart-modal-content,
 #checkout-modal .checkout-content {
   background: #fff;
@@ -425,10 +396,10 @@ body.portfolio {
   padding: 25px;
   width: 90%;
   max-width: 1000px;
-  max-height: 95%; /* ajustado para asegurar botones visibles */
+  max-height: 90vh; /* Asegura que todo el contenido largo pueda hacer scroll */
   overflow-y: auto;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
   position: relative;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
 }
 
 .cart-close,
@@ -479,9 +450,6 @@ body.portfolio {
   border-radius: 6px;
   flex-shrink: 0;
 }
-
-.cart-item-info { flex: 1; display: flex; flex-direction: column; }
-.cart-item-info span { font-size: 1rem; color: #333; }
 
 #cart-modal-total,
 #checkout-total {
@@ -560,11 +528,19 @@ body.portfolio {
   font-size: 1.2rem;
 }
 
+/* ==============================
+   CHECKOUT RIGHT - DATOS CLIENTE
+============================= */
+.checkout-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* espacio entre inputs y botones */
+}
+
 .checkout-right input,
 .checkout-right textarea {
   width: 100%;
   padding: 8px;
-  margin-bottom: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
   box-sizing: border-box;
@@ -575,14 +551,13 @@ body.portfolio {
   resize: vertical;
 }
 
-.checkout-right label { display: block; margin-bottom: 8px; font-weight: normal; }
-
 /* ==============================
-   NUEVO: BOTONES MÉTODO DE PAGO
+   BOTONES MÉTODO DE PAGO
 ============================= */
 .payment-methods {
   display: flex;
   gap: 10px;
+  margin-bottom: 15px;
 }
 
 .payment-btn {
@@ -616,7 +591,9 @@ body.portfolio {
   background: #ffe5e6;
 }
 
-/* Responsive */
+/* ==============================
+   RESPONSIVE
+============================= */
 @media(max-width:900px){
   .checkout-container { flex-direction: column; }
   .shop-container { flex-direction: column; }
