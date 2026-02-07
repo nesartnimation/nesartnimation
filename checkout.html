@@ -34,7 +34,7 @@
         <!-- MÉTODOS DE PAGO CON GRÁFICOS -->
         <h3>Método de pago</h3>
         <div class="payment-methods" style="display:flex; gap:10px; margin-bottom:15px;">
-          <button class="payment-btn" data-method="card" style="display:flex; align-items:center; gap:5px; padding:8px 12px; border:1px solid #ccc; border-radius:6px; cursor:pointer;">
+          <button class="payment-btn active" data-method="card" style="display:flex; align-items:center; gap:5px; padding:8px 12px; border:1px solid #ccc; border-radius:6px; cursor:pointer;">
             <img src="images/creditcard.svg" alt="Pago con tarjeta" style="width:24px;height:24px;">
             <span>Tarjeta</span>
           </button>
@@ -57,12 +57,20 @@
   const checkoutTotal = document.getElementById('checkout-total');
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+  // Selección de método de pago
+  let selectedPayment = 'card';
+  const paymentBtns = document.querySelectorAll('.payment-btn');
+  paymentBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      paymentBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedPayment = btn.dataset.method;
+    });
+  });
+
   function updateGlobalCart() {
-    // Actualiza contador global y modal si existen
     const cartCountEl = document.getElementById('cart-count');
     if(cartCountEl) cartCountEl.textContent = cart.reduce((sum,item)=>sum+item.quantity,0);
-
-    // Guardar en localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
@@ -104,13 +112,11 @@
         </div>
       `;
 
-      // Botón eliminar
       div.querySelector('button').addEventListener('click', ()=>{
         cart.splice(index, 1);
         renderCheckout();
       });
 
-      // Cambiar cantidad
       div.querySelector('input').addEventListener('change', e=>{
         let val = parseInt(e.target.value);
         if(val < 1) val = 1;
@@ -139,7 +145,7 @@
         alert('Tu carrito está vacío');
         return;
       }
-      alert('¡Compra realizada con éxito!');
+      alert(`¡Compra realizada con éxito! Método de pago: ${selectedPayment}`);
       cart = [];
       localStorage.setItem('cart', JSON.stringify(cart));
       renderCheckout();
