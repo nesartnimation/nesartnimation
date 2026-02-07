@@ -63,13 +63,6 @@ function calculateSubtotal() {
 }
 
 // =======================
-// CALCULAR IVA
-// =======================
-function calculateIVA(subtotal) {
-  return subtotal * (IVA_PERCENT / 100);
-}
-
-// =======================
 // ACTUALIZAR CARRITO
 // =======================
 function updateCart() {
@@ -166,8 +159,7 @@ function renderCheckoutCart() {
   checkoutCartItems.innerHTML = '';
 
   const subtotal = calculateSubtotal();
-  const iva = calculateIVA(subtotal);
-  const total = subtotal + iva + SHIPPING_COST;
+  const total = subtotal + SHIPPING_COST;
 
   cart.forEach(item => {
     const totalItem = item.price * item.quantity;
@@ -186,9 +178,7 @@ function renderCheckoutCart() {
     checkoutCartItems.appendChild(li);
   });
 
-  // Mostrar Subtotal, IVA, Envío y Total en columna izquierda
   if(checkoutSubtotalEl) checkoutSubtotalEl.textContent = `${subtotal.toFixed(2)}€`;
-  if(checkoutIVAEl) checkoutIVAEl.textContent = `${iva.toFixed(2)}€`;
   if(checkoutShippingEl) checkoutShippingEl.textContent = `${SHIPPING_COST.toFixed(2)}€`;
   if(checkoutTotalEl) checkoutTotalEl.textContent = `Total: ${total.toFixed(2)}€`;
 }
