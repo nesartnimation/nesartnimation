@@ -10,16 +10,17 @@
       <div class="checkout-left">
         <h3>Resumen de tu compra</h3>
         <ul id="checkout-cart-items"></ul>
+
         <div class="checkout-prices">
           <p id="checkout-subtotal">Subtotal: 0€</p>
           <p id="checkout-vat">IVA 21%: 0€</p>
           <p id="checkout-shipping">Envío: 6€</p>
-          <p id="checkout-total">Total: 0€</p>
+          <p id="checkout-total"><strong>Total: 0€</strong></p>
         </div>
       </div>
 
-      <!-- COLUMNA DERECHA: DATOS DEL CLIENTE Y PAGO -->
-      <div class="checkout-right" style="display:flex; flex-direction:column; gap:15px;">
+      <!-- COLUMNA DERECHA: DATOS DEL CLIENTE -->
+      <div class="checkout-right">
         <h3>Datos del Cliente</h3>
         <input type="text" id="client-name" placeholder="Nombre" required>
         <input type="email" id="client-email" placeholder="Email" required>
@@ -30,23 +31,21 @@
         <input type="text" id="client-city" placeholder="Ciudad" required>
         <textarea id="client-message" placeholder="Mensaje (opcional)"></textarea>
 
-        <!-- MÉTODOS DE PAGO CON GRÁFICOS -->
+        <!-- MÉTODOS DE PAGO -->
         <h3>Método de pago</h3>
-        <div class="payment-methods" style="display:flex; gap:10px;">
+        <div class="payment-methods">
           <button class="payment-btn active" data-method="card">
-            <img src="images/creditcard.svg" alt="Pago con tarjeta">
+            <img src="images/creditcard.svg" alt="Tarjeta">
             <span>Tarjeta</span>
           </button>
           <button class="payment-btn" data-method="paypal">
-            <img src="images/paypal.svg" alt="Pago con PayPal">
+            <img src="images/paypal.svg" alt="PayPal">
             <span>PayPal</span>
           </button>
         </div>
 
-        <!-- CONFIRMAR COMPRA -->
-        <button id="checkout-confirm-btn" style="margin-top:auto; background:#ff4d4f; color:white; border:none; padding:10px 15px; border-radius:6px; cursor:pointer;">
-          Confirmar Compra
-        </button>
+        <!-- BOTÓN FINALIZAR COMPRA -->
+        <button id="checkout-confirm-btn">Confirmar Compra</button>
       </div>
 
     </div>
@@ -54,10 +53,9 @@
 </div>
 
 <script>
-  // Variables checkout
-  const checkoutItems = document.getElementById('checkout-items');
-  const checkoutEmpty = document.getElementById('checkout-empty');
-  const checkoutTotal = document.getElementById('checkout-total');
+  const checkoutCartItems = document.getElementById('checkout-cart-items');
+  const checkoutSubtotalEl = document.getElementById('checkout-subtotal');
+  const checkoutTotalEl = document.getElementById('checkout-total');
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   // Selección de método de pago
@@ -71,89 +69,43 @@
     });
   });
 
-  function updateGlobalCart() {
-    const cartCountEl = document.getElementById('cart-count');
-    if(cartCountEl) cartCountEl.textContent = cart.reduce((sum,item)=>sum+item.quantity,0);
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
-
   function renderCheckout() {
-    checkoutItems.innerHTML = '';
+    checkoutCartItems.innerHTML = '';
     if(cart.length === 0){
-      checkoutEmpty.style.display = 'block';
-      checkoutTotal.textContent = 'Total: 0€';
-      updateGlobalCart();
+      checkoutSubtotalEl.textContent = '0€';
+      checkoutTotalEl.textContent = 'Total: 0€';
       return;
     }
-    checkoutEmpty.style.display = 'none';
 
-    let total = 0;
+    let subtotal = 0;
+    cart.forEach((item, index) => {
+      const itemTotal = item.price * item.quantity;
+      subtotal += itemTotal;
 
-    cart.forEach((item, index)=>{
-      const subtotal = item.price * item.quantity;
-      total += subtotal;
-
-      const div = document.createElement('div');
-      div.className = 'checkout-item';
-      div.style.display='flex';
-      div.style.alignItems='center';
-      div.style.gap='15px';
-      div.style.marginBottom='15px';
-
-      div.innerHTML = `
-        <div class="checkout-item-image">
-          <img src="${item.image}" alt="${item.name}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;">
-        </div>
-        <div class="checkout-item-info" style="flex:1;">
-          <h3>${item.name}</h3>
-          <p>Precio: ${item.price}€</p>
-          <div class="checkout-item-controls">
-            <input type="number" min="1" max="${item.stock || 999}" value="${item.quantity}" data-index="${index}" style="width:60px;">
-            <button data-index="${index}">✖</button>
-          </div>
-          <p class="checkout-subtotal">Subtotal: ${subtotal}€</p>
-        </div>
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <img src="${item.image}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;">
+        <span>${item.name} x ${item.quantity}</span>
+        <span>${itemTotal.toFixed(2)}€</span>
       `;
-
-      // Botón eliminar
-      div.querySelector('button').addEventListener('click', ()=>{
-        cart.splice(index, 1);
-        renderCheckout();
-      });
-
-      // Cambiar cantidad
-      div.querySelector('input').addEventListener('change', e=>{
-        let val = parseInt(e.target.value);
-        if(val < 1) val = 1;
-        if(item.stock && val > item.stock) {
-          alert(`Solo hay ${item.stock} unidades disponibles de ${item.name}`);
-          val = item.stock;
-        }
-        item.quantity = val;
-        renderCheckout();
-      });
-
-      checkoutItems.appendChild(div);
+      checkoutCartItems.appendChild(li);
     });
 
-    checkoutTotal.textContent = `Total: ${total}€`;
-    updateGlobalCart();
+    checkoutSubtotalEl.textContent = `${subtotal.toFixed(2)}€`;
+    checkoutTotalEl.textContent = `Total: ${(subtotal + 6).toFixed(2)}€`;
   }
 
   renderCheckout();
 
-  // Botón finalizar compra
-  const checkoutBtn = document.querySelector('#checkout-confirm-btn');
-  if(checkoutBtn){
-    checkoutBtn.addEventListener('click', ()=>{
-      if(cart.length === 0){
-        alert('Tu carrito está vacío');
-        return;
-      }
-      alert(`¡Compra realizada con éxito! Método de pago: ${selectedPayment}`);
-      cart = [];
-      localStorage.setItem('cart', JSON.stringify(cart));
-      renderCheckout();
-    });
-  }
+  const checkoutBtn = document.getElementById('checkout-confirm-btn');
+  checkoutBtn.addEventListener('click', () => {
+    if(cart.length === 0){
+      alert('Tu carrito está vacío');
+      return;
+    }
+    alert(`¡Compra realizada! Método de pago: ${selectedPayment}`);
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCheckout();
+  });
 </script>
