@@ -93,7 +93,6 @@ body.portfolio {
 /* ==============================
    GALERÍA / PROJECT / NESART
 ============================= */
-/* Contenedores para limitar tamaño de imagen */
 .gallery-art-item,
 .gallery-masonry-item,
 .nesart-masonry-item,
@@ -338,7 +337,6 @@ body.portfolio {
   border-color: #000;
 }
 
-
 /* ==============================
    PÁGINA PRODUCTO
 ============================= */
@@ -528,6 +526,8 @@ body.portfolio {
 .checkout-right {
   flex: 1;
   min-width: 300px;
+  position: relative; /* Asegura que elementos hijos no queden tapados */
+  z-index: 1;
 }
 
 .checkout-left ul#checkout-cart-items {
@@ -581,6 +581,7 @@ body.portfolio {
 .payment-methods {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap; /* Asegura que en pantallas pequeñas no se corten */
 }
 
 .payment-btn {
@@ -591,8 +592,9 @@ body.portfolio {
   border: 1px solid #ccc;
   border-radius: 6px;
   cursor: pointer;
-  background: #fff;
+  background: #f9f9f9; /* Cambio para contrastar con modal */
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .payment-btn img {
