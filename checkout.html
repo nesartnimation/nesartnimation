@@ -10,7 +10,6 @@
       <div class="checkout-left">
         <h3>Resumen de tu compra</h3>
         <ul id="checkout-cart-items"></ul>
-
         <div class="checkout-prices">
           <p id="checkout-subtotal">Subtotal: 0€</p>
           <p id="checkout-vat">IVA 21%: 0€</p>
@@ -19,8 +18,8 @@
         </div>
       </div>
 
-      <!-- COLUMNA DERECHA: DATOS DEL CLIENTE -->
-      <div class="checkout-right">
+      <!-- COLUMNA DERECHA: DATOS DEL CLIENTE Y PAGO -->
+      <div class="checkout-right" style="display:flex; flex-direction:column; gap:15px;">
         <h3>Datos del Cliente</h3>
         <input type="text" id="client-name" placeholder="Nombre" required>
         <input type="email" id="client-email" placeholder="Email" required>
@@ -31,9 +30,9 @@
         <input type="text" id="client-city" placeholder="Ciudad" required>
         <textarea id="client-message" placeholder="Mensaje (opcional)"></textarea>
 
-        <!-- MÉTODOS DE PAGO -->
+        <!-- MÉTODOS DE PAGO CON GRÁFICOS -->
         <h3>Método de pago</h3>
-        <div class="payment-methods">
+        <div class="payment-methods" style="display:flex; gap:10px;">
           <button class="payment-btn active" data-method="card">
             <img src="images/creditcard.svg" alt="Pago con tarjeta">
             <span>Tarjeta</span>
@@ -44,7 +43,10 @@
           </button>
         </div>
 
-        <button id="checkout-confirm-btn">Confirmar Compra</button>
+        <!-- CONFIRMAR COMPRA -->
+        <button id="checkout-confirm-btn" style="margin-top:auto; background:#ff4d4f; color:white; border:none; padding:10px 15px; border-radius:6px; cursor:pointer;">
+          Confirmar Compra
+        </button>
       </div>
 
     </div>
