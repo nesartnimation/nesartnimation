@@ -8,13 +8,11 @@
 </head>
 <body class="portfolio tienda">
 
+<!-- HEADER Y MENÚ -->
 <header id="main-header">
   <div class="logo-container">
-    <a href="nesart.html">
-      <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
-    </a>
+    <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
   </div>
-
   <nav id="main-menu">
     <ul>
       <li><a href="Nesart.html">Nesart</a></li>
@@ -30,13 +28,13 @@
   </div>
 </header>
 
+<!-- CONTENIDO TIENDA -->
 <div class="shop-container">
   <aside class="shop-sidebar">
     <ul>
-      <li><a href="#" data-category="all">Todos</a></li>
       <li><a href="#" data-category="prints">Prints</a></li>
       <li><a href="#" data-category="chapas">Chapas</a></li>
-      <li><a href="#" data-category="totebags">Totebags</a></li>
+      <li><a href="#" data-category="llaveros">Totebags</a></li>
       <li><a href="#" data-category="camisetas">Camisetas</a></li>
       <li><a href="#" data-category="stickers">Stickers</a></li>
       <li><a href="#" data-category="llaveros">Llaveros</a></li>
@@ -46,7 +44,7 @@
   <main class="shop"></main>
 </div>
 
-<!-- MODAL CARRITO -->
+<!-- MODALES -->
 <div id="cart-modal" class="cart-modal">
   <div class="cart-modal-content">
     <span class="cart-close">&times;</span>
@@ -60,34 +58,15 @@
   </div>
 </div>
 
-<!-- MODAL CHECKOUT -->
 <div id="checkout-modal">
   <div class="cart-modal-content">
     <span class="checkout-close">&times;</span>
     <h2>Checkout</h2>
-
-    <div class="checkout-container">
-      <div class="checkout-left">
-        <ul id="checkout-cart-items"></ul>
-        <div class="checkout-prices">
-          <p>Subtotal: <span id="checkout-subtotal">0€</span></p>
-          <p>IVA (21%): <span id="checkout-iva">Incluido</span></p>
-          <p>Envío: <span>6€</span></p>
-          <p id="checkout-total">Total: 0€</p>
-        </div>
-      </div>
-
-      <div class="checkout-right">
-        <input type="text" placeholder="Nombre">
-        <input type="email" placeholder="Email">
-        <input type="tel" placeholder="Teléfono">
-        <input type="text" placeholder="Dirección">
-        <input type="text" placeholder="Código postal">
-        <input type="text" placeholder="Ciudad">
-        <input type="text" placeholder="País">
-        <textarea placeholder="Mensaje"></textarea>
-        <button id="checkout-confirm-btn">Pagar ahora</button>
-      </div>
+    <ul id="checkout-cart-items"></ul>
+    <div class="checkout-prices">
+      <p>Subtotal: <span id="checkout-subtotal">0€</span></p>
+      <p>Envío: 6€</p>
+      <p id="checkout-total">Total: 0€</p>
     </div>
   </div>
 </div>
@@ -95,6 +74,32 @@
 <!-- SCRIPTS -->
 <script src="js/shop.js"></script>
 <script src="js/cart.js"></script>
+<script>
+  let allProducts = [];
+  const categoryLinks = document.querySelectorAll('.shop-sidebar a');
+
+  fetch('data/products.json')
+    .then(res => res.json())
+    .then(products => {
+      allProducts = products;
+      filterCategory('all');
+    });
+
+  function filterCategory(category) {
+    categoryLinks.forEach(link => {
+      link.classList.toggle('active', link.dataset.category === category);
+    });
+    if (category === 'all') renderProducts(allProducts);
+    else renderProducts(allProducts.filter(p => p.category === category));
+  }
+
+  categoryLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      filterCategory(link.dataset.category);
+    });
+  });
+</script>
 
 </body>
 </html>
