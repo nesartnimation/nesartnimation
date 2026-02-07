@@ -400,17 +400,21 @@ body.portfolio {
   box-shadow: 0 12px 30px rgba(0,0,0,0.25);
 }
 
+/* ==============================
+   CHECKOUT CONTENT - AJUSTE PARA VER BOTONES
+============================= */
 #checkout-modal .checkout-content {
   display: flex;
   gap: 20px;
   padding: 25px;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-height: 95vh; /* antes era 90%, aumentado para más espacio */
+  overflow-y: auto;  /* mantiene scroll si ventana muy pequeña */
 }
 
 .checkout-left, .checkout-right {
   flex: 1;
   min-width: 300px;
+  padding-bottom: 20px; /* evita que botones queden cortados */
 }
 
 /* Cierre */
@@ -421,7 +425,7 @@ body.portfolio {
   padding: 25px;
   width: 90%;
   max-width: 1000px;
-  max-height: 90%;
+  max-height: 95%; /* ajustado para asegurar botones visibles */
   overflow-y: auto;
   box-shadow: 0 12px 30px rgba(0,0,0,0.25);
   position: relative;
@@ -526,8 +530,6 @@ body.portfolio {
 .checkout-right {
   flex: 1;
   min-width: 300px;
-  position: relative; /* Asegura que elementos hijos no queden tapados */
-  z-index: 1;
 }
 
 .checkout-left ul#checkout-cart-items {
@@ -581,7 +583,6 @@ body.portfolio {
 .payment-methods {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap; /* Asegura que en pantallas pequeñas no se corten */
 }
 
 .payment-btn {
@@ -592,9 +593,8 @@ body.portfolio {
   border: 1px solid #ccc;
   border-radius: 6px;
   cursor: pointer;
-  background: #f9f9f9; /* Cambio para contrastar con modal */
+  background: #fff;
   transition: all 0.2s ease;
-  flex-shrink: 0;
 }
 
 .payment-btn img {
