@@ -5,7 +5,7 @@
     <h2>Finalizar Compra</h2>
 
     <div class="checkout-container">
-      
+
       <!-- COLUMNA IZQUIERDA: RESUMEN DE COMPRA -->
       <div class="checkout-left">
         <h3>Resumen de tu compra</h3>
@@ -31,7 +31,7 @@
         <input type="text" id="client-city" placeholder="Ciudad" required>
         <textarea id="client-message" placeholder="Mensaje (opcional)"></textarea>
 
-        <!-- MÉTODOS DE PAGO CON GRÁFICOS -->
+        <!-- MÉTODOS DE PAGO -->
         <h3>Método de pago</h3>
         <div class="payment-methods">
           <button class="payment-btn active" data-method="card">
@@ -52,6 +52,7 @@
 </div>
 
 <script>
+  // Variables checkout
   const checkoutItems = document.getElementById('checkout-items');
   const checkoutEmpty = document.getElementById('checkout-empty');
   const checkoutTotal = document.getElementById('checkout-total');
@@ -77,12 +78,12 @@
   function renderCheckout() {
     checkoutItems.innerHTML = '';
     if(cart.length === 0){
-      if(checkoutEmpty) checkoutEmpty.style.display = 'block';
-      if(checkoutTotal) checkoutTotal.textContent = 'Total: 0€';
+      checkoutEmpty.style.display = 'block';
+      checkoutTotal.textContent = 'Total: 0€';
       updateGlobalCart();
       return;
     }
-    if(checkoutEmpty) checkoutEmpty.style.display = 'none';
+    checkoutEmpty.style.display = 'none';
 
     let total = 0;
 
@@ -112,11 +113,13 @@
         </div>
       `;
 
+      // Botón eliminar
       div.querySelector('button').addEventListener('click', ()=>{
         cart.splice(index, 1);
         renderCheckout();
       });
 
+      // Cambiar cantidad
       div.querySelector('input').addEventListener('change', e=>{
         let val = parseInt(e.target.value);
         if(val < 1) val = 1;
@@ -131,7 +134,7 @@
       checkoutItems.appendChild(div);
     });
 
-    if(checkoutTotal) checkoutTotal.textContent = `Total: ${total}€`;
+    checkoutTotal.textContent = `Total: ${total}€`;
     updateGlobalCart();
   }
 
