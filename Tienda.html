@@ -5,6 +5,23 @@
   <title>Tienda - NesArt</title>
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Estilo botón método de pago seleccionado */
+    .payment-btn.selected {
+      border: 2px solid #007BFF;
+      background-color: #E0F0FF;
+    }
+    .payment-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: #fff;
+    }
+  </style>
 </head>
 <body class="portfolio tienda">
 
@@ -70,7 +87,7 @@
         <ul id="checkout-cart-items"></ul>
         <div class="checkout-prices">
           <p>Subtotal: <span id="checkout-subtotal">0€</span></p>
-          <p>Envío: <span id="checkout-shipping">6€</span></p>
+          <p>Envío: 6€</p>
           <p id="checkout-total">Total: 0€</p>
         </div>
       </div>
@@ -131,9 +148,5 @@
     });
   });
 </script>
-
 </body>
 </html>
-
-
-
