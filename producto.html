@@ -64,16 +64,47 @@
   </div>
 </div>
 
-<!-- MODAL CHECKOUT -->
+<!-- MODAL CHECKOUT DE DOS COLUMNAS -->
 <div id="checkout-modal">
   <div class="cart-modal-content">
     <span class="checkout-close">&times;</span>
     <h2>Checkout</h2>
-    <ul id="checkout-cart-items"></ul>
-    <div class="checkout-prices">
-      <p>Subtotal: <span id="checkout-subtotal">0€</span></p>
-      <p>Envío: 6€</p>
-      <p id="checkout-total">Total: 0€</p>
+
+    <div class="checkout-container">
+      <!-- COLUMNA IZQUIERDA: Carrito y precios -->
+      <div class="checkout-left">
+        <ul id="checkout-cart-items"></ul>
+        <div class="checkout-prices">
+          <p>Subtotal: <span id="checkout-subtotal">0€</span></p>
+          <p>IVA 21% incluido</p>
+          <p>Envío: 6€</p>
+          <p id="checkout-total">Total: 0€</p>
+        </div>
+      </div>
+
+      <!-- COLUMNA DERECHA: Datos cliente y método de pago -->
+     <div class="checkout-right">
+    <input type="text" id="client-name" placeholder="Nombre completo">
+    <input type="email" id="client-email" placeholder="Correo electrónico">
+    <input type="tel" id="client-phone" placeholder="Teléfono">
+    <input type="text" id="client-postal" placeholder="Código postal">
+    <input type="text" id="client-country" placeholder="País">
+    <input type="text" id="client-city" placeholder="Ciudad">
+    <imput type="client-address" placeholder="Dirección de envío">
+    <textarea id="client-message" placeholder="Mensaje (opcional)"></textarea>
+
+    <div class="payment-methods">
+      <button class="payment-btn" data-method="card">
+        <img src="images/visa.sgv" alt="Tarjeta"> <span>Tarjeta</span>
+      </button>
+      <button class="payment-btn" data-method="paypal">
+        <img src="images/paypal.sgv" alt="PayPal"> <span>PayPal</span>
+      </button>
+    </div>
+
+    <button id="checkout-confirm-btn">Confirmar compra</button>
+</div>
+
     </div>
   </div>
 </div>
