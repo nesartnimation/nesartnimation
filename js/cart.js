@@ -15,14 +15,17 @@ const cartModalCheckout = document.getElementById('cart-modal-checkout');
 const checkoutModal = document.getElementById('checkout-modal');
 const checkoutClose = document.querySelector('.checkout-close');
 const checkoutForm = document.getElementById('checkout-form');
-const checkoutTotalModal = document.getElementById('checkout-total-modal');
 const checkoutCartItems = document.getElementById('checkout-cart-items');
-const discountInput = document.getElementById('discount-code');
+
+const checkoutSubtotalEl = document.getElementById('checkout-subtotal');
+const checkoutTotalEl = document.getElementById('checkout-total');
+
+const SHIPPING_COST = 6;
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // =======================
-// AÑADIR AL CARRITO (🔥 FALTABA)
+// AÑADIR AL CARRITO
 // =======================
 window.addToCart = function(product, options = { openModal: true }) {
   const existing = cart.find(item => item.id === product.id);
@@ -46,12 +49,19 @@ window.addToCart = function(product, options = { openModal: true }) {
 
   updateCart();
 
-  // Solo abrir modal si options.openModal es true
   if (options.openModal && cartModal) {
     cartModal.style.display = 'flex';
   }
 };
 
+// =======================
+// CALCULAR SUBTOTAL
+// =======================
+function calculateSubtotal() {
+  return cart.reduce((sum, item) => {
+    return sum + item.price * item.quantity;
+  }, 0);
+}
 
 // =======================
 // ACTUALIZAR CARRITO
@@ -99,11 +109,9 @@ function renderCartModal() {
 
   cartModalEmpty.style.display = 'none';
 
-  let subtotal = 0;
+  let subtotal = calculateSubtotal();
 
   cart.forEach(item => {
-    subtotal += item.price * item.quantity;
-
     const li = document.createElement('li');
     li.style.display = 'flex';
     li.style.alignItems = 'center';
@@ -116,7 +124,6 @@ function renderCartModal() {
       <button data-id="${item.id}">✖</button>
     `;
 
-    // Cambiar cantidad
     li.querySelector('input').addEventListener('change', e => {
       let val = parseInt(e.target.value);
       if (val < 1) val = 1;
@@ -133,7 +140,6 @@ function renderCartModal() {
       updateCart();
     });
 
-    // Eliminar
     li.querySelector('button').addEventListener('click', () => {
       cart = cart.filter(p => p.id !== item.id);
       updateCart();
@@ -152,11 +158,12 @@ function renderCheckoutCart() {
   if (!checkoutCartItems) return;
 
   checkoutCartItems.innerHTML = '';
-  let subtotal = 0;
+
+  const subtotal = calculateSubtotal();
+  const total = cart.length > 0 ? subtotal + SHIPPING_COST : 0;
 
   cart.forEach(item => {
     const totalItem = item.price * item.quantity;
-    subtotal += totalItem;
 
     const li = document.createElement('li');
     li.innerHTML = `
@@ -167,11 +174,12 @@ function renderCheckoutCart() {
     checkoutCartItems.appendChild(li);
   });
 
-  const envio = cart.length > 0 ? 6 : 0;
-  const total = subtotal + envio;
+  if (checkoutSubtotalEl) {
+    checkoutSubtotalEl.textContent = `${subtotal.toFixed(2)}€`;
+  }
 
-  if (checkoutTotalModal) {
-    checkoutTotalModal.textContent = `Total: ${total.toFixed(2)}€ (envío incluido)`;
+  if (checkoutTotalEl) {
+    checkoutTotalEl.textContent = `Total: ${total.toFixed(2)}€`;
   }
 }
 
