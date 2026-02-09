@@ -9,15 +9,15 @@
     .blog-container { max-width: 900px; margin: auto; padding: 20px; }
     .posts-list { display: flex; flex-direction: column; gap: 30px; }
     .blog-post { border: 1px solid #ccc; padding: 20px; border-radius: 8px; background: #f9f9f9; }
-    .blog-post img { max-width: 100%; border-radius: 6px; }
+    .blog-post img { max-width: 100%; border-radius: 6px; margin-bottom: 10px; }
     .pagination { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
     .pagination button { padding: 8px 12px; cursor: pointer; border-radius: 4px; border: 1px solid #333; background: #fff; }
     .pagination button.active { background: #333; color: #fff; }
+    .new-post-form input, .new-post-form textarea { display: block; width: 100%; margin-bottom: 10px; padding: 8px; }
   </style>
 </head>
 <body class="portfolio blog-page">
 
-<!-- HEADER Y MENÚ -->
 <header id="main-header">
   <div class="logo-container">
     <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
@@ -41,8 +41,8 @@
     <h2>Crear nuevo post</h2>
     <input type="text" id="post-title" placeholder="Título del post">
     <input type="date" id="post-date">
-    <input type="text" id="post-image" placeholder="URL de la imagen">
-    <textarea id="post-excerpt" placeholder="Contenido resumido"></textarea>
+    <input type="file" id="post-image" accept="image/*">
+    <textarea id="post-content" placeholder="Contenido completo del post" rows="6"></textarea>
     <button id="add-post-btn">Añadir post</button>
   </div>
 
@@ -55,26 +55,24 @@
 
 <template id="blog-post-template">
   <article class="blog-post">
-    <img class="post-image" src="" alt="Imagen del post">
     <h2 class="post-title"></h2>
     <p class="post-date"></p>
-    <p class="post-excerpt"></p>
+    <img class="post-image" src="" alt="">
+    <p class="post-content"></p>
   </article>
 </template>
 
 <script>
   const POSTS_PER_PAGE = 10;
   let currentPage = 1;
-
   let posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+
   const postsContainer = document.getElementById('blog-posts');
   const postTemplate = document.getElementById('blog-post-template');
   const paginationContainer = document.getElementById('pagination');
 
   function renderPosts(page = 1) {
     postsContainer.innerHTML = '';
-
-    // Ordenar posts por fecha descendente
     posts.sort((a,b) => new Date(b.date) - new Date(a.date));
 
     const startIndex = (page - 1) * POSTS_PER_PAGE;
@@ -83,22 +81,25 @@
 
     postsToShow.forEach(post => {
       const clone = postTemplate.content.cloneNode(true);
-      clone.querySelector('.post-image').src = post.image || 'images/default.jpg';
-      clone.querySelector('.post-image').alt = post.title;
       clone.querySelector('.post-title').textContent = post.title;
       clone.querySelector('.post-date').textContent = post.date;
-      clone.querySelector('.post-excerpt').textContent = post.excerpt;
+      clone.querySelector('.post-content').textContent = post.content;
+      if(post.image){
+        clone.querySelector('.post-image').src = post.image;
+        clone.querySelector('.post-image').alt = post.title;
+      } else {
+        clone.querySelector('.post-image').remove();
+      }
       postsContainer.appendChild(clone);
     });
 
     renderPagination(page);
   }
 
-  function renderPagination(activePage) {
+  function renderPagination(activePage){
     paginationContainer.innerHTML = '';
     const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
     if(totalPages <= 1) return;
-
     for(let i = 1; i <= totalPages; i++){
       const btn = document.createElement('button');
       btn.textContent = i;
@@ -117,27 +118,42 @@
   document.getElementById('add-post-btn').addEventListener('click', () => {
     const title = document.getElementById('post-title').value.trim();
     const date = document.getElementById('post-date').value;
-    const image = document.getElementById('post-image').value.trim();
-    const excerpt = document.getElementById('post-excerpt').value.trim();
+    const content = document.getElementById('post-content').value.trim();
+    const imageInput = document.getElementById('post-image');
+    const file = imageInput.files[0];
 
-    if(!title || !date || !excerpt){
+    if(!title || !date || !content){
       alert("Debes rellenar al menos título, fecha y contenido.");
       return;
     }
 
-    const newPost = { title, date, image, excerpt };
-    posts.unshift(newPost); // agregar al inicio
-    localStorage.setItem('blogPosts', JSON.stringify(posts));
+    if(file){
+      const reader = new FileReader();
+      reader.onload = function(e){
+        const newPost = { title, date, content, image: e.target.result };
+        posts.unshift(newPost);
+        localStorage.setItem('blogPosts', JSON.stringify(posts));
+        clearForm();
+        currentPage = 1;
+        renderPosts(currentPage);
+      }
+      reader.readAsDataURL(file);
+    } else {
+      const newPost = { title, date, content, image: null };
+      posts.unshift(newPost);
+      localStorage.setItem('blogPosts', JSON.stringify(posts));
+      clearForm();
+      currentPage = 1;
+      renderPosts(currentPage);
+    }
+  });
 
-    // Limpiar formulario
+  function clearForm(){
     document.getElementById('post-title').value = '';
     document.getElementById('post-date').value = '';
+    document.getElementById('post-content').value = '';
     document.getElementById('post-image').value = '';
-    document.getElementById('post-excerpt').value = '';
-
-    currentPage = 1;
-    renderPosts(currentPage);
-  });
+  }
 </script>
 
 </body>
