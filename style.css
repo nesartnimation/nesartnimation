@@ -60,7 +60,7 @@ html, body {
 ============================= */
 body.portfolio {
   font-family: Arial, sans-serif;
-  padding-top: 170px;
+  padding-top: 200px;
 }
 
 #main-header {
@@ -628,3 +628,4 @@ body.portfolio {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
