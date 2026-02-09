@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog - NesArt</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="portfolio blog-page">
+
+<!-- HEADER Y MENÚ -->
+<header id="main-header">
+  <div class="logo-container">
+    <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
+  </div>
+  <nav id="main-menu">
+    <ul>
+      <li><a href="Nesart.html">Nesart</a></li>
+      <li><a href="Comisiones.html">Comisiones</a></li>
+      <li><a href="Originales.html">Originales</a></li>
+      <li><a href="Blog.html" class="active">Blog</a></li>
+      <li><a href="Contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- CONTENEDOR BLOG -->
+<main class="blog-container">
+  <h1>Blog de NesArt</h1>
+  <div id="blog-posts" class="posts-list">
+    <!-- Los posts se cargarán dinámicamente -->
+  </div>
+</main>
+
+<!-- EJEMPLO DE POST (para copiar como plantilla) -->
+<template id="blog-post-template">
+  <article class="blog-post">
+    <img class="post-image" src="" alt="Imagen del post">
+    <h2 class="post-title"></h2>
+    <p class="post-date"></p>
+    <p class="post-excerpt"></p>
+    <div class="post-share">
+      <button class="share-btn" data-platform="twitter">Twitter</button>
+      <button class="share-btn" data-platform="facebook">Facebook</button>
+      <button class="share-btn" data-platform="linkedin">LinkedIn</button>
+    </div>
+  </article>
+</template>
+
+<!-- SCRIPTS -->
+<script>
+  // Aquí defines tus posts de ejemplo o los traes desde un JSON externo
+  const posts = [
+    {
+      id: 1,
+      title: "Cómo empecé con NesArt",
+      date: "2026-02-09",
+      image: "images/blog1.jpg",
+      excerpt: "En esta entrada cuento mi viaje creativo y cómo llegué a fundar NesArt.",
+      url: window.location.href + "#post1"
+    },
+    {
+      id: 2,
+      title: "Consejos para ilustradores",
+      date: "2026-01-25",
+      image: "images/blog2.jpg",
+      excerpt: "Compartiendo algunos trucos y consejos para mejorar tus ilustraciones.",
+      url: window.location.href + "#post2"
+    }
+  ];
+
+  const postsContainer = document.getElementById('blog-posts');
+  const postTemplate = document.getElementById('blog-post-template');
+
+  posts.forEach(post => {
+    const clone = postTemplate.content.cloneNode(true);
+    clone.querySelector('.post-image').src = post.image;
+    clone.querySelector('.post-image').alt = post.title;
+    clone.querySelector('.post-title').textContent = post.title;
+    clone.querySelector('.post-date').textContent = post.date;
+    clone.querySelector('.post-excerpt').textContent = post.excerpt;
+
+    const shareButtons = clone.querySelectorAll('.share-btn');
+    shareButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const platform = btn.dataset.platform;
+        let shareURL = "";
+        const text = encodeURIComponent(post.title + " - " + post.url);
+        const url = encodeURIComponent(post.url);
+
+        if(platform === "twitter") shareURL = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+        if(platform === "facebook") shareURL = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        if(platform === "linkedin") shareURL = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}`;
+
+        window.open(shareURL, '_blank');
+      });
+    });
+
+    postsContainer.appendChild(clone);
+  });
+</script>
+
+</body>
+</html>
