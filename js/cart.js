@@ -26,7 +26,7 @@ const SHIPPING_COST = 6;
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // =======================
-// 🔹 NUEVO: PAGO
+// PAGO
 // =======================
 let selectedPaymentMethod = null;
 let savedCard = JSON.parse(localStorage.getItem('savedCard')) || null;
@@ -171,32 +171,13 @@ function renderCheckoutCart() {
     checkoutCartItems.appendChild(li);
   });
 
-  if(checkoutSubtotalEl) checkoutSubtotalEl.textContent = `${subtotal.toFixed(2)}€`;
-  if(checkoutShippingEl) checkoutShippingEl.textContent = `${SHIPPING_COST.toFixed(2)}€`;
-  if(checkoutTotalEl) checkoutTotalEl.textContent = `Total: ${total.toFixed(2)}€`;
+  checkoutSubtotalEl.textContent = `${subtotal.toFixed(2)}€`;
+  checkoutShippingEl.textContent = `${SHIPPING_COST.toFixed(2)}€`;
+  checkoutTotalEl.textContent = `Total: ${total.toFixed(2)}€`;
 }
 
 // =======================
-// EVENTOS MODALES
-// =======================
-if (cartModalClose) {
-  cartModalClose.addEventListener('click', () => cartModal.style.display = 'none');
-}
-
-if (cartModalCheckout) {
-  cartModalCheckout.addEventListener('click', () => {
-    if (cart.length === 0) return alert('Tu carrito está vacío');
-    cartModal.style.display = 'none';
-    checkoutModal.style.display = 'flex';
-  });
-}
-
-if (checkoutClose) {
-  checkoutClose.addEventListener('click', () => checkoutModal.style.display = 'none');
-}
-
-// =======================
-// 🔹 NUEVO: MÉTODOS DE PAGO
+// MÉTODOS DE PAGO
 // =======================
 document.querySelectorAll('.payment-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -215,71 +196,77 @@ document.querySelectorAll('.payment-btn').forEach(btn => {
 });
 
 // =======================
-// 🔹 NUEVO: MODAL TARJETA
+// MODAL TARJETA (VALIDADO)
 // =======================
 function openCardModal() {
   const modal = document.createElement('div');
   modal.style.cssText = `
     position:fixed; inset:0; background:rgba(0,0,0,.6);
-    display:flex; align-items:center; justify-content:center; z-index:4000;
+    display:flex; align-items:center; justify-content:center; z-index:5000;
   `;
 
   modal.innerHTML = `
     <div style="background:#fff;padding:20px;border-radius:12px;width:320px">
       <h3>Datos de tarjeta</h3>
-      <input id="card-number" placeholder="Número" style="width:100%;margin:6px 0">
+
+      <input id="card-number" placeholder="Número de tarjeta" style="width:100%;margin:6px 0">
       <input id="card-name" placeholder="Titular" style="width:100%;margin:6px 0">
       <input id="card-exp" placeholder="MM/AA" style="width:100%;margin:6px 0">
       <input id="card-cvc" placeholder="CVC" style="width:100%;margin:6px 0">
-      <button id="save-card">Guardar tarjeta</button>
+
+      <div style="display:flex;gap:10px;margin-top:10px">
+        <button id="save-card" style="flex:1">Guardar</button>
+        <button id="cancel-card" style="flex:1">Cancelar</button>
+      </div>
     </div>
   `;
 
   document.body.appendChild(modal);
 
   modal.querySelector('#save-card').addEventListener('click', () => {
-    savedCard = {
-      number: modal.querySelector('#card-number').value,
-      name: modal.querySelector('#card-name').value
-    };
+    const number = modal.querySelector('#card-number').value.trim();
+    const name = modal.querySelector('#card-name').value.trim();
+    const exp = modal.querySelector('#card-exp').value.trim();
+    const cvc = modal.querySelector('#card-cvc').value.trim();
+
+    if (!number || !name || !exp || !cvc) {
+      alert('Debes rellenar todos los datos de la tarjeta');
+      return;
+    }
+
+    savedCard = { number, name, exp, cvc };
     localStorage.setItem('savedCard', JSON.stringify(savedCard));
     document.body.removeChild(modal);
-    alert('Tarjeta guardada');
+    alert('Tarjeta guardada correctamente');
+  });
+
+  modal.querySelector('#cancel-card').addEventListener('click', () => {
+    selectedPaymentMethod = null;
+    document.querySelectorAll('.payment-btn').forEach(b => b.classList.remove('active'));
+    document.body.removeChild(modal);
   });
 }
 
 // =======================
 // CONFIRMAR COMPRA
 // =======================
-if (checkoutConfirmBtn) {
-  checkoutConfirmBtn.addEventListener('click', () => {
-    if (!selectedPaymentMethod) {
-      alert('Selecciona un método de pago');
-      return;
-    }
+checkoutConfirmBtn.addEventListener('click', () => {
+  if (!selectedPaymentMethod) {
+    alert('Selecciona un método de pago');
+    return;
+  }
 
-    if (selectedPaymentMethod === 'card' && !savedCard) {
-      alert('No hay tarjeta registrada');
-      return;
-    }
+  if (selectedPaymentMethod === 'card' && !savedCard) {
+    alert('No hay tarjeta registrada');
+    return;
+  }
 
-    alert('Pago realizado correctamente');
-    cart = [];
-    localStorage.removeItem('cart');
-    updateCart();
-    checkoutModal.style.display = 'none';
-  });
-}
-
-// =======================
-// BOTÓN CARRITO
-// =======================
-const cartContainer = document.getElementById('cart');
-if (cartContainer) {
-  cartContainer.addEventListener('click', () => {
-    cartModal.style.display = 'flex';
-  });
-}
+  alert('Pago realizado correctamente');
+  cart = [];
+  localStorage.removeItem('cart');
+  updateCart();
+  checkoutModal.style.display = 'none';
+});
 
 // =======================
 // INIT
