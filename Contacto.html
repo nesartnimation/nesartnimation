@@ -5,41 +5,171 @@
   <title>Contacto - Mi Portfolio Rubberhose</title>
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Tipografía consistente en el menú */
+    #main-menu ul, #main-menu ul li a {
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* Estilos formulario de contacto */
+    .contact-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-container h1 {
+      text-align: center;
+      font-size: 2em;
+    }
+
+    .contact-container label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .contact-container input,
+    .contact-container textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: inherit;
+    }
+
+    .contact-container textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .contact-container button {
+      align-self: flex-start;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+
+    .contact-container button:hover {
+      background-color: #555;
+    }
+
+    /* Responsive */
+    @media(max-width: 600px){
+      .contact-container {
+        margin: 20px;
+        padding: 15px;
+      }
+    }
+
+    /* Estilo de galería */
+    .gallery-art {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .gallery-art img {
+      max-width: 45%;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    @media(max-width:600px){
+      .gallery-art img {
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 
   <!-- ===== HEADER Y MENÚ ===== -->
   <header id="main-header">
-  <div class="logo-container">
-    <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
-  </div>
-  <nav id="main-menu">
-   <ul>
-      <li><a href="Nesart.html">Nesart</a></li>
-      <li><a href="Comisiones.html">Comisiones</a></li>
-      <li><a href="Originales.html">Originales</a></li>
-      <li><a href="SobreMi.html">Sobre mí</a></li>
-      <li><a href="Contacto.html">Contacto</a></li>
-      <li><a href="Blog.html">Blog</a></li>
-    </ul>
-  </nav>
+    <div class="logo-container">
+      <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
+    </div>
+    <nav id="main-menu">
+      <ul>
+        <li><a href="Nesart.html">Nesart</a></li>
+        <li><a href="Comisiones.html">Comisiones</a></li>
+        <li><a href="Originales.html">Originales</a></li>
+        <li><a href="SobreMi.html">Sobre mí</a></li>
+        <li><a href="Contacto.html" class="active">Contacto</a></li>
+        <li><a href="Blog.html">Blog</a></li>
+      </ul>
+    </nav>
+  </header>
 
+  <!-- FORMULARIO DE CONTACTO -->
+  <div class="contact-container">
+    <h1>Contacto</h1>
+    <form id="contact-form">
+      <label for="name">Nombre completo</label>
+      <input type="text" id="name" name="name" placeholder="Tu nombre completo" required>
+
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+
+      <label for="subject">Asunto</label>
+      <input type="text" id="subject" name="subject" placeholder="Asunto del mensaje" required>
+
+      <label for="message">Mensaje</label>
+      <textarea id="message" name="message" placeholder="Escribe tu mensaje aquí..." required></textarea>
+
+      <button type="submit">Enviar mensaje</button>
+    </form>
+    <p id="contact-success" style="color:green; display:none;">¡Mensaje enviado correctamente!</p>
+    <p id="contact-error" style="color:red; display:none;">Por favor completa todos los campos correctamente.</p>
+  </div>
 
   <!-- GALERÍA -->
   <section>
-      <div class="gallery-art">
+    <div class="gallery-art">
       <img src="images/ilustracion1.png" alt="Ilustración 1">
       <img src="images/ilustracion2.png" alt="Ilustración 2">
     </div>
   </section>
 
+  <script>
+    // Validación y envío simulado
+    const contactForm = document.getElementById('contact-form');
+    const successMsg = document.getElementById('contact-success');
+    const errorMsg = document.getElementById('contact-error');
+
+    contactForm.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if(name && email && subject && message){
+        // Simulación de envío
+        successMsg.style.display = 'block';
+        errorMsg.style.display = 'none';
+
+        // Limpiar formulario
+        contactForm.reset();
+
+        // Aquí se podría implementar envío real mediante backend (PHP, Node, etc)
+      } else {
+        successMsg.style.display = 'none';
+        errorMsg.style.display = 'block';
+      }
+    });
+  </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
