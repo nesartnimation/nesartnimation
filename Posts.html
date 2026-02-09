@@ -2,147 +2,259 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Crear Post - NesArt</title>
+  <title>Panel de Posts - NesArt</title>
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body.create-post { font-family: Arial, sans-serif; background: #f5f5f5; }
-    header#main-header { display:flex; align-items:center; justify-content:space-between; padding:10px 20px; background:#fff; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
-    .post-panel { max-width: 900px; margin: 30px auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); display:flex; gap:20px; }
-    .post-editor { flex:2; display:flex; flex-direction:column; gap:15px; }
-    .post-editor input[type=text], .post-editor textarea, .post-editor input[type=file] { width:100%; padding:10px; border-radius:5px; border:1px solid #ccc; font-size:16px; }
-    .post-editor textarea { min-height:150px; resize:vertical; }
-    .post-editor button { background:#0073aa; color:#fff; padding:10px; border:none; border-radius:5px; cursor:pointer; font-size:16px; }
-    .post-editor button:hover { background:#005f8d; }
-    .post-preview { flex:1; display:flex; flex-direction:column; gap:10px; }
-    .post-preview img { width:100%; max-height:200px; object-fit:cover; border-radius:5px; }
-    .posts-preview { margin-top:30px; display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:15px; }
-    .post-card { background:#fff; padding:10px; border-radius:8px; box-shadow:0 3px 8px rgba(0,0,0,0.1); display:flex; flex-direction:column; gap:5px; }
-    .post-card img { width:100%; height:120px; object-fit:cover; border-radius:5px; }
-    .post-card .tags { display:flex; flex-wrap:wrap; gap:5px; font-size:12px; }
-    .tag { background:#eee; padding:2px 6px; border-radius:3px; }
-    .post-card button { background:#c00; color:#fff; border:none; border-radius:3px; padding:3px 6px; cursor:pointer; font-size:12px; align-self:flex-end; }
-  </style>
-</head>
-<body class="create-post">
-
-<header id="main-header">
-  <div class="logo-container">
-    <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
-  </div>
-  <nav id="main-menu">
-    <ul>
-      <li><a href="Nesart.html">Nesart</a></li>
-      <li><a href="Comisiones.html">Comisiones</a></li>
-      <li><a href="Originales.html">Originales</a></li>
-      <li><a href="Tienda.html">Tienda</a></li>
-      <li><a href="Contacto.html">Contacto</a></li>
-      <li><a href="Blog.html">Blog</a></li>
-   
-    </ul>
-  </nav>
-</header>
-
-<main>
-  <div class="post-panel">
-    <!-- PANEL DE EDICIÓN -->
-    <div class="post-editor">
-      <h2>Crear Nuevo Post</h2>
-      <input type="text" id="post-title" placeholder="Título del post" required>
-      <textarea id="post-desc" placeholder="Descripción completa" required></textarea>
-      <input type="file" id="post-image" accept="image/*" required>
-
-      <input type="text" id="post-categories" placeholder="Categorías (separadas por comas)">
-      <input type="text" id="post-tags" placeholder="Etiquetas (separadas por comas)">
-
-      <button id="save-post">Guardar Post</button>
-    </div>
-
-    <!-- PREVISUALIZACIÓN -->
-    <div class="post-preview">
-      <h3>Vista Previa de la Imagen</h3>
-      <img id="preview-image" src="" alt="Previsualización">
-    </div>
-  </div>
-
-  <h2 style="text-align:center; margin-top:40px;">Posts Creados</h2>
-  <div class="posts-preview" id="posts-preview"></div>
-</main>
-
-<script>
-  const postTitle = document.getElementById('post-title');
-  const postDesc = document.getElementById('post-desc');
-  const postImage = document.getElementById('post-image');
-  const postCategories = document.getElementById('post-categories');
-  const postTags = document.getElementById('post-tags');
-  const previewImage = document.getElementById('preview-image');
-  const postsPreview = document.getElementById('posts-preview');
-  const savePostBtn = document.getElementById('save-post');
-
-  let posts = JSON.parse(localStorage.getItem('posts')) || [];
-
-  function renderPosts() {
-    postsPreview.innerHTML = '';
-    posts.forEach((post, index) => {
-      const card = document.createElement('div');
-      card.className = 'post-card';
-      card.innerHTML = `
-        <img src="${post.image}" alt="${post.title}">
-        <strong>${post.title}</strong>
-        <p>${post.desc.substring(0,50)}...</p>
-        <div class="tags">
-          ${post.categories.map(c=>`<span class="tag">${c}</span>`).join('')}
-          ${post.tags.map(t=>`<span class="tag">${t}</span>`).join('')}
-        </div>
-        <button data-index="${index}">Eliminar</button>
-      `;
-      card.querySelector('button').addEventListener('click', e=>{
-        const idx = e.target.dataset.index;
-        posts.splice(idx,1);
-        localStorage.setItem('posts', JSON.stringify(posts));
-        renderPosts();
-      });
-      postsPreview.appendChild(card);
-    });
-  }
-
-  renderPosts();
-
-  // Previsualizar imagen
-  postImage.addEventListener('change', e=>{
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => { previewImage.src = reader.result; };
-    reader.readAsDataURL(file);
-  });
-
-  savePostBtn.addEventListener('click', ()=>{
-    if(!postTitle.value || !postDesc.value || !postImage.files[0]){
-      alert('Completa los campos obligatorios');
-      return;
+    /* Espacio entre menú y sección */
+    .posts-container {
+      margin-top: 60px; /* Ajusta según el header */
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 20px;
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const image = reader.result;
-      const newPost = {
-        id: posts.length,
-        title: postTitle.value.trim(),
-        desc: postDesc.value.trim(),
-        image: image,
-        categories: postCategories.value.split(',').map(c=>c.trim()).filter(c=>c),
-        tags: postTags.value.split(',').map(t=>t.trim()).filter(t=>t)
-      };
-      posts.push(newPost);
+    .posts-container h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .post-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    .post-item img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .post-item .post-info {
+      flex: 1;
+    }
+
+    .post-item .post-actions button {
+      margin-left: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    /* Modal creación/edición de post */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .modal-content input,
+    .modal-content textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: inherit;
+    }
+
+    .modal-content button {
+      padding: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background-color: #333;
+      color: #fff;
+      font-size: 1em;
+    }
+
+    .modal-content button:hover {
+      background-color: #555;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="main-header">
+    <div class="logo-container">
+      <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
+    </div>
+    <nav id="main-menu">
+      <ul>
+        <li><a href="Nesart.html">Nesart</a></li>
+        <li><a href="Comisiones.html">Comisiones</a></li>
+        <li><a href="Originales.html">Originales</a></li>
+        <li><a href="Tienda.html">Tienda</a></li>
+        <li><a href="Contacto.html">Contacto</a></li>
+        <li><a href="Blog.html">Blog</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="posts-container">
+    <h1>Panel de creación de posts</h1>
+    <button id="new-post-btn">Crear nuevo post</button>
+
+    <div id="posts-list">
+      <!-- Aquí se listarán los posts existentes -->
+    </div>
+  </div>
+
+  <!-- MODAL CREACIÓN/EDICIÓN POST -->
+  <div id="post-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-modal" style="cursor:pointer;align-self:flex-end;">&times;</span>
+      <h2 id="modal-title">Crear post</h2>
+      <input type="text" id="post-title" placeholder="Título del post">
+      <input type="text" id="post-category" placeholder="Categoría">
+      <input type="text" id="post-tags" placeholder="Etiquetas (separadas por comas)">
+      <input type="file" id="post-image">
+      <textarea id="post-description" placeholder="Descripción breve"></textarea>
+      <button id="save-post-btn">Guardar post</button>
+    </div>
+  </div>
+
+  <script>
+    let posts = JSON.parse(localStorage.getItem('posts')) || [];
+    let editingIndex = null;
+
+    const postsList = document.getElementById('posts-list');
+    const postModal = document.getElementById('post-modal');
+    const newPostBtn = document.getElementById('new-post-btn');
+    const closeModal = document.getElementById('close-modal');
+    const savePostBtn = document.getElementById('save-post-btn');
+
+    const postTitle = document.getElementById('post-title');
+    const postCategory = document.getElementById('post-category');
+    const postTags = document.getElementById('post-tags');
+    const postImage = document.getElementById('post-image');
+    const postDescription = document.getElementById('post-description');
+    const modalTitle = document.getElementById('modal-title');
+
+    function renderPosts() {
+      postsList.innerHTML = '';
+      posts.forEach((post, index) => {
+        const div = document.createElement('div');
+        div.className = 'post-item';
+        div.innerHTML = `
+          <img src="${post.image}" alt="${post.title}">
+          <div class="post-info">
+            <strong>${post.title}</strong><br>
+            <em>${post.category}</em><br>
+            ${post.tags.join(', ')}
+          </div>
+          <div class="post-actions">
+            <button onclick="editPost(${index})">Editar</button>
+            <button onclick="deletePost(${index})">Eliminar</button>
+          </div>
+        `;
+        postsList.appendChild(div);
+      });
+    }
+
+    function editPost(index) {
+      editingIndex = index;
+      modalTitle.textContent = 'Editar post';
+      const post = posts[index];
+      postTitle.value = post.title;
+      postCategory.value = post.category;
+      postTags.value = post.tags.join(', ');
+      postDescription.value = post.description;
+      postModal.style.display = 'flex';
+    }
+
+    function deletePost(index) {
+      if(confirm('¿Eliminar este post?')) {
+        posts.splice(index, 1);
+        localStorage.setItem('posts', JSON.stringify(posts));
+        renderPosts();
+      }
+    }
+
+    newPostBtn.addEventListener('click', () => {
+      editingIndex = null;
+      modalTitle.textContent = 'Crear post';
+      postTitle.value = '';
+      postCategory.value = '';
+      postTags.value = '';
+      postDescription.value = '';
+      postImage.value = '';
+      postModal.style.display = 'flex';
+    });
+
+    closeModal.addEventListener('click', () => {
+      postModal.style.display = 'none';
+    });
+
+    savePostBtn.addEventListener('click', () => {
+      const title = postTitle.value.trim();
+      const category = postCategory.value.trim();
+      const tags = postTags.value.split(',').map(t => t.trim()).filter(t => t);
+      const description = postDescription.value.trim();
+      let imageUrl = '';
+
+      if(postImage.files && postImage.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          imageUrl = e.target.result;
+          savePostData(title, category, tags, description, imageUrl);
+        }
+        reader.readAsDataURL(postImage.files[0]);
+      } else if(editingIndex !== null) {
+        imageUrl = posts[editingIndex].image;
+        savePostData(title, category, tags, description, imageUrl);
+      } else {
+        alert('Debes seleccionar una imagen');
+      }
+    });
+
+    function savePostData(title, category, tags, description, imageUrl) {
+      const postData = { title, category, tags, description, image: imageUrl };
+      if(editingIndex !== null) {
+        posts[editingIndex] = postData;
+      } else {
+        posts.push(postData);
+      }
       localStorage.setItem('posts', JSON.stringify(posts));
+      postModal.style.display = 'none';
       renderPosts();
-      postTitle.value=''; postDesc.value=''; postImage.value=''; postCategories.value=''; postTags.value='';
-      previewImage.src='';
-    };
-    reader.readAsDataURL(postImage.files[0]);
-  });
-</script>
+    }
+
+    // Cerrar modal si clic fuera del contenido
+    window.addEventListener('click', e => {
+      if(e.target === postModal) postModal.style.display = 'none';
+    });
+
+    // Inicializar
+    renderPosts();
+  </script>
 
 </body>
 </html>
