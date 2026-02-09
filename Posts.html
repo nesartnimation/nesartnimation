@@ -2,129 +2,199 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Crear Post - NesArt</title>
+  <title>Panel de Posts - NesArt</title>
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .posts-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .post-card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .post-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .post-card-content {
+      padding: 10px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .post-card-content h3 {
+      margin: 0 0 5px 0;
+    }
+    .post-card-content p {
+      flex: 1;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .post-card-actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 10px 10px;
+    }
+    button {
+      cursor: pointer;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    button.delete-btn {
+      background-color: #c00;
+    }
+  </style>
 </head>
-<body class="portfolio crear-post">
+<body>
+  <header>
+    <h1>Panel de administración de posts</h1>
+    <button id="new-post-btn">Crear nuevo post</button>
+  </header>
 
-<header id="main-header">
-  <div class="logo-container">
-    <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
+  <div class="posts-container" id="posts-container">
+    <!-- Posts cargados dinámicamente -->
   </div>
-  <nav id="main-menu">
-    <ul>
-       <li><a href="Nesart.html">Nesart</a></li>
-      <li><a href="Comisiones.html">Comisiones</a></li>
-      <li><a href="Originales.html">Originales</a></li>
-      <li><a href="SobreMi.html">Sobre mi</a></li>
-      <li><a href="Contacto.html">Contacto</a></li>
-      <li><a href="Blog.html">Blog</a></li>
-      <li><a href="Post.html" class="active">Crear Post</a></li>
-    
-    </ul>
- </nav>
-</header>
 
-<div class="crear-post-container">
-  <h1>Crear nuevo post</h1>
+  <!-- Modal para crear/editar post -->
+  <div id="post-modal" style="display:none; position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+    <div style="background:#fff;padding:20px;border-radius:10px;max-width:500px;width:100%;">
+      <h2 id="modal-title">Nuevo Post</h2>
+      <input type="text" id="post-title" placeholder="Título" style="width:100%;margin-bottom:10px;">
+      <textarea id="post-desc" placeholder="Descripción corta" style="width:100%;margin-bottom:10px;"></textarea>
+      <input type="file" id="post-image" accept="image/*" style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:flex-end;gap:10px;">
+        <button id="save-post-btn">Guardar</button>
+        <button id="cancel-post-btn">Cancelar</button>
+      </div>
+    </div>
+  </div>
 
-  <form id="post-form">
-    <label for="post-title">Título:</label>
-    <input type="text" id="post-title" placeholder="Título del post" required>
+  <script>
+    let posts = JSON.parse(localStorage.getItem('posts')) || [];
+    const postsContainer = document.getElementById('posts-container');
 
-    <label for="post-image">Imagen:</label>
-    <input type="file" id="post-image" accept="image/*">
+    let editingPostId = null;
 
-    <label for="post-content">Contenido:</label>
-    <textarea id="post-content" placeholder="Escribe el contenido del post..." required></textarea>
+    function renderPosts() {
+      postsContainer.innerHTML = '';
+      posts.forEach((post, index) => {
+        const card = document.createElement('div');
+        card.className = 'post-card';
 
-    <button type="submit">Guardar Post</button>
-  </form>
+        card.innerHTML = `
+          <img src="${post.image}" alt="${post.title}">
+          <div class="post-card-content">
+            <h3>${post.title}</h3>
+            <p>${post.desc}</p>
+          </div>
+          <div class="post-card-actions">
+            <button class="edit-btn" data-index="${index}">Editar</button>
+            <button class="delete-btn" data-index="${index}">Eliminar</button>
+          </div>
+        `;
 
-  <p id="success-message" style="display:none;color:green;">Post guardado con éxito!</p>
-</div>
+        postsContainer.appendChild(card);
+      });
 
-<script>
-  const postForm = document.getElementById('post-form');
-  const successMessage = document.getElementById('success-message');
+      // Eventos de botones
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const index = e.target.dataset.index;
+          openModal(posts[index], index);
+        });
+      });
 
-  postForm.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const title = document.getElementById('post-title').value.trim();
-    const content = document.getElementById('post-content').value.trim();
-    const imageInput = document.getElementById('post-image');
-
-    if (!title || !content) {
-      alert('El título y contenido son obligatorios');
-      return;
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const index = e.target.dataset.index;
+          if(confirm('¿Eliminar este post?')) {
+            posts.splice(index,1);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            renderPosts();
+          }
+        });
+      });
     }
 
-    const posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+    // Modal
+    const postModal = document.getElementById('post-modal');
+    const postTitle = document.getElementById('post-title');
+    const postDesc = document.getElementById('post-desc');
+    const postImage = document.getElementById('post-image');
+    const modalTitle = document.getElementById('modal-title');
 
-    // Función para guardar el post
-    const savePost = (imageData) => {
-      const newPost = {
-        id: Date.now(),
-        title,
-        image: imageData || null, // si no hay imagen, null
-        content,
-        date: new Date().toISOString()
-      };
-      posts.push(newPost);
-      localStorage.setItem('blogPosts', JSON.stringify(posts));
+    document.getElementById('new-post-btn').addEventListener('click', () => openModal());
 
-      successMessage.style.display = 'block';
-      postForm.reset();
-    };
-
-    // Si se ha subido una imagen, convertir a base64
-    if (imageInput.files && imageInput.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        savePost(event.target.result);
-      };
-      reader.readAsDataURL(imageInput.files[0]);
-    } else {
-      savePost(null);
+    function openModal(post=null, index=null) {
+      postModal.style.display = 'flex';
+      if(post){
+        postTitle.value = post.title;
+        postDesc.value = post.desc;
+        modalTitle.textContent = 'Editar Post';
+        editingPostId = index;
+      } else {
+        postTitle.value = '';
+        postDesc.value = '';
+        postImage.value = '';
+        modalTitle.textContent = 'Nuevo Post';
+        editingPostId = null;
+      }
     }
-  });
-</script>
 
-<style>
-  .crear-post-container {
-    max-width: 700px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 12px;
-  }
+    document.getElementById('cancel-post-btn').addEventListener('click', () => {
+      postModal.style.display = 'none';
+    });
 
-  .crear-post-container h1 {
-    margin-bottom: 20px;
-  }
+    document.getElementById('save-post-btn').addEventListener('click', () => {
+      const title = postTitle.value.trim();
+      const desc = postDesc.value.trim();
+      const imageFile = postImage.files[0];
 
-  .crear-post-container input, 
-  .crear-post-container textarea {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-  }
+      if(!title || !desc) {
+        alert('Debes poner título y descripción.');
+        return;
+      }
 
-  .crear-post-container button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    background: #333;
-    color: #fff;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-</style>
+      if(imageFile){
+        const reader = new FileReader();
+        reader.onload = function(e){
+          savePost(title, desc, e.target.result);
+        };
+        reader.readAsDataURL(imageFile);
+      } else if(editingPostId !== null){
+        // Mantener imagen existente
+        savePost(title, desc, posts[editingPostId].image);
+      } else {
+        alert('Debes seleccionar una imagen.');
+        return;
+      }
 
+      postModal.style.display = 'none';
+    });
+
+    function savePost(title, desc, image) {
+      if(editingPostId !== null){
+        posts[editingPostId] = {title, desc, image};
+      } else {
+        posts.push({title, desc, image});
+      }
+      localStorage.setItem('posts', JSON.stringify(posts));
+      renderPosts();
+    }
+
+    renderPosts();
+  </script>
 </body>
 </html>
