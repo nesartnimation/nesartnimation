@@ -24,7 +24,12 @@ const checkoutTotalEl = document.getElementById('checkout-total');
 const SHIPPING_COST = 6;
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let selectedPaymentMethod = null; // Nueva variable para método de pago
+
+// =======================
+// 🔹 NUEVO: PAGO
+// =======================
+let selectedPaymentMethod = null;
+let savedCard = JSON.parse(localStorage.getItem('savedCard')) || null;
 
 // =======================
 // AÑADIR AL CARRITO
@@ -67,7 +72,6 @@ function calculateSubtotal() {
 // ACTUALIZAR CARRITO
 // =======================
 function updateCart() {
-  // Mini carrito
   if (cartItems) {
     cartItems.innerHTML = '';
     if (cart.length === 0) {
@@ -82,7 +86,6 @@ function updateCart() {
     }
   }
 
-  // Contador
   if (cartCount) {
     cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
   }
@@ -120,23 +123,15 @@ function renderCartModal() {
     li.innerHTML = `
       <img src="${item.image}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;">
       <span style="flex:1">${item.name}</span>
-      <input type="number" min="1" value="${item.quantity}" data-id="${item.id}" style="width:50px;">
-      <button data-id="${item.id}">✖</button>
+      <input type="number" min="1" value="${item.quantity}" style="width:50px;">
+      <button>✖</button>
     `;
 
     li.querySelector('input').addEventListener('change', e => {
       let val = parseInt(e.target.value);
       if (val < 1) val = 1;
-
-      const prod = cart.find(p => p.id === item.id);
-      if (!prod) return;
-
-      if (val > prod.stock) {
-        alert(`Solo hay ${prod.stock} unidades disponibles`);
-        val = prod.stock;
-      }
-
-      prod.quantity = val;
+      if (val > item.stock) val = item.stock;
+      item.quantity = val;
       updateCart();
     });
 
@@ -163,17 +158,14 @@ function renderCheckoutCart() {
   const total = subtotal + SHIPPING_COST;
 
   cart.forEach(item => {
-    const totalItem = item.price * item.quantity;
-
     const li = document.createElement('li');
-    li.className = 'checkout-item';
     li.innerHTML = `
       <div class="checkout-item-image">
-        <img src="${item.image}" alt="${item.name}">
+        <img src="${item.image}">
       </div>
-      <div class="checkout-item-info">
-        <span>${item.name} x ${item.quantity}</span>
-        <span>${totalItem.toFixed(2)}€</span>
+      <div>
+        ${item.name} x ${item.quantity}
+        <strong>${(item.price * item.quantity).toFixed(2)}€</strong>
       </div>
     `;
     checkoutCartItems.appendChild(li);
@@ -188,75 +180,99 @@ function renderCheckoutCart() {
 // EVENTOS MODALES
 // =======================
 if (cartModalClose) {
-  cartModalClose.addEventListener('click', () => {
-    cartModal.style.display = 'none';
-  });
+  cartModalClose.addEventListener('click', () => cartModal.style.display = 'none');
 }
 
 if (cartModalCheckout) {
   cartModalCheckout.addEventListener('click', () => {
-    if (cart.length === 0) {
-      alert('Tu carrito está vacío');
-      return;
-    }
+    if (cart.length === 0) return alert('Tu carrito está vacío');
     cartModal.style.display = 'none';
     checkoutModal.style.display = 'flex';
   });
 }
 
 if (checkoutClose) {
-  checkoutClose.addEventListener('click', () => {
-    checkoutModal.style.display = 'none';
+  checkoutClose.addEventListener('click', () => checkoutModal.style.display = 'none');
+}
+
+// =======================
+// 🔹 NUEVO: MÉTODOS DE PAGO
+// =======================
+document.querySelectorAll('.payment-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.payment-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedPaymentMethod = btn.dataset.method;
+
+    if (selectedPaymentMethod === 'paypal') {
+      alert('Redirigiendo a PayPal… (simulado)');
+    }
+
+    if (selectedPaymentMethod === 'card' && !savedCard) {
+      openCardModal();
+    }
+  });
+});
+
+// =======================
+// 🔹 NUEVO: MODAL TARJETA
+// =======================
+function openCardModal() {
+  const modal = document.createElement('div');
+  modal.style.cssText = `
+    position:fixed; inset:0; background:rgba(0,0,0,.6);
+    display:flex; align-items:center; justify-content:center; z-index:4000;
+  `;
+
+  modal.innerHTML = `
+    <div style="background:#fff;padding:20px;border-radius:12px;width:320px">
+      <h3>Datos de tarjeta</h3>
+      <input id="card-number" placeholder="Número" style="width:100%;margin:6px 0">
+      <input id="card-name" placeholder="Titular" style="width:100%;margin:6px 0">
+      <input id="card-exp" placeholder="MM/AA" style="width:100%;margin:6px 0">
+      <input id="card-cvc" placeholder="CVC" style="width:100%;margin:6px 0">
+      <button id="save-card">Guardar tarjeta</button>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  modal.querySelector('#save-card').addEventListener('click', () => {
+    savedCard = {
+      number: modal.querySelector('#card-number').value,
+      name: modal.querySelector('#card-name').value
+    };
+    localStorage.setItem('savedCard', JSON.stringify(savedCard));
+    document.body.removeChild(modal);
+    alert('Tarjeta guardada');
   });
 }
 
-// Click fuera de modales
-window.addEventListener('click', e => {
-  if (e.target === cartModal) cartModal.style.display = 'none';
-  if (e.target === checkoutModal) checkoutModal.style.display = 'none';
-});
-
 // =======================
-// SELECCIÓN MÉTODO DE PAGO
-// =======================
-const paymentButtons = document.querySelectorAll('.payment-btn');
-paymentButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    // Limpiar selección anterior
-    paymentButtons.forEach(b => b.classList.remove('selected'));
-    // Marcar el seleccionado
-    btn.classList.add('selected');
-    selectedPaymentMethod = btn.dataset.method;
-  });
-});
-
-// =======================
-// BOTÓN CONFIRMAR COMPRA
+// CONFIRMAR COMPRA
 // =======================
 if (checkoutConfirmBtn) {
   checkoutConfirmBtn.addEventListener('click', () => {
-    if(cart.length === 0){
-      alert('Tu carrito está vacío');
-      checkoutModal.style.display = 'none';
-      return;
-    }
-
     if (!selectedPaymentMethod) {
-      alert('Debes seleccionar un método de pago antes de confirmar la compra.');
+      alert('Selecciona un método de pago');
       return;
     }
 
-    alert(`¡Compra realizada con éxito! Método de pago: ${selectedPaymentMethod}`);
+    if (selectedPaymentMethod === 'card' && !savedCard) {
+      alert('No hay tarjeta registrada');
+      return;
+    }
+
+    alert('Pago realizado correctamente');
     cart = [];
-    selectedPaymentMethod = null; // reset para la próxima compra
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.removeItem('cart');
     updateCart();
     checkoutModal.style.display = 'none';
   });
 }
 
 // =======================
-// BOTÓN CARRITO FLOTANTE
+// BOTÓN CARRITO
 // =======================
 const cartContainer = document.getElementById('cart');
 if (cartContainer) {
