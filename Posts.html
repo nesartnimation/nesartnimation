@@ -6,14 +6,25 @@
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    .post-form { max-width: 600px; margin: 40px auto; display: flex; flex-direction: column; gap: 15px; }
-    .post-form input, .post-form textarea { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
-    .tags-container { display: flex; flex-wrap: wrap; gap: 5px; }
-    .tag-item { background: #eee; padding: 5px 10px; border-radius: 5px; display: inline-flex; align-items: center; }
-    .tag-item button { margin-left: 5px; border: none; background: #c00; color: #fff; cursor: pointer; border-radius: 3px; }
+    body.create-post { font-family: Arial, sans-serif; background: #f5f5f5; }
+    header#main-header { display:flex; align-items:center; justify-content:space-between; padding:10px 20px; background:#fff; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+    .post-panel { max-width: 900px; margin: 30px auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); display:flex; gap:20px; }
+    .post-editor { flex:2; display:flex; flex-direction:column; gap:15px; }
+    .post-editor input[type=text], .post-editor textarea, .post-editor input[type=file] { width:100%; padding:10px; border-radius:5px; border:1px solid #ccc; font-size:16px; }
+    .post-editor textarea { min-height:150px; resize:vertical; }
+    .post-editor button { background:#0073aa; color:#fff; padding:10px; border:none; border-radius:5px; cursor:pointer; font-size:16px; }
+    .post-editor button:hover { background:#005f8d; }
+    .post-preview { flex:1; display:flex; flex-direction:column; gap:10px; }
+    .post-preview img { width:100%; max-height:200px; object-fit:cover; border-radius:5px; }
+    .posts-preview { margin-top:30px; display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:15px; }
+    .post-card { background:#fff; padding:10px; border-radius:8px; box-shadow:0 3px 8px rgba(0,0,0,0.1); display:flex; flex-direction:column; gap:5px; }
+    .post-card img { width:100%; height:120px; object-fit:cover; border-radius:5px; }
+    .post-card .tags { display:flex; flex-wrap:wrap; gap:5px; font-size:12px; }
+    .tag { background:#eee; padding:2px 6px; border-radius:3px; }
+    .post-card button { background:#c00; color:#fff; border:none; border-radius:3px; padding:3px 6px; cursor:pointer; font-size:12px; align-self:flex-end; }
   </style>
 </head>
-<body class="portfolio create-post">
+<body class="create-post">
 
 <header id="main-header">
   <div class="logo-container">
@@ -25,104 +36,111 @@
       <li><a href="Comisiones.html">Comisiones</a></li>
       <li><a href="Originales.html">Originales</a></li>
       <li><a href="Tienda.html">Tienda</a></li>
-      <li><a href="Blog.html">Blog</a></li>
       <li><a href="Contacto.html">Contacto</a></li>
+      <li><a href="Blog.html">Blog</a></li>
+   
     </ul>
   </nav>
 </header>
 
 <main>
-  <form class="post-form" id="post-form">
-    <h2>Crear nuevo post</h2>
+  <div class="post-panel">
+    <!-- PANEL DE EDICIÓN -->
+    <div class="post-editor">
+      <h2>Crear Nuevo Post</h2>
+      <input type="text" id="post-title" placeholder="Título del post" required>
+      <textarea id="post-desc" placeholder="Descripción completa" required></textarea>
+      <input type="file" id="post-image" accept="image/*" required>
 
-    <input type="text" id="post-title" placeholder="Título del post" required>
-    <textarea id="post-desc" placeholder="Descripción del post" rows="5" required></textarea>
-    <input type="file" id="post-image" accept="image/*" required>
+      <input type="text" id="post-categories" placeholder="Categorías (separadas por comas)">
+      <input type="text" id="post-tags" placeholder="Etiquetas (separadas por comas)">
 
-    <!-- Categorías -->
-    <input type="text" id="post-categories" placeholder="Categorías (separadas por comas)">
-    
-    <!-- Etiquetas -->
-    <input type="text" id="post-tags" placeholder="Etiquetas (separadas por comas)">
+      <button id="save-post">Guardar Post</button>
+    </div>
 
-    <button type="submit">Guardar Post</button>
-  </form>
+    <!-- PREVISUALIZACIÓN -->
+    <div class="post-preview">
+      <h3>Vista Previa de la Imagen</h3>
+      <img id="preview-image" src="" alt="Previsualización">
+    </div>
+  </div>
 
+  <h2 style="text-align:center; margin-top:40px;">Posts Creados</h2>
   <div class="posts-preview" id="posts-preview"></div>
 </main>
 
 <script>
-  const postForm = document.getElementById('post-form');
+  const postTitle = document.getElementById('post-title');
+  const postDesc = document.getElementById('post-desc');
+  const postImage = document.getElementById('post-image');
+  const postCategories = document.getElementById('post-categories');
+  const postTags = document.getElementById('post-tags');
+  const previewImage = document.getElementById('preview-image');
   const postsPreview = document.getElementById('posts-preview');
+  const savePostBtn = document.getElementById('save-post');
 
   let posts = JSON.parse(localStorage.getItem('posts')) || [];
 
-  function renderPostsPreview() {
+  function renderPosts() {
     postsPreview.innerHTML = '';
     posts.forEach((post, index) => {
-      const div = document.createElement('div');
-      div.style.border = '1px solid #ccc';
-      div.style.padding = '10px';
-      div.style.marginBottom = '10px';
-      div.style.display = 'flex';
-      div.style.alignItems = 'center';
-      div.style.justifyContent = 'space-between';
-
-      div.innerHTML = `
-        <div style="display:flex;align-items:center;gap:10px;">
-          <img src="${post.image}" alt="${post.title}" style="width:80px;height:80px;object-fit:cover;border-radius:5px;">
-          <div>
-            <strong>${post.title}</strong><br>
-            <small>${post.desc.substring(0,50)}...</small>
-          </div>
+      const card = document.createElement('div');
+      card.className = 'post-card';
+      card.innerHTML = `
+        <img src="${post.image}" alt="${post.title}">
+        <strong>${post.title}</strong>
+        <p>${post.desc.substring(0,50)}...</p>
+        <div class="tags">
+          ${post.categories.map(c=>`<span class="tag">${c}</span>`).join('')}
+          ${post.tags.map(t=>`<span class="tag">${t}</span>`).join('')}
         </div>
         <button data-index="${index}">Eliminar</button>
       `;
-
-      div.querySelector('button').addEventListener('click', e => {
+      card.querySelector('button').addEventListener('click', e=>{
         const idx = e.target.dataset.index;
-        posts.splice(idx, 1);
+        posts.splice(idx,1);
         localStorage.setItem('posts', JSON.stringify(posts));
-        renderPostsPreview();
+        renderPosts();
       });
-
-      postsPreview.appendChild(div);
+      postsPreview.appendChild(card);
     });
   }
 
-  renderPostsPreview();
+  renderPosts();
 
-  postForm.addEventListener('submit', async e => {
-    e.preventDefault();
+  // Previsualizar imagen
+  postImage.addEventListener('change', e=>{
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => { previewImage.src = reader.result; };
+    reader.readAsDataURL(file);
+  });
 
-    const title = document.getElementById('post-title').value.trim();
-    const desc = document.getElementById('post-desc').value.trim();
-    const imgFile = document.getElementById('post-image').files[0];
-    const categories = document.getElementById('post-categories').value
-      .split(',').map(c => c.trim()).filter(c => c);
-    const tags = document.getElementById('post-tags').value
-      .split(',').map(t => t.trim()).filter(t => t);
-
-    if (!title || !desc || !imgFile) {
-      alert('Completa todos los campos obligatorios');
+  savePostBtn.addEventListener('click', ()=>{
+    if(!postTitle.value || !postDesc.value || !postImage.files[0]){
+      alert('Completa los campos obligatorios');
       return;
     }
 
-    // Convertir imagen a base64
     const reader = new FileReader();
-    reader.onload = function() {
+    reader.onload = () => {
       const image = reader.result;
-
-      const id = posts.length; // ID simple incremental
-      const post = { id, title, desc, image, categories, tags };
-
-      posts.push(post);
+      const newPost = {
+        id: posts.length,
+        title: postTitle.value.trim(),
+        desc: postDesc.value.trim(),
+        image: image,
+        categories: postCategories.value.split(',').map(c=>c.trim()).filter(c=>c),
+        tags: postTags.value.split(',').map(t=>t.trim()).filter(t=>t)
+      };
+      posts.push(newPost);
       localStorage.setItem('posts', JSON.stringify(posts));
-
-      renderPostsPreview();
-      postForm.reset();
+      renderPosts();
+      postTitle.value=''; postDesc.value=''; postImage.value=''; postCategories.value=''; postTags.value='';
+      previewImage.src='';
     };
-    reader.readAsDataURL(imgFile);
+    reader.readAsDataURL(postImage.files[0]);
   });
 </script>
 
