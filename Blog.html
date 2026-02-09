@@ -8,105 +8,90 @@
   <style>
     .blog-container {
       max-width: 1200px;
-      margin: 50px auto;
+      margin: 40px auto;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
+      padding: 0 20px;
     }
-
     .blog-post {
-      border-radius: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
       overflow: hidden;
-      background: #f9f9f9;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      cursor: pointer;
+      text-align: center;
       transition: transform 0.2s;
-      display: flex;
-      flex-direction: column;
+      background: #fff;
     }
-
     .blog-post:hover {
       transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-
     .blog-post img {
       width: 100%;
-      height: 150px;
+      height: 200px;
       object-fit: cover;
     }
-
-    .blog-post-content {
-      padding: 15px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .blog-post-title {
-      font-size: 1.1rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .blog-post-description {
+    .blog-post p {
+      padding: 10px;
       font-size: 0.95rem;
-      color: #555;
-      flex: 1;
+      color: #333;
+    }
+    .blog-post a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
     }
   </style>
 </head>
 <body class="portfolio blog-page">
 
-<header id="main-header">
-  <div class="logo-container">
-    <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
-  </div>
-  <nav id="main-menu">
-    <ul>
-      <li><a href="Nesart.html">Nesart</a></li>
-      <li><a href="Comisiones.html">Comisiones</a></li>
-      <li><a href="Originales.html">Originales</a></li>
-      <li><a href="SobreMi.html">Sobre mi</a></li>
-      <li><a href="Contacto.html">Contacto</a></li>
-      <li><a href="Blog.html" class="active">Blog</a></li>
-    </ul>
-  </nav>
-</header>
+  <header id="main-header">
+    <div class="logo-container">
+      <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
+    </div>
+    <nav id="main-menu">
+      <ul>
+        <li><a href="Nesart.html">Nesart</a></li>
+        <li><a href="Comisiones.html">Comisiones</a></li>
+        <li><a href="Originales.html">Originales</a></li>
+        <li><a href="Tienda.html">Tienda</a></li>
+        <li><a href="Contacto.html">Contacto</a></li>
+        <li><a href="Post.html">Crear Post</a></li> <!-- Solo tú lo verás -->
+      </ul>
+    </nav>
+  </header>
 
-<div class="blog-container" id="blog-container">
-  <!-- Aquí se inyectan los posts -->
-</div>
+  <main>
+    <h1>Blog</h1>
+    <div class="blog-container" id="blog-container">
+      <!-- Posts dinámicos -->
+    </div>
+  </main>
 
-<script>
-  const blogContainer = document.getElementById('blog-container');
-  const posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+  <script>
+    const container = document.getElementById('blog-container');
+    const posts = JSON.parse(localStorage.getItem('posts')) || [];
 
-  if(posts.length === 0){
-    blogContainer.innerHTML = '<p>No hay posts publicados todavía.</p>';
-  } else {
-    posts.sort((a,b) => b.id - a.id); // mostrar más recientes primero
-    posts.forEach(post => {
-      const div = document.createElement('div');
-      div.className = 'blog-post';
-      div.addEventListener('click', () => {
-        // Redirige a PostView.html pasando id del post
-        window.location.href = `PostView.html?id=${post.id}`;
+    if(posts.length === 0){
+      container.innerHTML = '<p>No hay posts disponibles.</p>';
+    } else {
+      posts.forEach((post, index) => {
+        const postEl = document.createElement('div');
+        postEl.className = 'blog-post';
+        postEl.innerHTML = `
+          <a href="PostView.html?id=${index}">
+            <img src="${post.image}" alt="${post.title}">
+            <p>${post.desc}</p>
+          </a>
+        `;
+        container.appendChild(postEl);
       });
-
-      const imgHTML = post.image ? `<img src="${post.image}" alt="${post.title}">` : '';
-      const desc = post.content.length > 100 ? post.content.substring(0, 100) + '...' : post.content;
-
-      div.innerHTML = `
-        ${imgHTML}
-        <div class="blog-post-content">
-          <div class="blog-post-title">${post.title}</div>
-          <div class="blog-post-description">${desc}</div>
-        </div>
-      `;
-      blogContainer.appendChild(div);
-    });
-  }
-</script>
+    }
+  </script>
 
 </body>
 </html>
