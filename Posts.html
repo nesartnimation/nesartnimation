@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear Post - NesArt</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="portfolio crear-post">
+
+<header id="main-header">
+  <div class="logo-container">
+    <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
+  </div>
+  <nav id="main-menu">
+    <ul>
+       <li><a href="Nesart.html">Nesart</a></li>
+      <li><a href="Comisiones.html">Comisiones</a></li>
+      <li><a href="Originales.html">Originales</a></li>
+      <li><a href="SobreMi.html">Sobre mi</a></li>
+      <li><a href="Contacto.html">Contacto</a></li>
+      <li><a href="Blog.html">Blog</a></li>
+      <li><a href="Post.html" class="active">Crear Post</a></li>
+    
+    </ul>
+  </nav>
+</header>
+
+<div class="crear-post-container">
+  <h1>Crear nuevo post</h1>
+
+  <form id="post-form">
+    <label for="post-title">Título:</label>
+    <input type="text" id="post-title" placeholder="Título del post" required>
+
+    <label for="post-image">URL de la imagen:</label>
+    <input type="text" id="post-image" placeholder="https://ejemplo.com/imagen.jpg">
+
+    <label for="post-content">Contenido:</label>
+    <textarea id="post-content" placeholder="Escribe el contenido del post..." required></textarea>
+
+    <button type="submit">Guardar Post</button>
+  </form>
+
+  <p id="success-message" style="display:none;color:green;">Post guardado con éxito!</p>
+</div>
+
+<script>
+  const postForm = document.getElementById('post-form');
+  const successMessage = document.getElementById('success-message');
+
+  postForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const title = document.getElementById('post-title').value.trim();
+    const image = document.getElementById('post-image').value.trim();
+    const content = document.getElementById('post-content').value.trim();
+
+    if (!title || !content) {
+      alert('El título y contenido son obligatorios');
+      return;
+    }
+
+    const posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+
+    // Guardamos con fecha y un ID único
+    const newPost = {
+      id: Date.now(),
+      title,
+      image,
+      content,
+      date: new Date().toISOString()
+    };
+
+    posts.push(newPost);
+    localStorage.setItem('blogPosts', JSON.stringify(posts));
+
+    // Mensaje y reset
+    successMessage.style.display = 'block';
+    postForm.reset();
+  });
+</script>
+
+<style>
+  .crear-post-container {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+  }
+
+  .crear-post-container h1 {
+    margin-bottom: 20px;
+  }
+
+  .crear-post-container input, 
+  .crear-post-container textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+
+  .crear-post-container button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    background: #333;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+</style>
+
+</body>
+</html>
