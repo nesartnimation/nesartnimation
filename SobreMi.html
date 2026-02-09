@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sobre mí - NesArt</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body.sobre-mi {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+    }
+    header .logo {
+      height: 50px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .sobre-mi-container {
+      display: flex;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 0 20px;
+      align-items: center;
+    }
+
+    .sobre-mi-container .foto {
+      flex: 1;
+    }
+    .sobre-mi-container .foto img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .sobre-mi-container .descripcion {
+      flex: 1;
+    }
+    .sobre-mi-container .descripcion h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .sobre-mi-container .descripcion p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .sobre-mi-container {
+        flex-direction: column;
+      }
+      .sobre-mi-container .foto,
+      .sobre-mi-container .descripcion {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body class="sobre-mi">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-container">
+      <a href="nesart.html"><img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="nesart.html">Nesart</a></li>
+        <li><a href="comisiones.html">Comisiones</a></li>
+        <li><a href="originales.html">Originales</a></li>
+        <li><a href="SobreMi.html">Sobre mí</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO SOBRE MÍ -->
+  <div class="sobre-mi-container">
+    <!-- FOTO IZQUIERDA -->
+    <div class="foto">
+      <img src="images/mi-foto.jpg" alt="Foto de NesArt">
+    </div>
+
+    <!-- DESCRIPCIÓN DERECHA -->
+    <div class="descripcion">
+      <h1>Hola, soy NesArt</h1>
+      <p>
+        Soy un artista apasionado por el diseño y la ilustración. Me encanta crear obras únicas que transmitan emociones y cuenten historias. Mi objetivo es que cada pieza inspire y conecte con quien la observe.
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>
