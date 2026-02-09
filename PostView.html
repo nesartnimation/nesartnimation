@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Post - NesArt</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .post-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    .post-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .post-container h1 {
+      margin-bottom: 10px;
+    }
+    .post-container p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="Blog.html">← Volver al Blog</a>
+  </header>
+
+  <div class="post-container" id="post-container">
+    <!-- Contenido dinámico del post -->
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const postId = parseInt(params.get('id'));
+
+    const posts = JSON.parse(localStorage.getItem('posts')) || [];
+    const container = document.getElementById('post-container');
+
+    if (!posts[postId]) {
+      container.innerHTML = '<p>Post no encontrado.</p>';
+    } else {
+      const post = posts[postId];
+      container.innerHTML = `
+        <img src="${post.image}" alt="${post.title}">
+        <h1>${post.title}</h1>
+        <p>${post.desc}</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
