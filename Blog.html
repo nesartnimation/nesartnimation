@@ -5,6 +5,15 @@
   <title>Blog - NesArt</title>
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .blog-container { max-width: 900px; margin: auto; padding: 20px; }
+    .posts-list { display: flex; flex-direction: column; gap: 30px; }
+    .blog-post { border: 1px solid #ccc; padding: 20px; border-radius: 8px; background: #f9f9f9; }
+    .blog-post img { max-width: 100%; border-radius: 6px; }
+    .pagination { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+    .pagination button { padding: 8px 12px; cursor: pointer; border-radius: 4px; border: 1px solid #333; background: #fff; }
+    .pagination button.active { background: #333; color: #fff; }
+  </style>
 </head>
 <body class="portfolio blog-page">
 
@@ -24,79 +33,110 @@
   </nav>
 </header>
 
-<!-- CONTENEDOR BLOG -->
 <main class="blog-container">
   <h1>Blog de NesArt</h1>
-  <div id="blog-posts" class="posts-list">
-    <!-- Los posts se cargarán dinámicamente -->
+
+  <!-- FORMULARIO PARA NUEVO POST -->
+  <div class="new-post-form">
+    <h2>Crear nuevo post</h2>
+    <input type="text" id="post-title" placeholder="Título del post">
+    <input type="date" id="post-date">
+    <input type="text" id="post-image" placeholder="URL de la imagen">
+    <textarea id="post-excerpt" placeholder="Contenido resumido"></textarea>
+    <button id="add-post-btn">Añadir post</button>
   </div>
+
+  <!-- CONTENEDOR POSTS -->
+  <div id="blog-posts" class="posts-list"></div>
+
+  <!-- PAGINACIÓN -->
+  <div id="pagination" class="pagination"></div>
 </main>
 
-<!-- EJEMPLO DE POST (para copiar como plantilla) -->
 <template id="blog-post-template">
   <article class="blog-post">
     <img class="post-image" src="" alt="Imagen del post">
     <h2 class="post-title"></h2>
     <p class="post-date"></p>
     <p class="post-excerpt"></p>
-    <div class="post-share">
-      <button class="share-btn" data-platform="twitter">Twitter</button>
-      <button class="share-btn" data-platform="facebook">Facebook</button>
-      <button class="share-btn" data-platform="linkedin">LinkedIn</button>
-    </div>
   </article>
 </template>
 
-<!-- SCRIPTS -->
 <script>
-  // Aquí defines tus posts de ejemplo o los traes desde un JSON externo
-  const posts = [
-    {
-      id: 1,
-      title: "Cómo empecé con NesArt",
-      date: "2026-02-09",
-      image: "images/blog1.jpg",
-      excerpt: "En esta entrada cuento mi viaje creativo y cómo llegué a fundar NesArt.",
-      url: window.location.href + "#post1"
-    },
-    {
-      id: 2,
-      title: "Consejos para ilustradores",
-      date: "2026-01-25",
-      image: "images/blog2.jpg",
-      excerpt: "Compartiendo algunos trucos y consejos para mejorar tus ilustraciones.",
-      url: window.location.href + "#post2"
-    }
-  ];
+  const POSTS_PER_PAGE = 10;
+  let currentPage = 1;
 
+  let posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
   const postsContainer = document.getElementById('blog-posts');
   const postTemplate = document.getElementById('blog-post-template');
+  const paginationContainer = document.getElementById('pagination');
 
-  posts.forEach(post => {
-    const clone = postTemplate.content.cloneNode(true);
-    clone.querySelector('.post-image').src = post.image;
-    clone.querySelector('.post-image').alt = post.title;
-    clone.querySelector('.post-title').textContent = post.title;
-    clone.querySelector('.post-date').textContent = post.date;
-    clone.querySelector('.post-excerpt').textContent = post.excerpt;
+  function renderPosts(page = 1) {
+    postsContainer.innerHTML = '';
 
-    const shareButtons = clone.querySelectorAll('.share-btn');
-    shareButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const platform = btn.dataset.platform;
-        let shareURL = "";
-        const text = encodeURIComponent(post.title + " - " + post.url);
-        const url = encodeURIComponent(post.url);
+    // Ordenar posts por fecha descendente
+    posts.sort((a,b) => new Date(b.date) - new Date(a.date));
 
-        if(platform === "twitter") shareURL = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-        if(platform === "facebook") shareURL = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-        if(platform === "linkedin") shareURL = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}`;
+    const startIndex = (page - 1) * POSTS_PER_PAGE;
+    const endIndex = startIndex + POSTS_PER_PAGE;
+    const postsToShow = posts.slice(startIndex, endIndex);
 
-        window.open(shareURL, '_blank');
-      });
+    postsToShow.forEach(post => {
+      const clone = postTemplate.content.cloneNode(true);
+      clone.querySelector('.post-image').src = post.image || 'images/default.jpg';
+      clone.querySelector('.post-image').alt = post.title;
+      clone.querySelector('.post-title').textContent = post.title;
+      clone.querySelector('.post-date').textContent = post.date;
+      clone.querySelector('.post-excerpt').textContent = post.excerpt;
+      postsContainer.appendChild(clone);
     });
 
-    postsContainer.appendChild(clone);
+    renderPagination(page);
+  }
+
+  function renderPagination(activePage) {
+    paginationContainer.innerHTML = '';
+    const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+    if(totalPages <= 1) return;
+
+    for(let i = 1; i <= totalPages; i++){
+      const btn = document.createElement('button');
+      btn.textContent = i;
+      if(i === activePage) btn.classList.add('active');
+      btn.addEventListener('click', () => {
+        currentPage = i;
+        renderPosts(currentPage);
+      });
+      paginationContainer.appendChild(btn);
+    }
+  }
+
+  renderPosts(currentPage);
+
+  // Añadir nuevo post
+  document.getElementById('add-post-btn').addEventListener('click', () => {
+    const title = document.getElementById('post-title').value.trim();
+    const date = document.getElementById('post-date').value;
+    const image = document.getElementById('post-image').value.trim();
+    const excerpt = document.getElementById('post-excerpt').value.trim();
+
+    if(!title || !date || !excerpt){
+      alert("Debes rellenar al menos título, fecha y contenido.");
+      return;
+    }
+
+    const newPost = { title, date, image, excerpt };
+    posts.unshift(newPost); // agregar al inicio
+    localStorage.setItem('blogPosts', JSON.stringify(posts));
+
+    // Limpiar formulario
+    document.getElementById('post-title').value = '';
+    document.getElementById('post-date').value = '';
+    document.getElementById('post-image').value = '';
+    document.getElementById('post-excerpt').value = '';
+
+    currentPage = 1;
+    renderPosts(currentPage);
   });
 </script>
 
