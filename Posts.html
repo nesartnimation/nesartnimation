@@ -23,7 +23,7 @@
       <li><a href="Post.html" class="active">Crear Post</a></li>
     
     </ul>
-  </nav>
+ </nav>
 </header>
 
 <div class="crear-post-container">
@@ -33,8 +33,8 @@
     <label for="post-title">Título:</label>
     <input type="text" id="post-title" placeholder="Título del post" required>
 
-    <label for="post-image">URL de la imagen:</label>
-    <input type="text" id="post-image" placeholder="https://ejemplo.com/imagen.jpg">
+    <label for="post-image">Imagen:</label>
+    <input type="file" id="post-image" accept="image/*">
 
     <label for="post-content">Contenido:</label>
     <textarea id="post-content" placeholder="Escribe el contenido del post..." required></textarea>
@@ -53,8 +53,8 @@
     e.preventDefault();
 
     const title = document.getElementById('post-title').value.trim();
-    const image = document.getElementById('post-image').value.trim();
     const content = document.getElementById('post-content').value.trim();
+    const imageInput = document.getElementById('post-image');
 
     if (!title || !content) {
       alert('El título y contenido son obligatorios');
@@ -63,21 +63,32 @@
 
     const posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
 
-    // Guardamos con fecha y un ID único
-    const newPost = {
-      id: Date.now(),
-      title,
-      image,
-      content,
-      date: new Date().toISOString()
+    // Función para guardar el post
+    const savePost = (imageData) => {
+      const newPost = {
+        id: Date.now(),
+        title,
+        image: imageData || null, // si no hay imagen, null
+        content,
+        date: new Date().toISOString()
+      };
+      posts.push(newPost);
+      localStorage.setItem('blogPosts', JSON.stringify(posts));
+
+      successMessage.style.display = 'block';
+      postForm.reset();
     };
 
-    posts.push(newPost);
-    localStorage.setItem('blogPosts', JSON.stringify(posts));
-
-    // Mensaje y reset
-    successMessage.style.display = 'block';
-    postForm.reset();
+    // Si se ha subido una imagen, convertir a base64
+    if (imageInput.files && imageInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        savePost(event.target.result);
+      };
+      reader.readAsDataURL(imageInput.files[0]);
+    } else {
+      savePost(null);
+    }
   });
 </script>
 
