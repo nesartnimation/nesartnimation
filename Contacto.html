@@ -11,8 +11,6 @@
     body, input, textarea, button {
       font-family: 'Arial', sans-serif;
       color: #222;
-      margin: 0;
-      padding: 0;
     }
 
     /* ===== Header fijo ===== */
@@ -27,16 +25,19 @@
       height: 80px;
     }
 
-    /* ===== Contenedor principal ===== */
-    .container {
-      max-width: 900px;
-      margin: 120px auto 50px auto; /* separa del header fijo */
-      padding: 20px;
+    /* ===== Body padding solo para separar del header ===== */
+    body.contact-page {
+      margin: 0;
+      padding-top: 150px; /* espacio suficiente para header fijo */
+      background: #f9f9f9;
     }
 
-    .contact-container {
+    /* ===== Contenedor principal del formulario ===== */
+    .main-content {
+      max-width: 800px;
+      margin: 0 auto 100px auto;
+      padding: 30px;
       background: #fff;
-      padding: 25px;
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
@@ -84,7 +85,7 @@
     }
   </style>
 </head>
-<body>
+<body class="contact-page">
 
   <!-- ===== HEADER Y MENÚ ===== -->
   <header id="main-header">
@@ -104,32 +105,29 @@
     </nav>
   </header>
 
-  <!-- ===== CONTENEDOR DEL FORMULARIO ===== -->
-  <div class="container">
-    <div class="contact-container">
-      <h1>Contacto</h1>
-      <p>Rellena el formulario y te contestaré lo antes posible.</p>
+  <!-- ===== CONTENEDOR PRINCIPAL DEL FORMULARIO ===== -->
+  <div class="main-content">
+    <h1>Contacto</h1>
+    <p>Rellena el formulario y te contestaré lo antes posible.</p>
 
-      <form class="contact-form" id="contact-form">
-        <input type="text" id="contact-name" placeholder="Nombre completo" required>
-        <input type="email" id="contact-email" placeholder="Correo electrónico" required>
-        <input type="text" id="contact-subject" placeholder="Asunto" required>
-        <textarea id="contact-message" placeholder="Mensaje" required></textarea>
-        <button type="submit">Enviar mensaje</button>
-      </form>
+    <form class="contact-form" id="contact-form">
+      <input type="text" id="contact-name" placeholder="Nombre completo" required>
+      <input type="email" id="contact-email" placeholder="Correo electrónico" required>
+      <input type="text" id="contact-subject" placeholder="Asunto" required>
+      <textarea id="contact-message" placeholder="Mensaje" required></textarea>
+      <button type="submit">Enviar mensaje</button>
+    </form>
 
-      <p id="form-status" style="margin-top:15px;color:green;display:none;">Mensaje enviado correctamente!</p>
-    </div>
+    <p id="form-status" style="margin-top:15px;color:green;display:none;">Mensaje enviado correctamente!</p>
   </div>
 
   <!-- ===== EMAILJS ===== -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
-    emailjs.init("AyEKiZhrLYNydjL3C"); // tu Public Key
+    emailjs.init("AyEKiZhrLYNydjL3C"); // Public Key
   </script>
 
   <script>
-    // ===== ENVÍO DEL FORMULARIO =====
     const form = document.getElementById('contact-form');
     const status = document.getElementById('form-status');
 
@@ -148,8 +146,8 @@
 
       try {
         await emailjs.send(
-          "service_lxn9xns",   // tu Service ID
-          "template_04ruraj",  // tu Template ID
+          "service_lxn9xns",
+          "template_04ruraj",
           {
             name: name,
             email: email,
