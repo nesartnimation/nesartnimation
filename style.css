@@ -91,6 +91,27 @@ body.portfolio {
 }
 
 /* ==============================
+   NUEVO: CONTENEDOR PRESENTACIÓN NESART
+============================= */
+.nesart-intro {
+  max-width: 900px;
+  margin: 0 auto 50px auto; /* margen inferior para separar de la galería */
+  padding: 20px;
+  text-align: center; /* centra todo el texto */
+}
+
+.nesart-intro h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.nesart-intro p {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* ==============================
    GALERÍA / PROJECT / NESART
 ============================= */
 /* Contenedores para limitar tamaño de imagen */
@@ -628,4 +649,3 @@ body.portfolio {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
-
