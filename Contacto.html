@@ -27,14 +27,13 @@
 
     body {
       margin: 0;
-      padding-top: 200px; /* igual que la altura del header */
       background: #f9f9f9;
     }
 
     /* ===== Contenedor principal ===== */
     .main-content {
       max-width: 800px;
-      margin: 0 auto;
+      margin: 100px auto 50px auto; /* margen superior para separar del header */
       padding: 20px;
       background: #fff;
       border-radius: 8px;
@@ -151,10 +150,10 @@
           "service_lxn9xns",   // <-- Reemplaza con tu Service ID
           "template_04ruraj",  // <-- Reemplaza con tu Template ID
           {
-            from_name: name,
-            from_email: email,
-            subject: subject,
-            message: message
+            name: name,       // coincidir con {{name}} en tu template
+            email: email,     // coincidir con {{email}}
+            subject: subject, // coincidir con {{subject}}
+            message: message  // coincidir con {{message}}
           }
         );
 
@@ -169,4 +168,3 @@
 
 </body>
 </html>
-
