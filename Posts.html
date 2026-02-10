@@ -5,256 +5,196 @@
   <title>Panel de Posts - NesArt</title>
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* Espacio entre menú y sección */
-    .posts-container {
-      margin-top: 60px; /* Ajusta según el header */
-      max-width: 1000px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 20px;
-    }
-
-    .posts-container h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .post-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 10px;
-      margin-bottom: 10px;
-      gap: 10px;
-    }
-
-    .post-item img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    .post-item .post-info {
-      flex: 1;
-    }
-
-    .post-item .post-actions button {
-      margin-left: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
-    }
-
-    /* Modal creación/edición de post */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .modal-content {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 600px;
-      width: 90%;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .modal-content input,
-    .modal-content textarea {
-      width: 100%;
-      padding: 10px;
-      font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-family: inherit;
-    }
-
-    .modal-content button {
-      padding: 10px;
-      cursor: pointer;
-      border: none;
-      border-radius: 6px;
-      background-color: #333;
-      color: #fff;
-      font-size: 1em;
-    }
-
-    .modal-content button:hover {
-      background-color: #555;
-    }
-
-  </style>
 </head>
-<body>
 
-  <!-- HEADER -->
-  <header id="main-header">
-    <div class="logo-container">
-      <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
-    </div>
-    <nav id="main-menu">
-      <ul>
-        <li><a href="Nesart.html">Nesart</a></li>
-        <li><a href="Comisiones.html">Comisiones</a></li>
-        <li><a href="Originales.html">Originales</a></li>
-        <li><a href="Tienda.html">Tienda</a></li>
-        <li><a href="Contacto.html">Contacto</a></li>
-        <li><a href="Blog.html">Blog</a></li>
-      </ul>
-    </nav>
-  </header>
+<body class="portfolio posts-admin">
 
-  <div class="posts-container">
-    <h1>Panel de creación de posts</h1>
-    <button id="new-post-btn">Crear nuevo post</button>
-
-    <div id="posts-list">
-      <!-- Aquí se listarán los posts existentes -->
-    </div>
+<!-- ===== HEADER ===== -->
+<header id="main-header">
+  <div class="logo-container">
+    <img src="images/LogoNesArt.png" class="logo">
   </div>
 
-  <!-- MODAL CREACIÓN/EDICIÓN POST -->
-  <div id="post-modal" class="modal">
-    <div class="modal-content">
-      <span id="close-modal" style="cursor:pointer;align-self:flex-end;">&times;</span>
-      <h2 id="modal-title">Crear post</h2>
-      <input type="text" id="post-title" placeholder="Título del post">
-      <input type="text" id="post-category" placeholder="Categoría">
-      <input type="text" id="post-tags" placeholder="Etiquetas (separadas por comas)">
-      <input type="file" id="post-image">
-      <textarea id="post-description" placeholder="Descripción breve"></textarea>
-      <button id="save-post-btn">Guardar post</button>
+  <nav id="main-menu">
+    <ul>
+     <li><a href="Nesart.html">Nesart</a></li>
+      <li><a href="Comisiones.html">Comisiones</a></li>
+      <li><a href="Originales.html">Originales</a></li>
+      <li><a href="SobreMi.html">Sobre mi</a></li>
+      <li><a href="Contacto.html">Contacto</a></li>
+      <li><a href="Blog.html">Blog</a></li>
+      <li><a href="Posts.html" class="active">Posts</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO ===== -->
+<main class="page-content">
+
+  <section class="posts-panel">
+
+    <div class="posts-header">
+      <h1>Gestión de posts</h1>
+      <button id="new-post-btn">➕ Nuevo post</button>
     </div>
+
+    <!-- LISTA POSTS -->
+    <div id="posts-list" class="posts-grid"></div>
+
+  </section>
+
+</main>
+
+<!-- ===== MODAL CREAR / EDITAR POST ===== -->
+<div id="post-modal" class="modal">
+  <div class="modal-content">
+
+    <span id="close-modal">&times;</span>
+
+    <h2 id="modal-title">Nuevo post</h2>
+
+    <input type="hidden" id="post-id">
+
+    <input type="text" id="post-title" placeholder="Título del post">
+
+    <input type="text" id="post-excerpt" placeholder="Descripción corta">
+
+    <textarea id="post-content" rows="8" placeholder="Contenido completo del post"></textarea>
+
+    <input type="text" id="post-category" placeholder="Categoría">
+
+    <input type="text" id="post-tags" placeholder="Etiquetas (separadas por comas)">
+
+    <input type="file" id="post-image" accept="image/*">
+
+    <button id="save-post-btn">Guardar post</button>
+
   </div>
+</div>
 
-  <script>
-    let posts = JSON.parse(localStorage.getItem('posts')) || [];
-    let editingIndex = null;
+<!-- ===== SCRIPT ===== -->
+<script>
+const postsKey = 'blogPosts';
+let posts = JSON.parse(localStorage.getItem(postsKey)) || [];
 
-    const postsList = document.getElementById('posts-list');
-    const postModal = document.getElementById('post-modal');
-    const newPostBtn = document.getElementById('new-post-btn');
-    const closeModal = document.getElementById('close-modal');
-    const savePostBtn = document.getElementById('save-post-btn');
+const postsList = document.getElementById('posts-list');
+const modal = document.getElementById('post-modal');
 
-    const postTitle = document.getElementById('post-title');
-    const postCategory = document.getElementById('post-category');
-    const postTags = document.getElementById('post-tags');
-    const postImage = document.getElementById('post-image');
-    const postDescription = document.getElementById('post-description');
-    const modalTitle = document.getElementById('modal-title');
+const newPostBtn = document.getElementById('new-post-btn');
+const closeModal = document.getElementById('close-modal');
+const savePostBtn = document.getElementById('save-post-btn');
 
-    function renderPosts() {
-      postsList.innerHTML = '';
-      posts.forEach((post, index) => {
-        const div = document.createElement('div');
-        div.className = 'post-item';
-        div.innerHTML = `
-          <img src="${post.image}" alt="${post.title}">
-          <div class="post-info">
-            <strong>${post.title}</strong><br>
-            <em>${post.category}</em><br>
-            ${post.tags.join(', ')}
-          </div>
-          <div class="post-actions">
-            <button onclick="editPost(${index})">Editar</button>
-            <button onclick="deletePost(${index})">Eliminar</button>
-          </div>
-        `;
-        postsList.appendChild(div);
-      });
-    }
+const postIdInput = document.getElementById('post-id');
+const titleInput = document.getElementById('post-title');
+const excerptInput = document.getElementById('post-excerpt');
+const contentInput = document.getElementById('post-content');
+const categoryInput = document.getElementById('post-category');
+const tagsInput = document.getElementById('post-tags');
+const imageInput = document.getElementById('post-image');
+const modalTitle = document.getElementById('modal-title');
 
-    function editPost(index) {
-      editingIndex = index;
-      modalTitle.textContent = 'Editar post';
-      const post = posts[index];
-      postTitle.value = post.title;
-      postCategory.value = post.category;
-      postTags.value = post.tags.join(', ');
-      postDescription.value = post.description;
-      postModal.style.display = 'flex';
-    }
+/* ===== RENDER POSTS ===== */
+function renderPosts() {
+  postsList.innerHTML = '';
 
-    function deletePost(index) {
-      if(confirm('¿Eliminar este post?')) {
-        posts.splice(index, 1);
-        localStorage.setItem('posts', JSON.stringify(posts));
-        renderPosts();
-      }
-    }
+  posts.forEach(post => {
+    const div = document.createElement('div');
+    div.className = 'post-card';
 
-    newPostBtn.addEventListener('click', () => {
-      editingIndex = null;
-      modalTitle.textContent = 'Crear post';
-      postTitle.value = '';
-      postCategory.value = '';
-      postTags.value = '';
-      postDescription.value = '';
-      postImage.value = '';
-      postModal.style.display = 'flex';
-    });
+    div.innerHTML = `
+      <img src="${post.image}" alt="">
+      <h3>${post.title}</h3>
+      <p>${post.excerpt}</p>
+      <div class="post-actions">
+        <button onclick="editPost('${post.id}')">✏️ Editar</button>
+        <button onclick="deletePost('${post.id}')">🗑️ Eliminar</button>
+      </div>
+    `;
 
-    closeModal.addEventListener('click', () => {
-      postModal.style.display = 'none';
-    });
+    postsList.appendChild(div);
+  });
+}
 
-    savePostBtn.addEventListener('click', () => {
-      const title = postTitle.value.trim();
-      const category = postCategory.value.trim();
-      const tags = postTags.value.split(',').map(t => t.trim()).filter(t => t);
-      const description = postDescription.value.trim();
-      let imageUrl = '';
+/* ===== NUEVO POST ===== */
+newPostBtn.onclick = () => {
+  modal.style.display = 'flex';
+  modalTitle.textContent = 'Nuevo post';
+  postIdInput.value = '';
+  titleInput.value = '';
+  excerptInput.value = '';
+  contentInput.value = '';
+  categoryInput.value = '';
+  tagsInput.value = '';
+  imageInput.value = '';
+};
 
-      if(postImage.files && postImage.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          imageUrl = e.target.result;
-          savePostData(title, category, tags, description, imageUrl);
-        }
-        reader.readAsDataURL(postImage.files[0]);
-      } else if(editingIndex !== null) {
-        imageUrl = posts[editingIndex].image;
-        savePostData(title, category, tags, description, imageUrl);
-      } else {
-        alert('Debes seleccionar una imagen');
-      }
-    });
+/* ===== GUARDAR ===== */
+savePostBtn.onclick = () => {
+  const id = postIdInput.value || Date.now().toString();
 
-    function savePostData(title, category, tags, description, imageUrl) {
-      const postData = { title, category, tags, description, image: imageUrl };
-      if(editingIndex !== null) {
-        posts[editingIndex] = postData;
-      } else {
-        posts.push(postData);
-      }
-      localStorage.setItem('posts', JSON.stringify(posts));
-      postModal.style.display = 'none';
-      renderPosts();
-    }
+  const reader = new FileReader();
+  const file = imageInput.files[0];
 
-    // Cerrar modal si clic fuera del contenido
-    window.addEventListener('click', e => {
-      if(e.target === postModal) postModal.style.display = 'none';
-    });
+  const save = (image) => {
+    const postData = {
+      id,
+      title: titleInput.value,
+      excerpt: excerptInput.value,
+      content: contentInput.value,
+      category: categoryInput.value,
+      tags: tagsInput.value.split(',').map(t => t.trim()),
+      image,
+      date: new Date().toISOString()
+    };
 
-    // Inicializar
+    const index = posts.findIndex(p => p.id === id);
+    if (index >= 0) posts[index] = postData;
+    else posts.push(postData);
+
+    localStorage.setItem(postsKey, JSON.stringify(posts));
+    modal.style.display = 'none';
     renderPosts();
-  </script>
+  };
+
+  if (file) {
+    reader.onload = e => save(e.target.result);
+    reader.readAsDataURL(file);
+  } else {
+    const existing = posts.find(p => p.id === id);
+    save(existing ? existing.image : '');
+  }
+};
+
+/* ===== EDITAR ===== */
+window.editPost = (id) => {
+  const post = posts.find(p => p.id === id);
+  if (!post) return;
+
+  modal.style.display = 'flex';
+  modalTitle.textContent = 'Editar post';
+
+  postIdInput.value = post.id;
+  titleInput.value = post.title;
+  excerptInput.value = post.excerpt;
+  contentInput.value = post.content;
+  categoryInput.value = post.category;
+  tagsInput.value = post.tags.join(', ');
+};
+
+/* ===== ELIMINAR ===== */
+window.deletePost = (id) => {
+  if (!confirm('¿Eliminar este post?')) return;
+  posts = posts.filter(p => p.id !== id);
+  localStorage.setItem(postsKey, JSON.stringify(posts));
+  renderPosts();
+};
+
+/* ===== CERRAR MODAL ===== */
+closeModal.onclick = () => modal.style.display = 'none';
+window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+
+renderPosts();
+</script>
 
 </body>
 </html>
