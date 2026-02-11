@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body class="portfolio">
 
 <header id="main-header">
@@ -23,26 +24,25 @@
   </nav>
 </header>
 
-   <div class="nesart-hero">
-      <h1>PORTFOLIO NESART</h1>
-      <p>Bienvenidos a NESART.</p> 
-      <p>Aquí encontrarás mi trabajo como artista, conociendo mis diferentes obras y proyectos.</p>
-      <p>Si te apasiona el arte, la expresión y la libertad creativa, este es el lugar que estabas buscando.  
-      Explora libremente cada rincón de este espacio para descubrir grandes secretos y viajar a los años 20 y 30.</p>
-    </div>
-  
+<div class="nesart-hero">
+  <h1>PORTFOLIO NESART</h1>
+  <p>Bienvenidos a NESART.</p> 
+  <p>Aquí encontrarás mi trabajo como artista, conociendo mis diferentes obras y proyectos.</p>
+  <p>Si te apasiona el arte, la expresión y la libertad creativa, este es el lugar que estabas buscando.  
+  Explora libremente cada rincón de este espacio para descubrir grandes secretos y viajar a los años 20 y 30.</p>
+</div>
+
 <main>
-  <!-- Contenedor separado de la galería, igual que Comisiones.html -->
   <div class="nesart-gallery-container">
     <section class="nesart-masonry" id="nesart-gallery"></section>
   </div>
 </main>
 
 <script src="galert.js"></script>
+
 <script>
 const gallery = document.getElementById('nesart-gallery');
 
-// Lista de proyectos con ID, mini descripción y mockups
 const projects = [
   { id: "CATANDFISH", image: "CATANDFISH.jpg", title: "CAT & FISH", desc: "Proyecto creativo enfocado en el mundo animal." },
   { id: "CRANHELADO", image: "CRANHELADO.jpg", title: "CRAN HELADO", desc: "Proyecto creativo de helados artísticos." },
@@ -52,7 +52,7 @@ const projects = [
   { id: "Coffeenstein", image: "Coffeenstein.jpg", title: "COFFEENSTEIN", desc: "Proyecto inspirado en Bill Cipher." }
 ];
 
-// Crear galería con enlace a project.html
+// Crear galería
 projects.forEach(proj => {
   const item = document.createElement("div");
   item.className = "nesart-masonry-item";
@@ -60,16 +60,38 @@ projects.forEach(proj => {
     <a href="project.html?id=${proj.id}">
       <img src="images/Galeria/Nesart/${proj.image}" alt="${proj.title}">
       <div class="nesart-overlay">
-        <div class="nesart-overlay-text"><strong>${proj.title}</strong>${proj.desc}</div>
+        <div class="nesart-overlay-text">
+          <strong>${proj.title}</strong>${proj.desc}
+        </div>
       </div>
     </a>
   `;
   gallery.appendChild(item);
 });
+
+
+/* ==========================
+   PUZZLE GRID AUTO AJUSTE
+========================== */
+
+function resizeMasonryItem(item){
+  const grid = document.querySelector('.nesart-masonry');
+  const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
+  const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('gap'));
+  const contentHeight = item.querySelector('img').getBoundingClientRect().height;
+  const rowSpan = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
+  item.style.gridRowEnd = "span " + rowSpan;
+}
+
+function resizeAllMasonryItems(){
+  document.querySelectorAll('.nesart-masonry-item').forEach(item => {
+    resizeMasonryItem(item);
+  });
+}
+
+window.addEventListener('load', resizeAllMasonryItems);
+window.addEventListener('resize', resizeAllMasonryItems);
 </script>
 
 </body>
 </html>
-
-
-
