@@ -58,67 +58,9 @@
   <main class="shop"></main>
 </div>
 
-<!-- MODAL CARRITO -->
-<div id="cart-modal" class="cart-modal">
-  <div class="cart-modal-content">
-    <span class="cart-close">&times;</span>
-    <h2>Tu carrito</h2>
-    <ul id="cart-modal-items"></ul>
-    <p id="cart-modal-empty">Tu carrito está vacío</p>
-    <div class="cart-footer">
-      <p id="cart-modal-total"></p>
-      <button id="cart-modal-checkout">Finalizar compra</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL CHECKOUT DE DOS COLUMNAS -->
-<div id="checkout-modal">
-  <div class="cart-modal-content">
-    <span class="checkout-close">&times;</span>
-    <h2>Checkout</h2>
-
-    <div class="checkout-container">
-      <!-- COLUMNA IZQUIERDA: Carrito y precios -->
-      <div class="checkout-left">
-        <ul id="checkout-cart-items"></ul>
-        <div class="checkout-prices">
-          <p>Subtotal: <span id="checkout-subtotal">0€</span></p>
-          <p>Envío: 6€</p>
-          <p id="checkout-total">Total: 0€</p>
-        </div>
-      </div>
-
-      <!-- COLUMNA DERECHA: Datos cliente y método de pago -->
-      <div class="checkout-right">
-        <input type="text" id="client-name" placeholder="Nombre completo">
-        <input type="email" id="client-email" placeholder="Correo electrónico">
-        <input type="tel" id="client-phone" placeholder="Teléfono">
-        <input type="text" id="client-postal" placeholder="Código postal">
-        <input type="text" id="client-country" placeholder="País">
-        <input type="text" id="client-city" placeholder="Ciudad">
-        <input type="text" id="client-address" placeholder="Dirección de envío">
-        <textarea id="client-message" placeholder="Mensaje (opcional)"></textarea>
-
-        <div class="payment-methods">
-          <button class="payment-btn" data-method="card">
-            <img src="images/creditcard.svg" alt="Tarjeta"> <span>Tarjeta</span>
-          </button>
-          <button class="payment-btn" data-method="paypal">
-            <img src="images/paypal.svg" alt="PayPal"> <span>PayPal</span>
-          </button>
-        </div>
-
-        <button id="checkout-confirm-btn">Confirmar compra</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
 <!-- SCRIPTS -->
 <script src="js/shop.js"></script>
-<script src="js/cart.js"></script>
+
 <script>
   let allProducts = [];
   const categoryLinks = document.querySelectorAll('.shop-sidebar a');
@@ -147,5 +89,6 @@
 </script>
 </body>
 </html>
+
 
 
