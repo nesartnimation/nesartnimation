@@ -56,27 +56,36 @@ html, body {
 }
 
 /* ==============================
-   HEADER / MENU (PORTFOLIO)
+   HEADER / MENU PORTFOLIO
 ============================= */
 body.portfolio {
   font-family: Arial, sans-serif;
+  margin: 0;
   padding-top: 200px; /* espacio para header fijo */
 }
 
-/* Container logo */
-.logo-container {
+#main-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #ffffff;
   text-align: center;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.logo-container {
   padding: 20px 0;
 }
 
-/* Container menú */
-.menu-container {
-  position: fixed;
-  top: 120px; /* debajo del logo */
-  width: 100%;
-  text-align: center;
-  z-index: 1000;
-  background: #fff; /* opcional, para que no se mezcle con el contenido */
+.logo {
+  height: 120px; /* tamaño como antes */
+  display: block;
+  margin: 0 auto; /* centrado horizontal */
+}
+
+#main-menu {
+  margin-bottom: 10px; /* separación del contenido */
 }
 
 #main-menu ul {
@@ -93,6 +102,7 @@ body.portfolio {
   text-decoration: none;
   font-size: 1.2rem;
 }
+
 
 /* ==============================
    GALERÍA / PROJECT / NESART
@@ -719,3 +729,4 @@ form.contact-form button:hover {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
