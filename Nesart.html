@@ -24,6 +24,9 @@
   </nav>
 </header>
 
+<!-- ==============================
+     NESART HERO
+============================== -->
 <div class="nesart-hero">
   <h1>PORTFOLIO NESART</h1>
   <p>Bienvenidos a NESART.</p> 
@@ -32,63 +35,125 @@
   Explora libremente cada rincón de este espacio para descubrir grandes secretos y viajar a los años 20 y 30.</p>
 </div>
 
+<!-- ==============================
+     SUBMENÚ NESART
+============================== -->
+<div class="nesart-submenu">
+  <ul>
+    <li><a href="#color">Color</a></li>
+    <li><a href="#blanco-negro">Blanco y Negro</a></li>
+    <li><a href="#concept-art">Concept Art</a></li>
+  </ul>
+</div>
+
 <main>
-  <div class="nesart-gallery-container">
-    <section class="nesart-masonry" id="nesart-gallery"></section>
-  </div>
+  <!-- ==============================
+       SECCIÓN COLOR
+  ============================== -->
+  <section id="color" class="nesart-section">
+    <h2>Color</h2>
+    <div class="nesart-masonry" id="color-gallery"></div>
+  </section>
+
+  <!-- ==============================
+       SECCIÓN BLANCO Y NEGRO
+  ============================== -->
+  <section id="blanco-negro" class="nesart-section">
+    <h2>Blanco y Negro</h2>
+    <div class="nesart-masonry" id="bn-gallery"></div>
+  </section>
+
+  <!-- ==============================
+       SECCIÓN CONCEPT ART
+  ============================== -->
+  <section id="concept-art" class="nesart-section">
+    <h2>Concept Art</h2>
+    <div class="nesart-masonry" id="concept-gallery"></div>
+  </section>
 </main>
 
 <script src="galert.js"></script>
 <script>
-const gallery = document.getElementById('nesart-gallery');
+  // ==============================
+  // PROYECTOS POR SECCIÓN
+  // ==============================
+  const colorProjects = [
+    { image: "CATANDFISH.jpg", title: "CAT & FISH" },
+    { image: "CRANHELADO.jpg", title: "CRAN HELADO" },
+    { image: "BILLCYPHER.jpg", title: "BILL CYPHER" }
+  ];
 
-const projects = [
-  { image: "CATANDFISH.jpg", title: "CAT & FISH" },
-  { image: "CRANHELADO.jpg", title: "CRAN HELADO" },
-  { image: "BILLCYPHER.jpg", title: "BILL CYPHER" },
-  { image: "HorrorMovie.png", title: "HORROR MOVIE" },
-  { image: "SickParty.png", title: "SICK PARTY" },
-  { image: "Coffeenstein.jpg", title: "COFFEENSTEIN" }
-];
+  const bnProjects = [
+    
+    { image: "HorrorMovie.png", title: "HORROR MOVIE" },
+    { image: "SickParty.png", title: "SICK PARTY" },
+    { image: "Coffeenstein.jpg", title: "COFFEENSTEIN" }
+  ];
 
-// Crear galería tipo puzzle
-projects.forEach(proj => {
-  const item = document.createElement("div");
-  item.className = "nesart-masonry-item";
-  item.innerHTML = `
-      <img src="images/Galeria/Nesart/${proj.image}" alt="${proj.title}">
-      <div class="nesart-overlay">
-        <div class="nesart-overlay-text">
-          <strong>${proj.title}</strong>
-        </div>
-      </div>
-  `;
-  gallery.appendChild(item);
-});
+  const conceptProjects = [
+   
+    
+  ];
 
-// ==========================
-// PUZZLE GRID AUTO AJUSTE
-// ==========================
-function resizeMasonryItem(item){
-  const grid = document.querySelector('.nesart-masonry');
-  const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
-  const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('gap'));
-  const contentHeight = item.querySelector('img').getBoundingClientRect().height;
-  const rowSpan = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
-  item.style.gridRowEnd = "span " + rowSpan;
-}
+  function createGallery(projects, containerId){
+    const container = document.getElementById(containerId);
+    projects.forEach(proj => {
+      const item = document.createElement("div");
+      item.className = "nesart-masonry-item";
+      item.innerHTML = `
+          <img src="images/Galeria/Nesart/${proj.image}" alt="${proj.title}">
+      `;
+      container.appendChild(item);
+    });
+  }
 
-function resizeAllMasonryItems(){
-  document.querySelectorAll('.nesart-masonry-item').forEach(item => {
-    resizeMasonryItem(item);
+  createGallery(colorProjects, 'color-gallery');
+  createGallery(bnProjects, 'bn-gallery');
+  createGallery(conceptProjects, 'concept-gallery');
+
+  // ==============================
+  // PUZZLE GRID AUTO AJUSTE
+  // ==============================
+  function resizeMasonryItem(item){
+    const grid = item.parentElement;
+    const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
+    const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('gap'));
+    const contentHeight = item.querySelector('img').getBoundingClientRect().height;
+    const rowSpan = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
+    item.style.gridRowEnd = "span " + rowSpan;
+  }
+
+  function resizeAllMasonryItems(){
+    document.querySelectorAll('.nesart-masonry-item').forEach(item => {
+      resizeMasonryItem(item);
+    });
+  }
+
+  window.addEventListener('load', resizeAllMasonryItems);
+  window.addEventListener('resize', resizeAllMasonryItems);
+
+  // ==============================
+  // SUBMENÚ ACTIVE LINK
+  // ==============================
+  const menuLinks = document.querySelectorAll('.nesart-submenu a');
+  const sections = document.querySelectorAll('.nesart-section');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 160;
+      if (scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    menuLinks.forEach(link => {
+      link.classList.remove('active');
+      if(link.getAttribute('href') === '#' + current){
+        link.classList.add('active');
+      }
+    });
   });
-}
-
-window.addEventListener('load', resizeAllMasonryItems);
-window.addEventListener('resize', resizeAllMasonryItems);
 </script>
-
 
 </body>
 </html>
-
