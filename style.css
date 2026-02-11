@@ -197,8 +197,8 @@ body.portfolio {
 /* Contenedor separado galería Nesart */
 .nesart-gallery-container {
   max-width: 1400px;
-  margin: 180px auto 120px; /* espacio superior/inferior */
-  padding: 0 60px; /* espacio lateral */
+  margin: 0 auto;      /* solo centrar horizontal */
+  padding: 0 60px;     /* espacio lateral */
 }
 
 .nesart-masonry {
@@ -718,4 +718,5 @@ form.contact-form button:hover {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
 
