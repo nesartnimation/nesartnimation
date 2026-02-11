@@ -8,54 +8,69 @@
 </head>
 <body class="portfolio">
 
-<header id="main-header">
-  <div class="logo-container">
-    <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
-  </div>
-  <nav id="main-menu">
-    <ul>
-      <li><a href="Nesart.html">Nesart</a></li>
-      <li><a href="Comisiones.html">Comisiones</a></li>
-      <li><a href="Originales.html">Originales</a></li>
-      <li><a href="SobreMi.html">Sobre mí</a></li>
-      <li><a href="Contacto.html">Contacto</a></li>
-    </ul>
-  </nav>
-</header>
+  <!-- ==========================
+       HEADER
+  ========================== -->
+  <header id="main-header">
+    <!-- Logo container -->
+    <div class="logo-container">
+      <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
+    </div>
 
-<main>
-  <!-- Contenedor separado de la galería, igual que Comisiones.html -->
-  <div class="nesart-gallery-container">
-    <section class="nesart-masonry" id="nesart-gallery"></section>
-  </div>
-</main>
+    <!-- Menu container -->
+    <div class="menu-container">
+      <nav id="main-menu">
+        <ul>
+          <li><a href="Nesart.html">Nesart</a></li>
+          <li><a href="Comisiones.html">Comisiones</a></li>
+          <li><a href="Originales.html">Originales</a></li>
+          <li><a href="SobreMi.html">Sobre mí</a></li>
+          <li><a href="Contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-<script src="galert.js"></script>
-<script>
-const gallery = document.getElementById('nesart-gallery');
+  <!-- ==========================
+       MAIN CONTENT
+  ========================== -->
+  <main>
+    <!-- Contenedor principal del contenido de la página -->
+    <div class="page-content-container">
+      <!-- Galería Masonry de Nesart -->
+      <section class="nesart-masonry" id="nesart-gallery"></section>
+    </div>
+  </main>
 
-// Lista de proyectos con ID, mini descripción y mockups
-const projects = [
-  { id: "CATANDFISH", image: "CATANDFISH.jpg", title: "CAT & FISH", desc: "Proyecto creativo enfocado en el mundo animal." },
-  { id: "CRANHELADO", image: "CRANHELADO.jpg", title: "CRAN HELADO", desc: "Proyecto creativo de helados artísticos." },
-  { id: "BILLCYPHER", image: "BILLCYPHER.jpg", title: "BILL CYPHER", desc: "Proyecto inspirado en Bill Cipher." }
-];
+  <!-- ==========================
+       SCRIPTS
+  ========================== -->
+  <script src="galert.js"></script>
+  <script>
+    const gallery = document.getElementById('nesart-gallery');
 
-// Crear galería con enlace a project.html
-projects.forEach(proj => {
-  const item = document.createElement("div");
-  item.className = "nesart-masonry-item";
-  item.innerHTML = `
-    <a href="project.html?id=${proj.id}">
-      <img src="images/Galeria/Nesart/${proj.image}" alt="${proj.title}">
-      <div class="nesart-overlay">
-        <div class="nesart-overlay-text"><strong>${proj.title}</strong>${proj.desc}</div>
-      </div>
-    </a>
-  `;
-  gallery.appendChild(item);
-});
-</script>
+    // Lista de proyectos con ID, mini descripción y mockups
+    const projects = [
+      { id: "CATANDFISH", image: "CATANDFISH.jpg", title: "CAT & FISH", desc: "Proyecto creativo enfocado en el mundo animal." },
+      { id: "CRANHELADO", image: "CRANHELADO.jpg", title: "CRAN HELADO", desc: "Proyecto creativo de helados artísticos." },
+      { id: "BILLCYPHER", image: "BILLCYPHER.jpg", title: "BILL CYPHER", desc: "Proyecto inspirado en Bill Cipher." }
+    ];
+
+    // Crear galería con enlace a project.html
+    projects.forEach(proj => {
+      const item = document.createElement("div");
+      item.className = "nesart-masonry-item";
+      item.innerHTML = `
+        <a href="project.html?id=${proj.id}">
+          <img src="images/Galeria/Nesart/${proj.image}" alt="${proj.title}">
+          <div class="nesart-overlay">
+            <div class="nesart-overlay-text"><strong>${proj.title}</strong>${proj.desc}</div>
+          </div>
+        </a>
+      `;
+      gallery.appendChild(item);
+    });
+  </script>
 
 </body>
 </html>
