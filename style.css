@@ -63,17 +63,21 @@ body.portfolio {
   padding-top: 200px; /* espacio para header fijo */
 }
 
-#main-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: #ffffff;
+/* Container logo */
+.logo-container {
   text-align: center;
-  z-index: 1000;
+  padding: 20px 0;
 }
 
-.logo-container { padding: 20px 0; }
-.logo { height: 120px; }
+/* Container menú */
+.menu-container {
+  position: fixed;
+  top: 120px; /* debajo del logo */
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+  background: #fff; /* opcional, para que no se mezcle con el contenido */
+}
 
 #main-menu ul {
   list-style: none;
@@ -188,18 +192,14 @@ body.portfolio {
 }
 
 /* ==============================
-   NESART – GALERÍA MASONRY ORGÁNICA CON HOVER Y CLICK
+   NESART – CONTENEDOR SEPARADO GALERÍA MASONRY
 ============================= */
-.nesart-page {
-  padding: 180px 60px 120px;
-}
-
-.nesart-gallery-container {
+.page-content-container {
   max-width: 1400px;
-  margin: 80px auto 120px;   /* 80px desde el header, 120px abajo */
-  padding: 20px 60px;        /* padding lateral y vertical */
-  background-color: #f9f9f9; /* color ligeramente distinto del header */
-  border-radius: 12px;       /* opcional, bordes suaves */
+  margin: 0 auto;
+  padding: 80px 60px 60px; /* separación del menú y padding lateral */
+  background-color: #f9f9f9; /* fondo ligeramente distinto */
+  border-radius: 12px; /* opcional */
 }
 
 .nesart-masonry {
@@ -719,6 +719,3 @@ form.contact-form button:hover {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
-
-
-
