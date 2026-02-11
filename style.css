@@ -772,7 +772,7 @@ form.contact-form button:hover {
   .product-page { flex-direction: column-reverse; }
 }
 
-@media (max-width: 600px){
+ @media (max-width: 600px){
   .cart-modal-content,
   #checkout-modal .checkout-content { max-width: 95%; padding: 15px; }
   #cart-modal-items li img,
@@ -783,4 +783,38 @@ form.contact-form button:hover {
     gap: 10px;
   }
 }
+
+/* =====================================================
+   🔒 MODO TIENDA DESACTIVADA (SIN BORRAR CÓDIGO)
+   Oculta carrito, checkout y botones añadir al carrito
+   ===================================================== */
+
+#cart,
+#cart-count,
+.cart-modal,
+#checkout-modal,
+.cart-modal-content,
+.checkout-container,
+.checkout-left,
+.checkout-right,
+.payment-methods,
+.payment-btn,
+#cart-modal-items,
+#checkout-cart-items,
+#cart-modal-total,
+#checkout-total,
+#cart-modal-checkout,
+#checkout-confirm-btn,
+#cart-modal-empty,
+#checkout-empty,
+.cart-close,
+.checkout-close,
+.checkout-item-image,
+.add-to-cart-btn {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+
 
