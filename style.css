@@ -194,13 +194,16 @@ body.portfolio {
   padding: 180px 60px 120px;
 }
 
-/* NUEVO: CONTENEDOR SEPARADO GALERÍA NESART */
+/* Contenedor separado galería Nesart con fondo gris claro */
 .nesart-gallery-container {
   max-width: 1400px;
-  margin: 180px auto 120px; /* espacio superior/inferior */
-  padding: 0 60px; /* espacio lateral */
+  margin: 0 auto;       /* centrado horizontal */
+  padding: 60px;        /* espacio interior lateral y superior/inferior */
+  background-color: #f5f5f5;  /* gris suave */
+  border-radius: 12px;  /* opcional: bordes redondeados para separar visualmente */
 }
 
+/* Masonry dentro del container sigue igual */
 .nesart-masonry {
   column-count: 3;
   column-gap: 40px;
@@ -269,6 +272,7 @@ body.portfolio {
     column-count: 1;
   }
 }
+
 
 /* ==============================
    TIENDA
@@ -718,3 +722,4 @@ form.contact-form button:hover {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
