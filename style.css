@@ -99,7 +99,7 @@ body.portfolio {
   justify-content: center; /* centra verticalmente */
   align-items: center;     /* centra horizontalmente */
   min-height: calc(100vh - 120px); /* altura total de pantalla menos header */
-  padding-top: 100px;      /* separación del header */
+  padding-top: 50px;      /* separación del header */
   padding-left: 20px;
   padding-right: 20px;
   text-align: center;      /* centra el texto */
@@ -740,4 +740,5 @@ form.contact-form button:hover {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
 
