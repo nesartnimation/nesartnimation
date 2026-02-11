@@ -91,6 +91,45 @@ body.portfolio {
 }
 
 /* ==============================
+   SUBMENÚ INTERNO NESART
+============================= */
+.nesart-submenu {
+  text-align: center;
+  margin: 0 auto 40px auto;
+  background: #fff;
+  position: sticky;
+  top: 160px; /* debajo del header */
+  z-index: 900;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.nesart-submenu ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+.nesart-submenu a {
+  text-decoration: none;
+  color: #555;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nesart-submenu a:hover,
+.nesart-submenu a.active {
+  background: #222;
+  color: #fff;
+}
+
+/* ==============================
    GALERÍA / PROJECT / NESART
 ============================= */
 /* Contenedores para limitar tamaño de imagen */
@@ -191,26 +230,26 @@ body.portfolio {
    NESART – CONTENEDOR DE PRESENTACIÓN
 ============================= */
 .nesart-hero {
-  width: 100%;                /* ocupa todo el ancho, igual que el header */
-  text-align: center;         /* centra el contenido */
-  padding: 60px 20px 40px;    /* espacio superior/inferior */
-  background: #ffffff;        /* igual que header */
+  width: 100%;                
+  text-align: center;         
+  padding: 60px 20px 40px;    
+  background: #ffffff;        
 }
 
 .nesart-hero h1 {
   font-family: Arial, sans-serif;
-  font-size: 3rem;            /* mismo tamaño que otros h1 del portfolio */
+  font-size: 3rem;            
   color: #222;
   margin-bottom: 15px;
 }
 
 .nesart-hero p {
   font-family: Arial, sans-serif;
-  font-size: 1.2rem;          /* tamaño estándar del body */
+  font-size: 1.2rem;          
   line-height: 1.6;
   color: #555;
-  max-width: 800px;           /* limita ancho del texto para legibilidad */
-  margin: 0 auto;             /* centra los párrafos */
+  max-width: 800px;           
+  margin: 0 auto;             
 }
 
 /* ==============================
@@ -220,7 +259,6 @@ body.portfolio {
   padding: 180px 60px 120px;
 }
 
-/* Contenedor separado de la galería */
 .nesart-gallery-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -229,7 +267,6 @@ body.portfolio {
   border-radius: 12px;
 }
 
-/* Galería tipo puzzle */
 .nesart-masonry {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -237,25 +274,21 @@ body.portfolio {
   gap: 20px;
 }
 
-/* Item */
 .nesart-masonry-item {
   position: relative;
   overflow: hidden;
   border-radius: 12px;
 }
 
-/* Imagen */
 .nesart-masonry-item img {
   width: 100%;
   height: auto;
   display: block;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  /* transición mantenida para consistencia, pero sin hover */
   transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-/* Overlay */
 .nesart-overlay {
   position: absolute;
   inset: 0;
@@ -263,7 +296,7 @@ body.portfolio {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;  /* no cambia al hover */
+  opacity: 0;
   transition: opacity 0.4s ease;
   padding: 20px;
   text-align: center;
@@ -283,17 +316,18 @@ body.portfolio {
   letter-spacing: 0.05em;
 }
 
-/* Responsive */
-@media (max-width: 1000px) {
-  .nesart-masonry {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  }
+/* ==============================
+   SECCIONES NESART
+============================= */
+.nesart-section {
+  padding: 60px 20px 40px 20px;
 }
 
-@media (max-width: 600px) {
-  .nesart-masonry {
-    grid-template-columns: 1fr;
-  }
+.nesart-section h2 {
+  text-align: center;
+  font-size: 2.4rem;
+  color: #222;
+  margin-bottom: 40px;
 }
 
 /* ==============================
@@ -743,4 +777,9 @@ form.contact-form button:hover {
   #checkout-modal .checkout-content { max-width: 95%; padding: 15px; }
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
+
+  .nesart-submenu ul {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
