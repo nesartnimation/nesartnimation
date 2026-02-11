@@ -191,28 +191,28 @@ body.portfolio {
    NESART – CONTENEDOR DE PRESENTACIÓN
 ============================= */
 .nesart-hero {
-  width: 100%;
-  text-align: center;
-  padding: 60px 20px 40px;
-  background: #ffffff; /* o el color que estés usando */
+  width: 100%;                /* ocupa todo el ancho, igual que el header */
+  text-align: center;         /* centra el contenido */
+  padding: 60px 20px 40px;    /* espacio superior/inferior */
+  background: #ffffff;        /* igual que header */
 }
 
-
 .nesart-hero h1 {
-  font-family: Arial, sans-serif; /* misma tipografía que el resto del portfolio */
-  font-size: 3rem;                /* coincide con los h1 del resto de las páginas */
-  color: #222;                    
+  font-family: Arial, sans-serif;
+  font-size: 3rem;            /* mismo tamaño que otros h1 del portfolio */
+  color: #222;
   margin-bottom: 15px;
 }
 
 .nesart-hero p {
   font-family: Arial, sans-serif;
-  font-size: 1.2rem;              /* coincide con tamaño de texto estándar del body */
+  font-size: 1.2rem;          /* tamaño estándar del body */
   line-height: 1.6;
   color: #555;
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 800px;           /* limita ancho del texto para legibilidad */
+  margin: 0 auto;             /* centra los párrafos */
 }
+
 
 
 /* ==============================
@@ -760,6 +760,7 @@ form.contact-form button:hover {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
 
 
 
