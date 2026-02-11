@@ -56,11 +56,10 @@ html, body {
 }
 
 /* ==============================
-   HEADER / MENU PORTFOLIO
+   HEADER / MENU (PORTFOLIO)
 ============================= */
 body.portfolio {
   font-family: Arial, sans-serif;
-  margin: 0;
   padding-top: 200px; /* espacio para header fijo */
 }
 
@@ -71,22 +70,10 @@ body.portfolio {
   background: #ffffff;
   text-align: center;
   z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.logo-container {
-  padding: 20px 0;
-}
-
-.logo {
-  height: 120px; /* tamaño como antes */
-  display: block;
-  margin: 0 auto; /* centrado horizontal */
-}
-
-#main-menu {
-  margin-bottom: 10px; /* separación del contenido */
-}
+.logo-container { padding: 20px 0; }
+.logo { height: 120px; }
 
 #main-menu ul {
   list-style: none;
@@ -102,7 +89,6 @@ body.portfolio {
   text-decoration: none;
   font-size: 1.2rem;
 }
-
 
 /* ==============================
    GALERÍA / PROJECT / NESART
@@ -202,14 +188,17 @@ body.portfolio {
 }
 
 /* ==============================
-   NESART – CONTENEDOR SEPARADO GALERÍA MASONRY
+   NESART – GALERÍA MASONRY ORGÁNICA CON HOVER Y CLICK
 ============================= */
-.page-content-container {
+.nesart-page {
+  padding: 180px 60px 120px;
+}
+
+/* NUEVO: CONTENEDOR SEPARADO GALERÍA NESART */
+.nesart-gallery-container {
   max-width: 1400px;
-  margin: 0 auto;
-  padding: 80px 60px 60px; /* separación del menú y padding lateral */
-  background-color: #f9f9f9; /* fondo ligeramente distinto */
-  border-radius: 12px; /* opcional */
+  margin: 180px auto 120px; /* espacio superior/inferior */
+  padding: 0 60px; /* espacio lateral */
 }
 
 .nesart-masonry {
@@ -729,4 +718,3 @@ form.contact-form button:hover {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
-
