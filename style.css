@@ -60,15 +60,12 @@ html, body {
 ============================= */
 body.portfolio {
   font-family: Arial, sans-serif;
-  padding-top: 200px;
+  padding-top: 200px; /* espacio para header fijo */
 }
 
-/* ===== CAMBIO PARA CENTRAR EL MENU ===== */
 #main-header {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
   width: 100%;
   background: #ffffff;
   text-align: center;
@@ -78,12 +75,10 @@ body.portfolio {
 .logo-container { padding: 20px 0; }
 .logo { height: 120px; }
 
-/* Aseguramos centrado absoluto */
 #main-menu ul {
   list-style: none;
   display: flex;
   justify-content: center;
-  align-items: center;
   gap: 40px;
   padding: 10px 0;
   margin: 0;
@@ -95,29 +90,6 @@ body.portfolio {
   font-size: 1.2rem;
 }
 
-/* ==============================
-   NUEVO: CONTENEDOR PRESENTACIÓN NESART
-============================= */
-.nesart-hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  padding: 0px 20px 80px; /* arriba | lados | abajo */
-  text-align: center;
-}
-
-.nesart-hero h1 {
-  font-size: 4rem;
-  margin-bottom: 20px;
-}
-
-.nesart-hero p {
-  font-size: 1.5rem;
-  color: #555;
-  max-width: 800px;
-}
 
 
 /* ==============================
@@ -743,4 +715,5 @@ form.contact-form button:hover {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
 
