@@ -224,26 +224,31 @@ body.portfolio {
    NESART – CONTENEDOR SEPARADO GALERÍA
 ============================= */
 .nesart-gallery-container {
-  max-width: 1200px;        /* igual que otras páginas como Comisiones.html */
-  margin: 0 auto;           /* centrado horizontal */
-  padding: 60px 20px;       /* espacio interno, igual que otras secciones */
-  background-color: #f5f5f5; /* gris claro para separar del header */
-  border-radius: 12px;      /* opcional, suaviza los bordes */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  background-color: #f5f5f5;
+  border-radius: 12px;
 }
 
-/* Masonry sigue igual */
+/* ==============================
+   NESART – GALERÍA TIPO PUZZLE DINÁMICA
+============================= */
 .nesart-masonry {
-  column-count: 3;
-  column-gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-auto-rows: 10px; /* base para cálculo dinámico */
+  gap: 20px;
 }
 
+/* Item */
 .nesart-masonry-item {
-  break-inside: avoid;
-  margin-bottom: 40px;
   position: relative;
   overflow: hidden;
+  border-radius: 12px;
 }
 
+/* Imagen */
 .nesart-masonry-item img {
   width: 100%;
   height: auto;
@@ -253,6 +258,7 @@ body.portfolio {
   transition: transform 0.4s ease, filter 0.4s ease;
 }
 
+/* Overlay */
 .nesart-overlay {
   position: absolute;
   inset: 0;
@@ -280,6 +286,7 @@ body.portfolio {
   letter-spacing: 0.05em;
 }
 
+/* Hover */
 .nesart-masonry-item:hover img {
   filter: brightness(0.75);
   transform: scale(1.03);
@@ -289,15 +296,16 @@ body.portfolio {
   opacity: 1;
 }
 
+/* Responsive */
 @media (max-width: 1000px) {
   .nesart-masonry {
-    column-count: 2;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
 }
 
 @media (max-width: 600px) {
   .nesart-masonry {
-    column-count: 1;
+    grid-template-columns: 1fr;
   }
 }
 
@@ -750,6 +758,7 @@ form.contact-form button:hover {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
 
 
 
