@@ -19,6 +19,25 @@
       file: "BILLCYPHER.jpg",
       title: "BILL CYPHER",
       desc: "Reinterpretación cartoon con estética 1930."
+    },
+
+    {
+      id: "horror-movie",
+      file: "HorrorMovie.png",
+      title: "HORROR MOVIE",
+      desc: "Escena de terror."
+    },
+    {
+      id: "sick-party",
+      file: "SickParty.png",
+      title: "SICK PARTY",
+      desc: "Representación de una fiesta salida de control."
+    },
+    {
+      id: "coffeenstein",
+      file: "Coffeenstein.jpg",
+      title: "COFFEENSTEIN",
+      desc: "Para los amantes del café y el cine clásico."
     }
   ];
 
@@ -38,3 +57,4 @@
     gallery.appendChild(item);
   });
 </script>
+
