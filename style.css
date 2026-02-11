@@ -90,8 +90,6 @@ body.portfolio {
   font-size: 1.2rem;
 }
 
-
-
 /* ==============================
    GALERÍA / PROJECT / NESART
 ============================= */
@@ -196,11 +194,16 @@ body.portfolio {
   padding: 180px 60px 120px;
 }
 
+/* NUEVO: CONTENEDOR SEPARADO GALERÍA NESART */
+.nesart-gallery-container {
+  max-width: 1400px;
+  margin: 180px auto 120px; /* espacio superior/inferior */
+  padding: 0 60px; /* espacio lateral */
+}
+
 .nesart-masonry {
   column-count: 3;
   column-gap: 40px;
-  max-width: 1400px;
-  margin: 0 auto;
 }
 
 .nesart-masonry-item {
@@ -715,5 +718,3 @@ form.contact-form button:hover {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
-
-
