@@ -39,41 +39,36 @@
 </main>
 
 <script src="galert.js"></script>
-
 <script>
 const gallery = document.getElementById('nesart-gallery');
 
 const projects = [
-  { id: "CATANDFISH", image: "CATANDFISH.jpg", title: "CAT & FISH", desc: "Proyecto creativo enfocado en el mundo animal." },
-  { id: "CRANHELADO", image: "CRANHELADO.jpg", title: "CRAN HELADO", desc: "Proyecto creativo de helados artísticos." },
-  { id: "BILLCYPHER", image: "BILLCYPHER.jpg", title: "BILL CYPHER", desc: "Proyecto inspirado en Bill Cipher." },
-  { id: "HorrorMovie", image: "HorrorMovie.png", title: "HORROR MOVIE", desc: "Proyecto inspirado en Bill Cipher." },
-  { id: "SickParty", image: "SickParty.png", title: "SICK PARTY", desc: "Proyecto inspirado en Bill Cipher." },
-  { id: "Coffeenstein", image: "Coffeenstein.jpg", title: "COFFEENSTEIN", desc: "Proyecto inspirado en Bill Cipher." }
+  { image: "CATANDFISH.jpg", title: "CAT & FISH" },
+  { image: "CRANHELADO.jpg", title: "CRAN HELADO" },
+  { image: "BILLCYPHER.jpg", title: "BILL CYPHER" },
+  { image: "HorrorMovie.png", title: "HORROR MOVIE" },
+  { image: "SickParty.png", title: "SICK PARTY" },
+  { image: "Coffeenstein.jpg", title: "COFFEENSTEIN" }
 ];
 
-// Crear galería
+// Crear galería tipo puzzle
 projects.forEach(proj => {
   const item = document.createElement("div");
   item.className = "nesart-masonry-item";
   item.innerHTML = `
-    <a href="project.html?id=${proj.id}">
       <img src="images/Galeria/Nesart/${proj.image}" alt="${proj.title}">
       <div class="nesart-overlay">
         <div class="nesart-overlay-text">
-          <strong>${proj.title}</strong>${proj.desc}
+          <strong>${proj.title}</strong>
         </div>
       </div>
-    </a>
   `;
   gallery.appendChild(item);
 });
 
-
-/* ==========================
-   PUZZLE GRID AUTO AJUSTE
-========================== */
-
+// ==========================
+// PUZZLE GRID AUTO AJUSTE
+// ==========================
 function resizeMasonryItem(item){
   const grid = document.querySelector('.nesart-masonry');
   const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
@@ -93,5 +88,7 @@ window.addEventListener('load', resizeAllMasonryItems);
 window.addEventListener('resize', resizeAllMasonryItems);
 </script>
 
+
 </body>
 </html>
+
