@@ -96,13 +96,11 @@ body.portfolio {
 .nesart-hero {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* centra verticalmente */
-  align-items: center;     /* centra horizontalmente */
-  min-height: calc(100vh - 120px); /* altura total de pantalla menos header */
-  padding-top: 50px;      /* separación del header */
-  padding-left: 20px;
-  padding-right: 20px;
-  text-align: center;      /* centra el texto */
+  justify-content: center;
+  align-items: center;
+
+  padding: 220px 20px 80px; /* arriba | lados | abajo */
+  text-align: center;
 }
 
 .nesart-hero h1 {
@@ -740,5 +738,6 @@ form.contact-form button:hover {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
 
 
