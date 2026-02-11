@@ -383,7 +383,7 @@ body.portfolio {
 /* ==============================
    ESTILO BOTÓN AÑADIR AL CARRITO
 ============================= */
-.add-to-cart-btn {
+/*.add-to-cart-btn {
   font-family: Arial, sans-serif;
   font-weight: 300;
   font-size: 1rem;
@@ -422,7 +422,7 @@ body.portfolio {
 /* ==============================
    CARRITO
 ============================= */
-#cart {
+/*#cart {
   position: fixed;
   top: 20px;
   right: 20px;
@@ -443,7 +443,7 @@ body.portfolio {
 /* ==============================
    MODAL CARRITO Y CHECKOUT
 ============================= */
-.cart-modal,
+/*.cart-modal,
 #checkout-modal {
   display: none;
   position: fixed;
@@ -519,7 +519,7 @@ body.portfolio {
 /* ==============================
    NUEVO: LIMITAR IMAGENES CHECKOUT
 ============================= */
-.checkout-item-image {
+/*.checkout-item-image {
   width: 120px;
   height: 120px;
   overflow: hidden;
@@ -537,7 +537,7 @@ body.portfolio {
 /* ==============================
    RESTO DEL CSS EXISTENTE...
 ============================= */
-#cart-modal-total,
+/*#cart-modal-total,
 #checkout-total {
   font-weight: bold;
   text-align: right;
@@ -574,7 +574,7 @@ body.portfolio {
 /* ==============================
    CHECKOUT DOS COLUMNAS
 ============================= */
-.checkout-container {
+/*.checkout-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -617,13 +617,13 @@ body.portfolio {
 /* ==============================
    CHECKOUT RIGHT - DATOS CLIENTE
 ============================= */
-.checkout-right {
+/*.checkout-right {
   display: flex;
   flex-direction: column;
   gap: 12px; /* espacio entre inputs y botones */
 }
 
-.checkout-right input,
+/*.checkout-right input,
 .checkout-right textarea {
   width: 100%;
   padding: 8px;
@@ -640,7 +640,7 @@ body.portfolio {
 /* ==============================
    BOTONES MÉTODO DE PAGO
 ============================= */
-.payment-methods {
+/*.payment-methods {
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
@@ -783,3 +783,4 @@ form.contact-form button:hover {
     gap: 10px;
   }
 }
+
