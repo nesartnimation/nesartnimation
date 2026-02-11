@@ -288,16 +288,6 @@ body.portfolio {
   letter-spacing: 0.05em;
 }
 
-/* Hover */
-.nesart-masonry-item:hover img {
-  filter: brightness(0.75);
-  transform: scale(1.03);
-}
-
-.nesart-masonry-item:hover .nesart-overlay {
-  opacity: 1;
-}
-
 /* Responsive */
 @media (max-width: 1000px) {
   .nesart-masonry {
@@ -760,6 +750,7 @@ form.contact-form button:hover {
   #cart-modal-items li img,
   #checkout-cart-items img { width: 60px; height: 60px; }
 }
+
 
 
 
