@@ -20,7 +20,24 @@
       title: "BILL CYPHER",
       desc: "Reinterpretación cartoon con estética 1930."
     },
-
+ {
+      id: "seong",
+      file: "Seong.jpg",
+      title: "SEONG GI HUN",
+      desc: "Reinterpretación cartoon El juego del calamar con estética 1930."
+    },
+    {
+      id: "wendigo",
+      file: "Wendigo.jpg",
+      title: "WENDIGO",
+      desc: "Concept cartoon con estética 1930."
+    },
+    {
+      id: "corvus",
+      file: "Corvus.jpg",
+      title: "CORVUS",
+      desc: "Concept Cuervo cartoon con estética 1930."
+    },
     {
       id: "horror-movie",
       file: "HorrorMovie.png",
@@ -57,4 +74,5 @@
     gallery.appendChild(item);
   });
 </script>
+
 
