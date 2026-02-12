@@ -1,4 +1,3 @@
-// blog.js
 async function cargarPosts() {
   try {
     const response = await fetch("post.json");
@@ -8,8 +7,10 @@ async function cargarPosts() {
     container.innerHTML = "";
 
     posts.forEach(post => {
-      // Resumen automático (150 caracteres)
-      const summary = post.content.length > 150 ? post.content.substring(0, 150) + "..." : post.content;
+
+      const summary = post.content.length > 150 
+        ? post.content.substring(0, 150) + "..." 
+        : post.content;
 
       const postHTML = `
         <div class="blog-card">
@@ -25,10 +26,10 @@ async function cargarPosts() {
 
       container.innerHTML += postHTML;
     });
+
   } catch (error) {
     console.error("Error cargando los posts:", error);
   }
 }
 
-// Cargar los posts al iniciar
 cargarPosts();
