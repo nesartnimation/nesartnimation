@@ -3,7 +3,7 @@ const posts = [
     id: 1, // ✅ agrega un id único
     title: "Proceso creativo: El camino para convertirme en Concept Artist",
     date: "12 Feb 2026",
-    image: "images/Blog/.jpg",
+    image: "images/Blog/MrChipsy.jpg",
     excerpt: "Esto es lo que me llevó al punto donde estoy ahora. Meses y meses de creaciones apasionadas, de noches sin dormir.",
     content: [
       { type: "image", value: "images/MrChipsy.jpg" },
