@@ -46,23 +46,33 @@
     dateEl.textContent = post.date;
 
     post.content.forEach(item => {
-      let element;
       if (item.type === "text") {
-        element = document.createElement("p");
-        element.textContent = item.value;
+        // Manejar arrays o strings
+        if (Array.isArray(item.value)) {
+          item.value.forEach(parrafo => {
+            const p = document.createElement("p");
+            p.textContent = parrafo;
+            contentEl.appendChild(p);
+          });
+        } else {
+          const p = document.createElement("p");
+          p.textContent = item.value;
+          contentEl.appendChild(p);
+        }
       } else if (item.type === "image") {
-        element = document.createElement("img");
-        element.src = item.value;
-        element.style.width = "100%";
-        element.style.borderRadius = "12px";
-        element.style.margin = "20px 0";
+        const img = document.createElement("img");
+        img.src = item.value;
+        img.style.width = "100%";
+        img.style.borderRadius = "12px";
+        img.style.margin = "20px 0";
+        contentEl.appendChild(img);
       }
-      contentEl.appendChild(element);
     });
   } else {
     contentEl.innerHTML = "<p style='color:red; font-weight:bold;'>Post no encontrado.</p>";
   }
 </script>
+
 
 </body>
 </html>
