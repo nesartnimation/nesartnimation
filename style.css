@@ -400,7 +400,6 @@ body.portfolio {
   font-size: 1.2rem;
   color: #555;
 }
-
 /* ==============================
    BLOG GRID
 ============================= */
@@ -915,6 +914,7 @@ form.contact-form button:hover {
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
 
 
 
