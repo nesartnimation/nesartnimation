@@ -14,7 +14,7 @@ const posts = [
       { type: "text", value: "Y finalmente un cierre con reflexión." }
     ]
   }
-
+];
 const blogGrid = document.getElementById("blog-posts");
 
 posts.forEach(post => {
