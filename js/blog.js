@@ -18,7 +18,7 @@ const posts = [
           "Estaréis de acuerdo conmigo cuando digo que está en la naturaleza humana expresarse a través de la ilustración.",
           "Desde que nacemos y tenemos en nuestras manos una herramienta para dibujar, pintamos paredes, techos y todo lo que esté a nuestro alcance.",
           "He estado toda mi vida garabateando en papel, tratando de descubrir qué es lo que más me gustaba dentro de este maravilloso mundo, y es que hay tanto por aprender, que a veces se nos puede hacer todo un mundo.",
-          "Comencé con pequeños cómics inventados con curiosos protagonistas como: Danoninto, los Power Ranger, pasando por mi época donde mezclaba Pokemons y hacía nuevas creaciones y dibujaba al más puro estilo Manga, e incluso caricaturizado a mis profesores y famosos de los años 90."
+          "Comencé con pequeños cómics inventados con curiosos protagonistas como: Danonino, los Power Ranger, pasando por mi época donde mezclaba Pokemons y hacía nuevas creaciones y dibujaba al más puro estilo Manga, e incluso caricaturizado a mis profesores y famosos de los años 90."
         ] 
       },
       { 
