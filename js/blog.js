@@ -4,7 +4,7 @@ const posts = [
     title: "Proceso creativo: El camino para convertirme en Concept Artist",
     date: "12 Feb 2026",
     image: "images/Blog/.jpg",
-    excerpt: "Un vistazo a cómo construyo y trabajo mis ilustraciones desde la idea hasta la obra final.",
+    excerpt: "Esto es lo que me llevó al punto donde estoy ahora. Meses y meses de creaciones apasionadas, de noches sin dormir.",
     content: [
       { type: "image", value: "images/MrChipsy.jpg" },
       { type: "text", value: 
