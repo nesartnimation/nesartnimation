@@ -15,10 +15,10 @@
   </div>
   <nav id="main-menu">
     <ul>
-       <li><a href="Nesart.html">Nesart</a></li>
-     <li><a href="SobreMi.html">Sobre mí</a></li>
-     <li><a href="Contacto.html">Contacto</a></li>
-     <li><a href="Blog.html">Blog</a></li>
+      <li><a href="Nesart.html">Nesart</a></li>
+      <li><a href="SobreMi.html">Sobre mí</a></li>
+      <li><a href="Contacto.html">Contacto</a></li>
+      <li><a href="Blog.html">Blog</a></li>
     </ul>
   </nav>
 </header>
@@ -34,31 +34,8 @@
   <div class="blog-grid" id="blog-posts"></div>
 </main>
 
-<script src="blog-data.js"></script>
-<script>
-const container = document.getElementById("blog-posts");
-
-blogPosts.forEach(post => {
-
-  // Generar resumen automático (150 caracteres)
-  const summary = post.content.substring(0, 150) + "...";
-
-  const article = document.createElement("article");
-  article.className = "blog-card";
-
-  article.innerHTML = `
-    <img src="${post.image}" alt="${post.title}">
-    <div class="blog-card-content">
-      <h2>${post.title}</h2>
-      <span class="blog-date">${post.date}</span>
-      <p>${summary}</p>
-      <a href="post.html?id=${post.id}" class="read-more">Leer más</a>
-    </div>
-  `;
-
-  container.appendChild(article);
-});
-</script>
+<!-- Script para cargar posts desde Blogger -->
+<script src="blog.js" defer></script>
 
 </body>
 </html>
