@@ -1,4 +1,4 @@
-const feedURL = "https://misilustraciones.blogspot.com/feeds/posts/default?alt=json&max-results=6"; // Cambia tu URL
+const feedURL = "https://elrincondenesart.blogspot.com/feeds/posts/default?alt=json"; // Cambia tu URL
 
 async function cargarPosts() {
   try {
