@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Mi primer post",
+    "date": "2026-02-12",
+    "image": "images/post1.jpg",
+    "content": "Este es el contenido de mi primer post. Aquí explicaré mi proceso creativo y lo que me inspira..."
+  },
+  {
+    "id": 2,
+    "title": "Segundo post de ilustración",
+    "date": "2026-02-10",
+    "image": "images/post2.jpg",
+    "content": "En este post comparto técnicas de acuarela y consejos para mejorar tu ilustración paso a paso..."
+  },
+  {
+    "id": 3,
+    "title": "Inspiración para artistas",
+    "date": "2026-02-08",
+    "image": "images/post3.jpg",
+    "content": "Hablemos de cómo buscar inspiración y mantener la creatividad fluyendo..."
+  }
+]
