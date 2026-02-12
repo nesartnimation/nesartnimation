@@ -6,10 +6,14 @@ const posts = [
     date: "12 Feb 2026",
     image: "images/Blog/PetFoodBag.jpg",
     excerpt: "Un vistazo a cómo construyo mis ilustraciones digitales desde la idea hasta la obra final.",
-    content: "Aquí va todo el contenido del primer post..."
-  },
- 
-];
+    content: [
+      { type: "text", value: "Este es el inicio del post con algo de introducción..." },
+      { type: "image", value: "images/post1-extra1.jpg" },
+      { type: "text", value: "Aquí sigue la explicación del proceso creativo..." },
+      { type: "image", value: "images/post1-extra2.jpg" },
+      { type: "text", value: "Y finalmente un cierre con reflexión." }
+    ]
+  }
 
 const blogGrid = document.getElementById("blog-posts");
 
