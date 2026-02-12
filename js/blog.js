@@ -17,19 +17,21 @@ const posts = [
 
 const blogGrid = document.getElementById("blog-posts");
 
-posts.forEach(post => {
+posts.forEach((post, index) => {
   const card = document.createElement("div");
   card.classList.add("blog-card");
+  const postId = index + 1; // genera id automáticamente
   card.innerHTML = `
-    <a href="post.html?id=${post.id}">
+    <a href="post.html?id=${postId}">
       <img src="${post.image}" alt="${post.title}">
     </a>
     <div class="blog-card-content">
       <h2>${post.title}</h2>
       <span class="blog-date">${post.date}</span>
       <p>${post.excerpt}</p>
-      <a href="post.html?id=${post.id}" class="read-more">Leer más</a>
+      <a href="post.html?id=${postId}" class="read-more">Leer más</a>
     </div>
   `;
   blogGrid.appendChild(card);
 });
+;
