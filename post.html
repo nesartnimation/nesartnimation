@@ -22,11 +22,47 @@
   </nav>
 </header>
 
-<main class="blog-container" id="post-container">
-  <!-- El contenido del post se cargará aquí -->
+<main class="post-container" style="max-width:800px; margin:200px auto 100px; padding:0 20px;">
+  <h1 id="post-title"></h1>
+  <span id="post-date" style="color:#888; font-size:0.9rem;"></span>
+  <div id="post-content" style="margin-top:20px;"></div>
 </main>
 
 <script src="js/blog.js"></script>
-<script src="js/post.js"></script>
+<script>
+  // Obtener id del post de la URL
+  const params = new URLSearchParams(window.location.search);
+  const postId = parseInt(params.get('id'));
+
+  // Buscar el post correspondiente
+  const post = posts.find(p => p.id === postId);
+
+  const titleEl = document.getElementById('post-title');
+  const dateEl = document.getElementById('post-date');
+  const contentEl = document.getElementById('post-content');
+
+  if (post) {
+    titleEl.textContent = post.title;
+    dateEl.textContent = post.date;
+
+    post.content.forEach(item => {
+      let element;
+      if (item.type === "text") {
+        element = document.createElement("p");
+        element.textContent = item.value;
+      } else if (item.type === "image") {
+        element = document.createElement("img");
+        element.src = item.value;
+        element.style.width = "100%";
+        element.style.borderRadius = "12px";
+        element.style.margin = "20px 0";
+      }
+      contentEl.appendChild(element);
+    });
+  } else {
+    contentEl.innerHTML = "<p style='color:red; font-weight:bold;'>Post no encontrado.</p>";
+  }
+</script>
+
 </body>
 </html>
