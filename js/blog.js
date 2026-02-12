@@ -1,6 +1,6 @@
 async function cargarPosts() {
   try {
-    const response = await fetch("post.json");
+    const response = await fetch("data/post.json");
     const posts = await response.json();
 
     const container = document.getElementById("blog-posts");
