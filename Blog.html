@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog - Nesart</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="portfolio">
+
+<header id="main-header">
+  <div class="logo-container">
+    <img src="images/LogoNesArt.png" alt="Logo NesArt" class="logo">
+  </div>
+  <nav id="main-menu">
+    <ul>
+       <li><a href="Nesart.html">Nesart</a></li>
+     <li><a href="SobreMi.html">Sobre mí</a></li>
+     <li><a href="Contacto.html">Contacto</a></li>
+     <li><a href="Blog.html">Blog</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO BLOG -->
+<section class="blog-hero">
+  <h1>Blog de Ilustración</h1>
+  <p>Reflexiones, procesos creativos, inspiración y arte.</p>
+</section>
+
+<!-- POSTS -->
+<main class="blog-container">
+  <div class="blog-grid" id="blog-posts"></div>
+</main>
+
+<script src="blog-data.js"></script>
+<script>
+const container = document.getElementById("blog-posts");
+
+blogPosts.forEach(post => {
+
+  // Generar resumen automático (150 caracteres)
+  const summary = post.content.substring(0, 150) + "...";
+
+  const article = document.createElement("article");
+  article.className = "blog-card";
+
+  article.innerHTML = `
+    <img src="${post.image}" alt="${post.title}">
+    <div class="blog-card-content">
+      <h2>${post.title}</h2>
+      <span class="blog-date">${post.date}</span>
+      <p>${summary}</p>
+      <a href="post.html?id=${post.id}" class="read-more">Leer más</a>
+    </div>
+  `;
+
+  container.appendChild(article);
+});
+</script>
+
+</body>
+</html>
