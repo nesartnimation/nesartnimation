@@ -1,7 +1,6 @@
-// blog.js
-
 const posts = [
   {
+    id: 1, // ✅ agrega un id único
     title: "Proceso creativo: Ilustración digital",
     date: "12 Feb 2026",
     image: "images/Blog/PetFoodBag.jpg",
@@ -15,6 +14,7 @@ const posts = [
     ]
   }
 ];
+
 const blogGrid = document.getElementById("blog-posts");
 
 posts.forEach(post => {
