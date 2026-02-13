@@ -3,7 +3,7 @@
 const posts = [
   {
     id: 1, // ✅ id único
-    title: "Proceso creativo: El camino para convertirme en Concept Artist",
+    title: "El camino para convertirme en Character Creator",
     date: "12 Feb 2026",
     image: "images/Blog/MrChipsy.jpg",
     excerpt: "Esto es lo que me llevó al punto donde estoy ahora. Meses y meses de creaciones apasionadas, de noches sin dormir.",
@@ -15,10 +15,10 @@ const posts = [
       { 
         type: "text", 
         value: [
-          "Estaréis de acuerdo conmigo cuando digo que está en la naturaleza humana expresarse a través de la ilustración.",
-          "Desde que nacemos y tenemos en nuestras manos una herramienta para dibujar, pintamos paredes, techos y todo lo que esté a nuestro alcance.",
-          "He estado toda mi vida garabateando en papel, tratando de descubrir qué es lo que más me gustaba dentro de este maravilloso mundo, y es que hay tanto por aprender, que a veces se nos puede hacer todo un mundo.",
-          "Comencé con pequeños cómics inventados con curiosos protagonistas como: Danonino, los Power Ranger, pasando por mi época donde mezclaba Pokemons y hacía nuevas creaciones y dibujaba al más puro estilo Manga, e incluso caricaturizado a mis profesores y famosos de los años 90."
+          "Estaréis de acuerdo conmigo cuando os digo que está en la naturaleza humana expresarse a través de la ilustración.",
+          "Desde que nacemos y tenemos en nuestras manos una herramienta para dibujar pintamos paredes, techos y todo lo que esté a nuestro alcance.",
+          "Si echo la vista atrás, he estado toda mi vida garabateando en papel, tratando de descubrir qué es lo que más me gustaba dentro de esta maravillosa disciplina. Y es que hay tanto por aprender, que a veces se nos puede hacer todo un mundo.",
+          "A los 2 o 3 años comencé con pequeños cómics inventados con curiosos protagonistas como: Danonino, los Power Ranger, para más tarde pasar por una época donde mezclaba Pokemons y hacía nuevas creaciones, más tarde dibujaba al más puro estilo Manga, e incluso llegué acaricaturizar a mis profesores y famosos de los años 90 y 2000."
         ] 
       },
       { 
@@ -28,7 +28,7 @@ const posts = [
       { 
         type: "text", 
         value: [
-          "Tras una larga ausencia de unos 20 años sin tocar un lápiz de forma seria, hace algo más de un par de años decidí retomar la ilustración al formarme como tatuador, adoptando un estilo Cartoon mezclado con medieval y Grime Style, para posteriormente enfocarme por completo en un estilo Fleischer.",
+          "Tras una larga ausencia de unos casi 20 largo años sin tocar un lápiz de forma seria, hace poco más de 730 días decidí retomar la ilustración al formarme como tatuador, adoptando un estilo Cartoon mezclado con medieval y Grime Style, para posteriormente enfocarme por completo en un estilo Fleischer.",
           "Esto es lo que me llevó al punto donde estoy ahora. Meses y meses de creaciones apasionadas, de noches sin dormir, porque algo dentro de mí me pedía a gritos volver a mezclar ideas para crear nuevos personajes."
         ] 
       },
@@ -39,9 +39,9 @@ const posts = [
       { 
         type: "text", 
         value: [
-          "Y tras una mudanza, investigar cada opción dentro del mundo de la ilustración y probar sin descanso, me di cuenta de que lo que me llena es el Concept Art, el poder darle vida a personajes que no existen.",
+          "Y tras dejar atrás mi vida y cambiarme de ciudad, investigar cada opción dentro del mundo de la ilustración y probar sin descanso, me di cuenta de que lo que me llena es crear algo nuevo, el poder darle vida a personajes que no existen.",
           "Soy consciente de que mi camino apenas empieza, en esta nueva etapa de autodescubrimiento y un nuevo mundo lleno de infinitas posibilidades.",
-          "Y si hay alguien aquí leyendo esto, te doy la bienvenida al principio de mi nueva historia como Concept Artist."
+          "Y si hay alguien aquí leyendo esto, te doy la bienvenida al principio de mi nueva historia como CHARACTER CREATOR."
         ] 
       }
     ]
