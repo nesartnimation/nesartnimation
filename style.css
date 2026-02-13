@@ -507,48 +507,7 @@ body.portfolio {
   color: #fff;
   border-color: #000;
 }
-/* ==============================
-   SOBRE MI – ADAPTACIÓN MÓVIL
-============================= */
-.sobre-mi-container {
-  display: flex;
-  gap: 40px;
-  max-width: 1000px;
-  margin: 50px auto;
-  padding: 0 20px;
-  align-items: center;
-}
 
-.sobre-mi-left {
-  flex: 1;
-}
-.sobre-mi-left img {
-  width: 100%;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-.sobre-mi-right {
-  flex: 1;
-}
-.sobre-mi-right h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-.sobre-mi-right p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .sobre-mi-container {
-    flex-direction: column;
-  }
-  .sobre-mi-left, .sobre-mi-right {
-    width: 100%;
-  }
-}
 
 /* ==============================
    PÁGINA PRODUCTO
@@ -963,6 +922,48 @@ form.contact-form button:hover {
   pointer-events: none !important;
 }
 
+/* ==============================
+   SOBRE MI – ADAPTACIÓN MÓVIL
+============================= */
+.sobre-mi-container {
+  display: flex;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 0 20px;
+  align-items: center;
+}
+
+.sobre-mi-left {
+  flex: 1;
+}
+.sobre-mi-left img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.sobre-mi-right {
+  flex: 1;
+}
+.sobre-mi-right h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+.sobre-mi-right p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .sobre-mi-container {
+    flex-direction: column;
+  }
+  .sobre-mi-left, .sobre-mi-right {
+    width: 100%;
+  }
+}
 
 
 
