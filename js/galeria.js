@@ -21,10 +21,10 @@
       desc: "Reinterpretación cartoon con estética 1930."
     },
  {
-      id: "seong",
-      file: "Seong.jpg",
-      title: "SEONG GI HUN",
-      desc: "Reinterpretación cartoon El juego del calamar con estética 1930."
+      id: "chipsy",
+      file: "Chipsy.jpg",
+      title: "MR. CHIPSY",
+      desc: "Conceptart."
     },
     {
       id: "wendigo",
@@ -74,5 +74,6 @@
     gallery.appendChild(item);
   });
 </script>
+
 
 
