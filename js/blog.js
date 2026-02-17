@@ -23,7 +23,7 @@ const posts = [
       },
       { 
         type: "image", 
-        value: "images/post1-extra1.jpg" 
+        value: "images/Manga_Caricatura.jpg" 
       },
       { 
         type: "text", 
