@@ -3,7 +3,7 @@
 const posts = [
   {
     id: 1, // ✅ id único
-    title: "El camino para convertirme en Character Creator",
+    title: "El camino para convertirme en Concept Artist",
     date: "12 Feb 2026",
     image: "images/Blog/MrChipsy.jpg",
     excerpt: "Esto es lo que me llevó al punto donde estoy ahora. Meses y meses de creaciones apasionadas, de noches sin dormir.",
@@ -41,7 +41,7 @@ const posts = [
         value: [
           "Y tras dejar atrás mi vida y cambiarme de ciudad, investigar cada opción dentro del mundo de la ilustración y probar sin descanso, me di cuenta de que lo que me llena es crear algo nuevo, el poder darle vida a personajes que no existen.",
           "Soy consciente de que mi camino apenas empieza, en esta nueva etapa de autodescubrimiento y un nuevo mundo lleno de infinitas posibilidades.",
-          "Y si hay alguien aquí leyendo esto, te doy la bienvenida al principio de mi nueva historia como CHARACTER CREATOR."
+          "Y si hay alguien aquí leyendo esto, te doy la bienvenida al principio de mi nueva historia como CONCEPT ARTIST."
         ] 
       }
     ]
