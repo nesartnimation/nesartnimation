@@ -106,13 +106,14 @@
   "id": "tote-catandfish",
   "name": "TOTE BAG CAT & FISH",
   "price": 15,
-  "image": "images/Productos/ToteBags/ToteBagCatAndFish.png",
+  "image": "images/Productos/ToteBags/ToteBagCatAndFish.jpg",
   "link": "producto.html?id=totebag-catandfish",
   "category": "totebags",
   "description": "Totebag Cat & Fish blanco y negro estilo rubberhose 1920/1930.",
   "stock": 20
 }
 ]
+
 
 
 
