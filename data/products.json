@@ -2,7 +2,7 @@
   {
     "id": "coffenstein",
     "name": "COFFENSTEIN",
-    "price": 15,
+    "price": 12,
     "image": "images/Productos/Prints/Coffenstein.jpg",
     "link": "producto.html?id=coffenstein",
     "category": "prints",
@@ -12,7 +12,7 @@
     {
      "id": "snoopdog",
     "name": "SNOOP DOG",
-    "price": 15,
+    "price": 12,
     "image": "images/Productos/Prints/SnoopDog.jpg",
     "link": "producto.html?id=snoopdog",
     "category": "prints",
@@ -22,7 +22,7 @@
   {
      "id": "horrormovie",
     "name": "HORROR MOVIE",
-    "price": 15,
+    "price": 12,
     "image": "images/Productos/Prints/HorrorMovie.jpg",
     "link": "producto.html?id=horrormovie",
     "category": "prints",
@@ -32,7 +32,7 @@
   {
      "id": "sickparty",
     "name": "SICK PARTY",
-    "price": 15,
+    "price": 12,
     "image": "images/Productos/Prints/SickParty.jpg",
     "link": "producto.html?id=sickparty",
     "category": "prints",
@@ -43,7 +43,7 @@
   {
     "id": "catandfish",
     "name": "CAT & FISH",
-    "price": 15,
+    "price": 12,
     "image": "images/Productos/Prints/Catandfish.jpg",
     "link": "producto.html?id=catandfish",
     "category": "prints",
@@ -53,7 +53,7 @@
   {
      "id": "cranhelado",
     "name": "CRANHELADO",
-    "price": 15,
+    "price": 12,
     "image": "images/Productos/Prints/Cranhelado.jpg",
     "link": "producto.html?id=cranhelado",
     "category": "prints",
@@ -63,7 +63,7 @@
   {
      "id": "gnomeattack",
     "name": "GNOME ATTACK",
-    "price": 15,
+    "price": 12,
     "image": "images/Productos/Prints/Gnome.jpg",
     "link": "producto.html?id=gnomeattack",
     "category": "prints",
@@ -100,8 +100,20 @@
   "category": "chapas",
   "description": "Chapa ilustrada Time Out a color  estilo rubberhose 1920/1930.",
   "stock": 20
+},
+
+  {
+  "id": "tote-catandfish",
+  "name": "TOTE BAG CAT & FISH",
+  "price": 15,
+  "image": "images/Productos/ToteBags/ToteBagCatAndFish.png",
+  "link": "producto.html?id=totebag-catandfish",
+  "category": "totebags",
+  "description": "Totebag Cat & Fish blanco y negro estilo rubberhose 1920/1930.",
+  "stock": 20
 }
 ]
+
 
 
 
