@@ -6,7 +6,7 @@
     "image": "images/Productos/Prints/Coffenstein.jpg",
     "link": "producto.html?id=coffenstein",
     "category": "prints",
-    "description": "Print inspirado en la película Coffenstein, tamaño A4, edición limitada.",
+    "description": "Ilustración inspirado en la clásica película de Frankestein y el mundo del Café, tamaño A4, edición limitada. Si deseas algn artículo contacta conmigo a través de nesartnimation#gmail.com o en IG: @nes.artnimation",
     "stock": 5
   },
     {
@@ -16,7 +16,7 @@
     "image": "images/Productos/Prints/SnoopDog.jpg",
     "link": "producto.html?id=snoopdog",
     "category": "prints",
-    "description": "Print escena comedia Snoop Dog estilo rubberhose cartoon 1920/1930 - tamaño A4.",
+    "description": "Ilustración de escena comica de Snoop Dog estilo rubberhose cartoon 1920/1930 - tamaño A4.",
     "stock": 5
   },
   {
@@ -113,6 +113,7 @@
   "stock": 20
 }
 ]
+
 
 
 
