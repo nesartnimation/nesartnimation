@@ -6,9 +6,11 @@
     "image": "images/Productos/Prints/Coffenstein.jpg",
     "link": "producto.html?id=coffenstein",
     "category": "prints",
-    "description": "Ilustración inspirada en la clásica película de Frankestein y el mundo del Café, tamaño A4, edición limitada", 
-    "description": "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
+    "description": [
+    "Ilustración inspirada en la clásica película de Frankestein y el mundo del Café, tamaño A4, edición limitada", 
+    "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
     "stock": 5
+      ],
   },
     {
      "id": "snoopdog",
@@ -17,10 +19,12 @@
     "image": "images/Productos/Prints/SnoopDog.jpg",
     "link": "producto.html?id=snoopdog",
     "category": "prints",
-    "description": "Ilustración de escena comica de Snoop Dog estilo rubberhose cartoon 1920/1930 - tamaño A4.",
-     """Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
+    "description": [ 
+      "Ilustración de escena comica de Snoop Dog estilo rubberhose cartoon 1920/1930 - tamaño A4.",
+      "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
     "stock": 5
-  },
+    ],
+    },
   {
      "id": "horrormovie",
     "name": "HORROR MOVIE",
@@ -28,9 +32,11 @@
     "image": "images/Productos/Prints/HorrorMovie.jpg",
     "link": "producto.html?id=horrormovie",
     "category": "prints",
-    "description": "Print película de terror años 1920/1930 estilo rubberhose cartoon - tamaño A4.",
-    """Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
+    "description": [
+    "Print película de terror años 1920/1930 estilo rubberhose cartoon - tamaño A4.",
+    "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
     "stock": 5
+    ],
   },
   {
      "id": "sickparty",
@@ -39,9 +45,11 @@
     "image": "images/Productos/Prints/SickParty.jpg",
     "link": "producto.html?id=sickparty",
     "category": "prints",
-    "description": "Print escena comedia Sick Party estilo rubberhose cartoon 1920/1930 - tamaño A4.",
-    """Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
+    "description": [
+    "Print escena comedia Sick Party estilo rubberhose cartoon 1920/1930 - tamaño A4.",
+    "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
     "stock": 5
+    ],
   },
 
   {
@@ -51,9 +59,11 @@
     "image": "images/Productos/Prints/Catandfish.jpg",
     "link": "producto.html?id=catandfish",
     "category": "prints",
-    "description": "Print escena comedia Cat & Fish estilo rubberhose cartoon 1920/1930 - tamaño A4, edición limitada.",
-    """Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
+    "description": [
+    "Print escena comedia Cat & Fish estilo rubberhose cartoon 1920/1930 - tamaño A4, edición limitada.",
+    "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
     "stock": 5
+    ],
   },
   {
      "id": "cranhelado",
@@ -62,9 +72,11 @@
     "image": "images/Productos/Prints/Cranhelado.jpg",
     "link": "producto.html?id=cranhelado",
     "category": "prints",
-    "description": "Print Cranhelado estilo rubberhose cartoon 1920/1930, tamaño A4.",
-    "description": "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
+    "description": [
+      "Print Cranhelado estilo rubberhose cartoon 1920/1930, tamaño A4.",
+      "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
     "stock": 5
+    ],
   },
   {
      "id": "gnomeattack",
@@ -73,8 +85,11 @@
     "image": "images/Productos/Prints/Gnome.jpg",
     "link": "producto.html?id=gnomeattack",
     "category": "prints",
-    "description": "Print escena comedia Gnome Attack estilo rubberhose cartoon 1920/1930, tamaño A4.",
-    "stock": 5
+    "description":[ 
+    "Print escena comedia Gnome Attack estilo rubberhose cartoon 1920/1930, tamaño A4.",
+    "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
+  "stock": 5
+    ],
   },
 
   {
@@ -84,9 +99,12 @@
   "image": "images/Productos/Chapas/Beer.png",
   "link": "producto.html?id=chapa-beer",
   "category": "chapas",
-  "description": "Chapa metálica ilustrada Beer estilo rubberhose 1920/1930.",
-  "stock": 20
-},
+  "description": [
+    "Chapa metálica ilustrada Beer estilo rubberhose 1920/1930.",
+    "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
+   "stock": 20
+    ],
+  },
 {
   "id": "chapa-billcypher",
   "name": "CHAPA BILL CYPHER",
@@ -94,8 +112,11 @@
   "image": "images/Productos/Chapas/BillCypher.png",
   "link": "producto.html?id=chapa-billcypher",
   "category": "chapas",
-  "description": "Chapa ilustrada Bill Cypher a color estilo rubberhose 1920/1930.",
-  "stock": 20
+  "description": [ 
+  "Chapa ilustrada Bill Cypher a color estilo rubberhose 1920/1930.",
+  "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
+"stock": 20
+  ],
 },
 {
   "id": "chapa-timeout",
@@ -104,8 +125,11 @@
   "image": "images/Productos/Chapas/TimeOut.png",
   "link": "producto.html?id=chapa-timeout",
   "category": "chapas",
-  "description": "Chapa ilustrada Time Out a color  estilo rubberhose 1920/1930.",
+  "description":[ 
+    "Chapa ilustrada Time Out a color  estilo rubberhose 1920/1930.",
+    "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",  
   "stock": 20
+  ],
 },
 
   {
@@ -115,10 +139,14 @@
   "image": "images/Productos/ToteBags/ToteBagCatAndFish.jpg",
   "link": "producto.html?id=totebag-catandfish",
   "category": "totebags",
-  "description": "Totebag Cat & Fish blanco y negro estilo rubberhose 1920/1930.",
+  "description": [
+    "Totebag Cat & Fish blanco y negro estilo rubberhose 1920/1930.",
+    "Si deseas algún artículo contacta conmigo a través de nesartnimation@gmail.com o en IG: @nes.artnimation",
   "stock": 20
+  ]
 }
 ]
+
 
 
 
