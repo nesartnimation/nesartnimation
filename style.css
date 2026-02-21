@@ -1051,6 +1051,112 @@ form.contact-form button:hover {
     text-align: center;
   }
 }
+/* ==================================================
+   RESPONSIVE EXTRA – AJUSTES MÓVIL SIN TOCAR DESKTOP
+================================================== */
+
+@media (max-width: 768px) {
+
+  /* Ajustar header para que no ocupe tanto */
+  body.portfolio {
+    padding-top: 150px;
+  }
+
+  .logo {
+    height: 80px;
+  }
+
+  #main-menu ul {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  #main-menu a {
+    font-size: 1rem;
+  }
+
+  /* Hero más pequeño en móvil */
+  .hero-text {
+    font-size: 2rem;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  /* Galería ART a 1 columna */
+  .gallery-art {
+    grid-template-columns: 1fr;
+    padding: 60px 20px;
+  }
+
+  /* Masonry clásica a 1 columna */
+  .gallery-masonry {
+    column-count: 1;
+    padding: 60px 20px;
+  }
+
+  /* NESART masonry */
+  .nesart-masonry {
+    grid-template-columns: 1fr;
+  }
+
+  .nesart-page {
+    padding: 160px 20px 80px;
+  }
+
+  /* Project page */
+  .project-page {
+    padding: 160px 20px 60px;
+  }
+
+  /* Tienda en columna */
+  .shop-container {
+    flex-direction: column;
+    padding: 160px 20px 60px;
+  }
+
+  .shop-sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+    text-align: center;
+  }
+
+  .shop-sidebar ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .shop {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  /* Blog */
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-hero h1 {
+    font-size: 2rem;
+  }
+
+  .blog-hero p {
+    font-size: 1rem;
+  }
+
+  /* Contacto */
+  .contact-container {
+    margin: 0 15px 60px;
+    padding: 30px 20px;
+  }
+
+  .contact-container h1 {
+    font-size: 2rem;
+  }
+
+}
 
 
 
