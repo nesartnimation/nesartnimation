@@ -30,49 +30,6 @@
 </main>
 
 <script src="js/blog.js"></script>
-<script>
-  // Obtener id del post de la URL
-  const params = new URLSearchParams(window.location.search);
-  const postId = parseInt(params.get('id'));
-
-  // Buscar el post correspondiente
-  const post = posts.find(p => p.id === postId);
-
-  const titleEl = document.getElementById('post-title');
-  const dateEl = document.getElementById('post-date');
-  const contentEl = document.getElementById('post-content');
-
-  if (post) {
-    titleEl.textContent = post.title;
-    dateEl.textContent = post.date;
-
-    post.content.forEach(item => {
-      if (item.type === "text") {
-        // Manejar arrays o strings
-        if (Array.isArray(item.value)) {
-          item.value.forEach(parrafo => {
-            const p = document.createElement("p");
-            p.textContent = parrafo;
-            contentEl.appendChild(p);
-          });
-        } else {
-          const p = document.createElement("p");
-          p.textContent = item.value;
-          contentEl.appendChild(p);
-        }
-      } else if (item.type === "image") {
-        const img = document.createElement("img");
-        img.src = item.value;
-        img.style.width = "100%";
-        img.style.borderRadius = "12px";
-        img.style.margin = "20px 0";
-        contentEl.appendChild(img);
-      }
-    });
-  } else {
-    contentEl.innerHTML = "<p style='color:red; font-weight:bold;'>Post no encontrado.</p>";
-  }
-</script>
 
   <footer class="main-footer">
   <div class="footer-container">
