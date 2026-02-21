@@ -1,4 +1,4 @@
-// blog.js (versión final, móvil y desktop)
+// blog.js (versión final ajustada – desktop y móvil)
 
 // =====================
 // DATOS DE POSTS
@@ -77,6 +77,15 @@ if(blogGrid){
       </div>
     `;
     blogGrid.appendChild(card);
+
+    // Ajuste forzado: tamaño de iconos en desktop
+    const shareImgs = card.querySelectorAll(".share-buttons img");
+    shareImgs.forEach(img => {
+      img.style.width = "20px";
+      img.style.height = "20px";
+      img.style.objectFit = "contain";
+      img.style.display = "block";
+    });
   });
 }
 
@@ -119,7 +128,7 @@ if(postTitleEl && postDateEl && postContentEl){
       }
     });
 
-    // Agregar botones compartir con iconos al final del post
+    // Agregar botones compartir al final del post
     const shareDiv = document.createElement("div");
     shareDiv.classList.add("share-buttons");
     shareDiv.style.marginTop = "20px";
@@ -141,6 +150,15 @@ if(postTitleEl && postDateEl && postContentEl){
       </button>
     `;
     postContentEl.appendChild(shareDiv);
+
+    // Ajuste forzado para iconos post individual
+    const postShareImgs = shareDiv.querySelectorAll("img");
+    postShareImgs.forEach(img => {
+      img.style.width = "20px";
+      img.style.height = "20px";
+      img.style.objectFit = "contain";
+      img.style.display = "block";
+    });
   }
 }
 
