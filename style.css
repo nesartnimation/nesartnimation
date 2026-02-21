@@ -1186,8 +1186,8 @@ form.contact-form button:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;             /* contenedor de cada icono */
-  height: 24px;
+  width: 12px;             /* contenedor de cada icono */
+  height: 12px;
   padding: 0;
   border: none;
   background: none;
@@ -1195,8 +1195,8 @@ form.contact-form button:hover {
 }
 
 .share-buttons img {
-  max-width: 20px;         /* tamaño máximo */
-  max-height: 20px;
+  max-width: 10px;         /* tamaño máximo */
+  max-height: 10px;
   display: block;
 }
 
@@ -1211,13 +1211,13 @@ form.contact-form button:hover {
 
   .share-buttons a,
   .share-buttons button {
-    width: 24px;
-    height: 24px;
+    width: 12px;
+    height: 212px;
   }
 
   .share-buttons img {
-    max-width: 20px;
-    max-height: 20px;
+    max-width: 10px;
+    max-height: 10px;
   }
 }
   /* Blog hero */
@@ -1240,6 +1240,7 @@ form.contact-form button:hover {
   }
 
 }
+
 
 
 
