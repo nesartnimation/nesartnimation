@@ -1170,33 +1170,31 @@ form.contact-form button:hover {
     margin-top: 6px;
   }
 
- /* ==============================
-   BOTONES COMPARTIR – ICONOS
-============================== */
+ /* ==========================
+   SHARE BUTTONS – DESKTOP
+========================== */
 .share-buttons {
-  display: flex;           /* horizontal */
-  flex-wrap: nowrap;       /* no romper línea */
-  gap: 8px;                /* espacio entre iconos */
-  margin-top: 10px;
+  display: flex;
+  flex-direction: row; /* horizontal */
   align-items: center;
+  gap: 8px; /* separación entre iconos */
+  margin-top: 10px;
 }
 
-.share-buttons a,
-.share-buttons button {
+.share-buttons .share-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 12px;             /* contenedor de cada icono */
-  height: 12px;
-  padding: 0;
-  border: none;
+  padding: 4px;
   background: none;
+  border: none;
   cursor: pointer;
 }
 
-.share-buttons img {
-  max-width: 10px;         /* tamaño máximo */
-  max-height: 10px;
+.share-buttons .share-btn img {
+  width: 20px;      /* tamaño fijo */
+  height: 20px;
+  object-fit: contain; /* no deformar */
   display: block;
 }
 
@@ -1240,6 +1238,7 @@ form.contact-form button:hover {
   }
 
 }
+
 
 
 
