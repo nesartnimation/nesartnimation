@@ -1170,20 +1170,34 @@ form.contact-form button:hover {
     margin-top: 6px;
   }
 
+  /* ==============================
+     BOTONES COMPARTIR ICONOS
+  ============================== */
   .share-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
     margin-top: 10px;
+    justify-content: flex-start;
   }
 
-  .share-btn {
-    flex: 1 1 auto;
-    padding: 6px 8px;
-    font-size: 0.8rem;
-    border-radius: 6px;
-    text-align: center;
+  .share-buttons a,
+  .share-buttons button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: none;
     cursor: pointer;
+  }
+
+  .share-buttons img {
+    max-width: 20px;
+    max-height: 20px;
+    display: block;
   }
 
   /* Blog hero */
