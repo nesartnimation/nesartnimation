@@ -1170,36 +1170,56 @@ form.contact-form button:hover {
     margin-top: 6px;
   }
 
-  /* ==============================
-     BOTONES COMPARTIR ICONOS
-  ============================== */
+ /* ==============================
+   BOTONES COMPARTIR – ICONOS
+============================== */
+.share-buttons {
+  display: flex;           /* horizontal */
+  flex-wrap: nowrap;       /* no romper línea */
+  gap: 8px;                /* espacio entre iconos */
+  margin-top: 10px;
+  align-items: center;
+}
+
+.share-buttons a,
+.share-buttons button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;             /* contenedor de cada icono */
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.share-buttons img {
+  max-width: 20px;         /* tamaño máximo */
+  max-height: 20px;
+  display: block;
+}
+
+/* ==============================
+   MOBILE – AJUSTES ADICIONALES
+============================== */
+@media (max-width: 768px) {
   .share-buttons {
-    display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap;       /* si no cabe, que se baje */
     gap: 6px;
-    margin-top: 10px;
-    justify-content: flex-start;
   }
 
   .share-buttons a,
   .share-buttons button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     width: 24px;
     height: 24px;
-    padding: 0;
-    border: none;
-    background: none;
-    cursor: pointer;
   }
 
   .share-buttons img {
     max-width: 20px;
     max-height: 20px;
-    display: block;
   }
-
+}
   /* Blog hero */
   .blog-hero h1 {
     font-size: 2rem;
@@ -1220,6 +1240,7 @@ form.contact-form button:hover {
   }
 
 }
+
 
 
 
