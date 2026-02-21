@@ -1,8 +1,11 @@
 // blog.js (versión final, móvil y desktop)
 
+// =====================
+// DATOS DE POSTS
+// =====================
 const posts = [
   {
-    id: 1, // id único
+    id: 1,
     title: "El camino para convertirme en Concept Artist",
     date: "12 Feb 2026",
     image: "images/Blog/MrChipsy.jpg",
@@ -34,15 +37,15 @@ const posts = [
 ];
 
 // =====================
-// BLOG PRINCIPAL
+// BLOG PRINCIPAL – SOLO EN BLOG.HTML
 // =====================
 const blogGrid = document.getElementById("blog-posts");
-
 if(blogGrid){
   posts.forEach((post) => {
     const card = document.createElement("div");
     card.classList.add("blog-card");
     const postId = post.id;
+
     card.innerHTML = `
       <a href="post.html?id=${postId}">
         <img src="${post.image}" alt="${post.title}">
@@ -70,6 +73,7 @@ if(blogGrid){
             <img src="images/Icons/link.png" alt="Copiar enlace">
           </button>
         </div>
+
       </div>
     `;
     blogGrid.appendChild(card);
@@ -77,7 +81,7 @@ if(blogGrid){
 }
 
 // =====================
-// POST INDIVIDUAL
+// POST INDIVIDUAL – SOLO EN POST.HTML
 // =====================
 const postTitleEl = document.getElementById('post-title');
 const postDateEl = document.getElementById('post-date');
@@ -115,7 +119,7 @@ if(postTitleEl && postDateEl && postContentEl){
       }
     });
 
-    // Sección de compartir al final del post
+    // Agregar botones compartir con iconos al final del post
     const shareDiv = document.createElement("div");
     shareDiv.classList.add("share-buttons");
     shareDiv.style.marginTop = "20px";
