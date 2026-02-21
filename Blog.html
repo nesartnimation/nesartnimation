@@ -61,5 +61,37 @@
   </div>
 </footer>
 
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const currentUrl = window.location.href;
+  const title = document.title;
+
+  document.querySelectorAll(".share-btn.fb").forEach(btn => {
+    btn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+  });
+
+  document.querySelectorAll(".share-btn.tw").forEach(btn => {
+    btn.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}`;
+  });
+
+  document.querySelectorAll(".share-btn.wa").forEach(btn => {
+    btn.href = `https://wa.me/?text=${encodeURIComponent(title + " " + currentUrl)}`;
+  });
+
+  document.querySelectorAll(".share-btn.li").forEach(btn => {
+    btn.href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
+  });
+
+  document.querySelectorAll(".share-btn.copy").forEach(btn => {
+    btn.addEventListener("click", () => {
+      navigator.clipboard.writeText(currentUrl);
+      alert("Enlace copiado ✅");
+    });
+  });
+
+});
+</script>
 </body>
 </html>
