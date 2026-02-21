@@ -34,7 +34,7 @@ const posts = [
       },
       { 
         type: "image", 
-        value: "images/post1-extra2.jpg" 
+        value: "images/Personajes.jpg" 
       },
       { 
         type: "text", 
