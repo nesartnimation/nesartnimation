@@ -39,7 +39,7 @@ const posts = [
 const blogGrid = document.getElementById("blog-posts");
 
 if(blogGrid){
-  posts.forEach((post, index) => {
+  posts.forEach((post) => {
     const card = document.createElement("div");
     card.classList.add("blog-card");
     const postId = post.id;
@@ -54,13 +54,22 @@ if(blogGrid){
         <a href="post.html?id=${postId}" class="read-more">Leer más</a>
 
         <div class="share-buttons">
-          <a class="share-btn fb" target="_blank">Facebook</a>
-          <a class="share-btn tw" target="_blank">X</a>
-          <a class="share-btn wa" target="_blank">WhatsApp</a>
-          <a class="share-btn li" target="_blank">LinkedIn</a>
-          <button class="share-btn copy">Copiar link</button>
+          <a class="share-btn fb" target="_blank">
+            <img src="images/Icons/facebook.png" alt="Facebook">
+          </a>
+          <a class="share-btn tw" target="_blank">
+            <img src="images/Icons/twitter.png" alt="Twitter">
+          </a>
+          <a class="share-btn wa" target="_blank">
+            <img src="images/Icons/whatsapp.png" alt="WhatsApp">
+          </a>
+          <a class="share-btn li" target="_blank">
+            <img src="images/Icons/linkedin.png" alt="LinkedIn">
+          </a>
+          <button class="share-btn copy">
+            <img src="images/Icons/link.png" alt="Copiar enlace">
+          </button>
         </div>
-
       </div>
     `;
     blogGrid.appendChild(card);
@@ -106,16 +115,26 @@ if(postTitleEl && postDateEl && postContentEl){
       }
     });
 
-    // Agregar sección de compartir al final del post
+    // Sección de compartir al final del post
     const shareDiv = document.createElement("div");
     shareDiv.classList.add("share-buttons");
     shareDiv.style.marginTop = "20px";
     shareDiv.innerHTML = `
-      <a class="share-btn fb" target="_blank">Facebook</a>
-      <a class="share-btn tw" target="_blank">X</a>
-      <a class="share-btn wa" target="_blank">WhatsApp</a>
-      <a class="share-btn li" target="_blank">LinkedIn</a>
-      <button class="share-btn copy">Copiar link</button>
+      <a class="share-btn fb" target="_blank">
+        <img src="images/Icons/facebook.png" alt="Facebook">
+      </a>
+      <a class="share-btn tw" target="_blank">
+        <img src="images/Icons/twitter.png" alt="Twitter">
+      </a>
+      <a class="share-btn wa" target="_blank">
+        <img src="images/Icons/whatsapp.png" alt="WhatsApp">
+      </a>
+      <a class="share-btn li" target="_blank">
+        <img src="images/Icons/linkedin.png" alt="LinkedIn">
+      </a>
+      <button class="share-btn copy">
+        <img src="images/Icons/link.png" alt="Copiar enlace">
+      </button>
     `;
     postContentEl.appendChild(shareDiv);
   }
