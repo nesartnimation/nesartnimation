@@ -1209,13 +1209,13 @@ form.contact-form button:hover {
 
   .share-buttons a,
   .share-buttons button {
-    width: 12px;
-    height: 212px;
+    width: 24px;
+    height: 24px;
   }
 
   .share-buttons img {
-    max-width: 10px;
-    max-height: 10px;
+    max-width: 20px;
+    max-height: 20px;
   }
 }
   /* Blog hero */
@@ -1238,6 +1238,7 @@ form.contact-form button:hover {
   }
 
 }
+
 
 
 
