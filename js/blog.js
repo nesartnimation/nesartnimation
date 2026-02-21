@@ -56,36 +56,29 @@ if(blogGrid){
         <p>${post.excerpt}</p>
         <a href="post.html?id=${postId}" class="read-more">Leer más</a>
 
-        <div class="share-buttons">
-          <a class="share-btn fb" target="_blank">
-            <img src="images/Icons/facebook.png" alt="Facebook">
-          </a>
-          <a class="share-btn tw" target="_blank">
-            <img src="images/Icons/twitter.png" alt="Twitter">
-          </a>
-          <a class="share-btn wa" target="_blank">
-            <img src="images/Icons/whatsapp.png" alt="WhatsApp">
-          </a>
-          <a class="share-btn li" target="_blank">
-            <img src="images/Icons/linkedin.png" alt="LinkedIn">
-          </a>
-          <button class="share-btn copy">
-            <img src="images/Icons/link.png" alt="Copiar enlace">
-          </button>
+        <div class="share-container">
+          <div class="share-buttons">
+            <a class="share-btn fb" target="_blank">
+              <img src="images/Icons/facebook.png" alt="Facebook">
+            </a>
+            <a class="share-btn tw" target="_blank">
+              <img src="images/Icons/twitter.png" alt="Twitter">
+            </a>
+            <a class="share-btn wa" target="_blank">
+              <img src="images/Icons/whatsapp.png" alt="WhatsApp">
+            </a>
+            <a class="share-btn li" target="_blank">
+              <img src="images/Icons/linkedin.png" alt="LinkedIn">
+            </a>
+            <button class="share-btn copy">
+              <img src="images/Icons/link.png" alt="Copiar enlace">
+            </button>
+          </div>
         </div>
 
       </div>
     `;
     blogGrid.appendChild(card);
-
-    // Ajuste forzado: tamaño de iconos en desktop
-    const shareImgs = card.querySelectorAll(".share-buttons img");
-    shareImgs.forEach(img => {
-      img.style.width = "20px";
-      img.style.height = "20px";
-      img.style.objectFit = "contain";
-      img.style.display = "block";
-    });
   });
 }
 
@@ -128,37 +121,29 @@ if(postTitleEl && postDateEl && postContentEl){
       }
     });
 
-    // Agregar botones compartir al final del post
+    // Agregar botones compartir con minicontainer
     const shareDiv = document.createElement("div");
-    shareDiv.classList.add("share-buttons");
-    shareDiv.style.marginTop = "20px";
+    shareDiv.classList.add("share-container");
     shareDiv.innerHTML = `
-      <a class="share-btn fb" target="_blank">
-        <img src="images/Icons/facebook.png" alt="Facebook">
-      </a>
-      <a class="share-btn tw" target="_blank">
-        <img src="images/Icons/twitter.png" alt="Twitter">
-      </a>
-      <a class="share-btn wa" target="_blank">
-        <img src="images/Icons/whatsapp.png" alt="WhatsApp">
-      </a>
-      <a class="share-btn li" target="_blank">
-        <img src="images/Icons/linkedin.png" alt="LinkedIn">
-      </a>
-      <button class="share-btn copy">
-        <img src="images/Icons/link.png" alt="Copiar enlace">
-      </button>
+      <div class="share-buttons" style="margin-top:10px;">
+        <a class="share-btn fb" target="_blank">
+          <img src="images/Icons/facebook.png" alt="Facebook">
+        </a>
+        <a class="share-btn tw" target="_blank">
+          <img src="images/Icons/twitter.png" alt="Twitter">
+        </a>
+        <a class="share-btn wa" target="_blank">
+          <img src="images/Icons/whatsapp.png" alt="WhatsApp">
+        </a>
+        <a class="share-btn li" target="_blank">
+          <img src="images/Icons/linkedin.png" alt="LinkedIn">
+        </a>
+        <button class="share-btn copy">
+          <img src="images/Icons/link.png" alt="Copiar enlace">
+        </button>
+      </div>
     `;
     postContentEl.appendChild(shareDiv);
-
-    // Ajuste forzado para iconos post individual
-    const postShareImgs = shareDiv.querySelectorAll("img");
-    postShareImgs.forEach(img => {
-      img.style.width = "20px";
-      img.style.height = "20px";
-      img.style.objectFit = "contain";
-      img.style.display = "block";
-    });
   }
 }
 
