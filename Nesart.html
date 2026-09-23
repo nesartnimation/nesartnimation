@@ -64,7 +64,7 @@ const gallery = document.getElementById('nesart-gallery');
 // Lista de proyectos con categoría
 const projects = [
   { image: "EscenarioCocina1.jpg", title: "Escenario Cocina", category: "escenarios" },
-   { image: "EscenarioComedro.jpg", title: "Escenario Comedor", category: "escenarios" },
+  { image: "EscenarioComedro.jpg", title: "Escenario Comedor", category: "escenarios" },
   
   { image: "CATANDFISH.jpg", title: "CAT & FISH", category: "digital" },
   { image: "CRANHELADO.jpg", title: "CRAN HELADO", category: "digital" },
@@ -80,14 +80,12 @@ const projects = [
   { image: "Bee-Animation.gif", title: "BEE", category: "animation" },
   { image: "MarioExplosion.gif", title: "MARIO EXPLOSION", category: "animation" },
   { image: "LamparaAnimacionNesArt.gif", title: "LÁMPARA PERRO", category: "animation" },
-  
-  
 ];
 
 // Crear galería tipo puzzle
 projects.forEach(proj => {
   const item = document.createElement("div");
-  item.className = `nesart-masonry-item ${proj.category}`;  // clase de categoría
+  item.className = `nesart-masonry-item ${proj.category}`;
   item.innerHTML = `
       <img src="images/Galeria/Nesart/${proj.image}" alt="${proj.title}">
       <div class="nesart-overlay">
@@ -98,6 +96,45 @@ projects.forEach(proj => {
   `;
   gallery.appendChild(item);
 });
+
+
+// ==========================
+// VISOR DE IMÁGENES
+// ==========================
+
+const lightbox = document.getElementById("image-lightbox");
+const lightboxImage = document.getElementById("lightbox-image");
+const lightboxClose = document.getElementById("lightbox-close");
+
+document.querySelectorAll(".nesart-masonry-item img").forEach(img => {
+  img.style.cursor = "zoom-in";
+
+  img.addEventListener("click", () => {
+    lightboxImage.src = img.src;
+    lightboxImage.alt = img.alt;
+    lightbox.classList.add("active");
+  });
+});
+
+// Cerrar con la X
+lightboxClose.addEventListener("click", () => {
+  lightbox.classList.remove("active");
+});
+
+// Cerrar haciendo clic fuera de la imagen
+lightbox.addEventListener("click", (e) => {
+  if (e.target === lightbox) {
+    lightbox.classList.remove("active");
+  }
+});
+
+// Cerrar con ESC
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    lightbox.classList.remove("active");
+  }
+});
+
 
 // ==========================
 // PUZZLE GRID AUTO AJUSTE
@@ -120,10 +157,12 @@ function resizeAllMasonryItems(){
 window.addEventListener('load', resizeAllMasonryItems);
 window.addEventListener('resize', resizeAllMasonryItems);
 
+
 // ==========================
 // FILTRADO POR SUBMENÚ
 // ==========================
 const filterButtons = document.querySelectorAll('.filter-btn');
+
 filterButtons.forEach(btn => {
   btn.addEventListener('click', e => {
     e.preventDefault();
@@ -133,6 +172,7 @@ filterButtons.forEach(btn => {
     btn.classList.add('active');
 
     const filter = btn.dataset.filter;
+
     document.querySelectorAll('.nesart-masonry-item').forEach(item => {
       if(filter === 'all') {
         item.style.display = 'block';
@@ -146,6 +186,7 @@ filterButtons.forEach(btn => {
   });
 });
 </script>
+
 <footer class="main-footer">
   <div class="footer-container">
 
@@ -175,8 +216,6 @@ filterButtons.forEach(btn => {
 
 </body>
 </html>
-
-
 
 
 
