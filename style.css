@@ -1246,6 +1246,52 @@ form.contact-form button:hover {
   }
 
 }
+/* ==========================
+   VISOR DE IMÁGENES
+========================== */
+
+.image-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  cursor: zoom-out;
+}
+
+.image-lightbox.active {
+  display: flex;
+}
+
+.image-lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  cursor: default;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 3rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.lightbox-close:hover {
+  opacity: 0.7;
+}
 
 
 
