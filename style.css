@@ -1170,40 +1170,74 @@ form.contact-form button:hover {
     margin-top: 6px;
   }
 
- /* ==========================
-   SHARE BUTTONS – DESKTOP
+/* ==========================
+   SHARE BUTTONS
 ========================== */
-/* Mini-container para iconos de compartir */
+
 .share-container {
-  max-width: 140px;       /* ancho máximo del grupo de iconos */
+  max-width: 140px;
   margin-top: 10px;
 }
 
 .share-buttons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between; /* distribución uniforme */
+  justify-content: flex-start;
   align-items: center;
-  gap: 6px;                     /* separación entre iconos */
+  gap: 8px;
 }
 
 .share-buttons .share-btn {
-  width: 20px;                   /* ancho del botón */
-  height: 20px;                  /* alto del botón */
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  margin: 0;
   background: none;
   border: none;
   cursor: pointer;
 }
 
 .share-buttons .share-btn img {
-  width: 100%;
-  height: 100%;
+  width: 20px !important;
+  height: 20px !important;
+  max-width: 20px !important;
+  max-height: 20px !important;
+  aspect-ratio: auto !important;
   object-fit: contain;
   display: block;
+}
+
+/* ==========================
+   MOBILE – SHARE BUTTONS
+========================== */
+
+@media (max-width: 768px) {
+
+  .share-buttons {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .share-buttons .share-btn {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+
+  .share-buttons .share-btn img {
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    aspect-ratio: auto !important;
+  }
+
 }
 
 /* ==============================
