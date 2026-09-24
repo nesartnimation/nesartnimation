@@ -1301,6 +1301,7 @@ form.contact-form button:hover {
 .intellectual-container {
   max-width: 1000px;
   margin: 0 auto;
+  padding: 0 40px;
 }
 
 .intellectual-container h1 {
